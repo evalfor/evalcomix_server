@@ -1,0 +1,188 @@
+CREATE TABLE plantilla(
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	pla_cod VARCHAR(256),
+	pla_tit VARCHAR(700),
+	pla_tip ENUM('lista', 'escala', 'rubrica', 'lista+escala', 'diferencial', 'argumentario', 'mixto'),
+	pla_des TEXT,
+	pla_glo BOOL DEFAULT FALSE,
+	pla_por INTEGER,
+	pla_gpr INTEGER,
+	pla_mod INT(1) DEFAULT 0
+)ENGINE=InnoDB;
+
+CREATE TABLE mixtopla(
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	mip_mix INTEGER,
+	mip_pla INTEGER,
+	mip_pos SMALLINT UNSIGNED,
+	FOREIGN KEY (mip_mix) REFERENCES plantilla(id) ON DELETE CASCADE,
+	FOREIGN KEY (mip_pla) REFERENCES plantilla(id) ON DELETE CASCADE
+)ENGINE=InnoDB;
+
+CREATE TABLE dimen(
+   id INTEGER AUTO_INCREMENT PRIMARY KEY,
+   dim_nom VARCHAR(700),
+   dim_pla INTEGER,
+   dim_glo BOOL,
+   dim_sub INTEGER DEFAULT 0,
+   dim_por INTEGER,
+   dim_gpr INTEGER,
+   dim_com BOOL DEFAULT FALSE,
+   dim_pos INTEGER,
+   FOREIGN KEY (dim_pla) REFERENCES plantilla(id) ON DELETE CASCADE,
+   CHECK (dim_por BETWEEN 0 AND 100)
+)ENGINE=InnoDB;
+
+CREATE TABLE subdimension(
+   id INTEGER AUTO_INCREMENT PRIMARY KEY,
+   sub_nom VARCHAR(700),
+   sub_dim INTEGER,
+   sub_por INTEGER,
+   sub_pos INTEGER,
+   FOREIGN KEY (sub_dim) REFERENCES dimen(id) ON DELETE CASCADE,
+   CHECK (sub_por BETWEEN 0 AND 100)
+)ENGINE=InnoDB;
+
+CREATE TABLE atributo(
+   id INTEGER PRIMARY KEY AUTO_INCREMENT,
+   atr_des TEXT,
+   atr_sub INTEGER,
+   atr_por INTEGER,
+   atr_com BOOL DEFAULT FALSE,
+   atr_pos INTEGER,
+   FOREIGN KEY (atr_sub) REFERENCES subdimension(id) ON DELETE CASCADE,
+   CHECK (atr_por BETWEEN 0 AND 100)
+)ENGINE=InnoDB;
+
+CREATE TABLE atrdiferencial(
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	atf_atn INTEGER,
+	atf_atp INTEGER,
+	FOREIGN KEY (atf_atn) REFERENCES atributo(id) ON DELETE CASCADE,
+	FOREIGN KEY (atf_atp) REFERENCES atributo(id) ON DELETE CASCADE
+)ENGINE=InnoDB;
+
+CREATE TABLE valoracion(
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	val_cod VARCHAR(100) UNIQUE
+)ENGINE=InnoDB;
+
+CREATE TABLE rango(
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	ran_cod INTEGER UNIQUE
+)ENGINE=InnoDB;
+
+CREATE TABLE atribdes(
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	atd_atr INTEGER,
+	atd_val VARCHAR(100),
+	atd_des TEXT,
+	FOREIGN KEY(atd_atr) REFERENCES atributo(id) ON DELETE CASCADE,
+	FOREIGN KEY(atd_val) REFERENCES valoracion(val_cod) ON DELETE CASCADE
+)ENGINE=InnoDB;
+
+
+CREATE TABLE dimval(
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	div_dim INTEGER,
+	div_val VARCHAR(100),
+	div_ran INTEGER,
+	div_pos INTEGER,
+	FOREIGN KEY (div_dim) REFERENCES dimen(id) ON DELETE CASCADE,
+	FOREIGN KEY (div_val) REFERENCES valoracion(val_cod) ON DELETE CASCADE
+)ENGINE=InnoDB;
+
+
+CREATE TABLE ranval(
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	rav_dim INTEGER,
+	rav_val VARCHAR(100),
+	rav_ran INTEGER,
+	rav_pos INTEGER,
+	FOREIGN KEY (rav_dim) REFERENCES dimen(id) ON DELETE CASCADE,
+	FOREIGN KEY (rav_val) REFERENCES valoracion(val_cod) ON DELETE CASCADE,
+	FOREIGN KEY (rav_ran) REFERENCES rango(ran_cod) ON DELETE CASCADE
+)ENGINE=InnoDB;
+
+CREATE TABLE plaval(
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	plv_pla INTEGER,
+	plv_val VARCHAR(100),
+	plv_pos INTEGER DEFAULT 0,
+	FOREIGN KEY (plv_pla) REFERENCES plantilla(id) ON DELETE CASCADE,
+	FOREIGN KEY (plv_val) REFERENCES valoracion(val_cod) ON DELETE CASCADE
+)ENGINE=InnoDB;
+
+
+CREATE TABLE assessment(
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	ass_id VARCHAR(128),
+	ass_com TEXT,
+	ass_grd VARCHAR(50),
+	ass_mxg VARCHAR(50),
+	ass_pla INTEGER,
+	FOREIGN KEY (ass_pla) REFERENCES plantilla(id) ON DELETE CASCADE
+)ENGINE=InnoDB;
+
+CREATE TABLE plaeva(
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	ple_eva INTEGER,
+	ple_pla INTEGER,
+	ple_val VARCHAR(100),
+	ple_obs TEXT,
+	FOREIGN KEY (ple_eva) REFERENCES assessment(id) ON DELETE CASCADE,
+	FOREIGN KEY (ple_pla) REFERENCES plantilla(id) ON DELETE CASCADE,
+	FOREIGN KEY (ple_val) REFERENCES valoracion(val_cod) ON DELETE CASCADE
+)ENGINE=InnoDB;
+
+CREATE TABLE dimeva(
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	die_eva INTEGER,
+	die_dim INTEGER,
+	die_val VARCHAR(100),
+	die_ran INTEGER,
+	die_obs TEXT,
+	FOREIGN KEY(die_eva) REFERENCES assessment(id) ON DELETE CASCADE,
+	FOREIGN KEY(die_dim) REFERENCES dimen(id) ON DELETE CASCADE,
+	FOREIGN KEY(die_val) REFERENCES valoracion(val_cod) ON DELETE CASCADE,
+	FOREIGN KEY(die_ran) REFERENCES rango(ran_cod) ON DELETE CASCADE
+)ENGINE=InnoDB;
+
+CREATE TABLE atreva(
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	ate_eva INTEGER,
+	ate_atr INTEGER,
+	ate_val VARCHAR(100),
+	ate_ran INTEGER,
+	FOREIGN KEY(ate_eva) REFERENCES assessment(id) ON DELETE CASCADE,
+	FOREIGN KEY(ate_atr) REFERENCES atributo(id) ON DELETE CASCADE,
+	FOREIGN KEY(ate_val) REFERENCES valoracion(val_cod) ON DELETE CASCADE,
+	FOREIGN KEY(ate_ran) REFERENCES rango(ran_cod) ON DELETE CASCADE
+)ENGINE=InnoDB;
+
+CREATE TABLE atrcomment(
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	atc_eva INTEGER,
+	atc_atr INTEGER,
+	atc_obs TEXT,
+	FOREIGN KEY (atc_eva) REFERENCES assessment(id) ON DELETE CASCADE,
+	FOREIGN KEY (atc_atr) REFERENCES atributo(id) ON DELETE CASCADE
+)ENGINE=InnoDB;
+
+CREATE TABLE dimcomment(
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	dic_eva INTEGER,
+	dic_dim INTEGER,
+	dic_obs TEXT,
+	FOREIGN KEY (dic_eva) REFERENCES assessment(id) ON DELETE CASCADE,
+	FOREIGN KEY (dic_dim) REFERENCES dimen(id) ON DELETE CASCADE
+)ENGINE=InnoDB;
+
+CREATE TABLE config (
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(255),
+	value TEXT
+)ENGINE=INNODB;
+		
+INSERT INTO config(name, value) VALUES("version", "2014040701");
+INSERT INTO config(name, value) VALUES("release", "EvalCOMIX 4.1.1");

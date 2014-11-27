@@ -1,0 +1,11 @@
+<!ELEMENT tasksbystudents (taskbystudent+)>
+<!ELEMENT taskbystudent (student, module, instance, gradeteacher, maxgradeteacher, gradeself, maxgradeself, gradepeer, maxgradepeer) >
+<!ELEMENT student (#PCDATA)>
+<!ELEMENT module (#PCDATA)>
+<!ELEMENT instance (#PCDATA)>
+<!ELEMENT gradeteacher (#PCDATA)>
+<!ELEMENT maxgradeteacher (#PCDATA)>
+<!ELEMENT gradeself (#PCDATA)>
+<!ELEMENT maxgradeself (#PCDATA)>
+<!ELEMENT gradepeer (#PCDATA)>
+<!ELEMENT maxgradepeer (#PCDATA)>

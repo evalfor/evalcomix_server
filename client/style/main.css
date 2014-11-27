@@ -1,0 +1,63 @@
+body{
+	background-color: #EEE;
+	font-family:"arial";
+	font-weight: bold;
+	color: #0B333C;
+	font-size: 8pt;
+}
+
+#fondomenu{
+	background-image: url('../images/fondo1.png');
+	background-repeat: no-repeat;
+	width:472px;
+	height:350px;
+	margin: 12%;
+	padding: 10px;
+}
+
+#menu{
+	background-image: url('../images/fondo2.png');
+	background-repeat: no-repeat;
+	width: 451px;
+	height: 310;
+	margin:5px 0 0 3px;
+	padding:1em 0 0 25%;
+}
+
+#titulo{
+	margin: 0px 0 0 5px;
+}
+
+#titulomenu{
+	font-size: 9pt;
+	margin-bottom: 1em;
+}
+
+#submit, #submit:hover{
+	background-image: url("../images/botoninicio.png");
+	background-repeat: no-repeat;
+	width:70px;
+	height:20px;
+	margin-left: 4.5em;
+	color: #0a323b;
+	font-weight:bold;
+	font-size:1em;
+}
+
+#submit{
+	border: 1px solid #737677;
+}
+
+#submit:hover{
+	border: 1px solid #0076C1;
+}
+
+form{
+	font-weight:normal;
+	line-height:2.5em;
+}
+
+* html input{
+	vertical-align: normal;
+	margin: 5px 0 0 0;
+}

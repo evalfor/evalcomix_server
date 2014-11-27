@@ -1,0 +1,14 @@
+<cl:ControlList xmlns:cl="http://avanza.uca.es/assessmentservice/controllist"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://avanza.uca.es/assessmentservice/controllist http://avanza.uca.es/assessmentservice/ControlList.xsd"
+ name="Título NUEVO" dimensions="1" >
+		<Dimension name="Dimension1" subdimensions="1" values="2" percentage="100">
+<Values>
+<Value>No</Value>
+<Value>Sí</Value>
+</Values>
+<Subdimension name="subdimension1" attributes="1" percentage="100">
+<Attribute name="atributo1" percentage="100">0</Attribute>
+</Subdimension>
+</Dimension>
+</cl:ControlList>

@@ -1,0 +1,23 @@
+<?php
+	if(!defined('HOSTDB')){
+		define('HOSTDB', 'localhost');
+	}
+	if(!defined('USERDB')){
+		define('USERDB', 'userdb');
+	}
+	if(!defined('PASSDB')){
+		define('PASSDB', 'passworddb');
+	}
+	if(!defined('NAMEDB')){
+		define('NAMEDB', 'namedb');
+	}
+	if(!defined('DIRROOT')){
+		define('DIRROOT', '/path/evalcomix');
+	}
+	
+	//posibles valores: 'postgresql', 'mysql' u 'oracle'
+	if(!defined('TYPEDB')){
+		define('TYPEDB', 'mysql');
+	}
+
+?>

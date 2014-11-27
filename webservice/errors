@@ -1,0 +1,3 @@
+echo '<evalcomix><status>error</status><id>#1</id><description>Missing Parameters</description></evalcomix>';
+echo '<evalcomix><status>error</status><id>#3</id><description>Format required is wrong</description></evalcomix>';
+echo '<evalcomix><status>error</status><id>#4</id><description>Parameters wrong</description></evalcomix>';

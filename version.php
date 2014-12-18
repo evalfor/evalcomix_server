@@ -1,4 +1,4 @@
 <?php
-	$version = '2014071800';
-	$release = 'EvalCOMIX 4.1.2';
+	$version = '2014121200';
+	$release = 'EvalCOMIX 4.1.3';
 ?>

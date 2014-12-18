@@ -1,3 +1,33 @@
+QUICK INSTALLATION GUIDE
+------------------------
+
+System requirements
+-------------------
+	- PHP 5.0+
+	- PostgreSQL 8+ or MySQL 5+
+	- A web server for PHP 5.0+ (Apache 2 is strongly recommended)
+
+
+Installation
+------------
+
+		1) Copy the content of EvalCOMIX/ directory in your web server documents directory
+		2) Make sure that the web server can write in: ./evalcomix/client/temp.
+		3) Create a new, empty database (PostgreSql o MySQL) with UTF-8 codification.
+		4) Performance the suitable file of SQL orders. They are in:
+			- ./evalcomix/db/db_mysql.sql
+			- ./evalcomix/db/db_postgres.sql
+		5) Rename ./evalcomix/configuration/conf.php.sample to ./evalcomix/configuration/conf.php
+		6) Rename ./evalcomix/configuration/host.php.sample to ./evalcomix/configuration/host.php
+		7) Edit ./evalcomix/configuration/conf.php with values of database (host name, user, password and database name)
+		8) Edit ./evalcomix/configuration/host.php with name of the HOST.
+		
+		
+		
+----------------------------------------------------------------------------------------------------
+SPANISH
+----------------------------------------------------------------------------------------------------
+		
 GUÍA DE INSTALACIÓN RÁPIDA
 --------------------------
 

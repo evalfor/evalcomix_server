@@ -1165,8 +1165,10 @@ class tool{
 						if($type != 'toollist'){
 							if($object->get_valglobal() == $tool->get_valglobal() && $object->get_valtotal() == $tool->get_valtotal()){
 								if($type == 'toolrubric'){
-									list(, $objectrango) = each($object->get_rango());
-									list(, $toolrango) = each($tool->get_rango());
+									$getrango1 = $object->get_rango();
+									$getrango2 = $tool->get_rango();
+									list(, $objectrango) = each($getrango1);
+									list(, $toolrango) = each($getrango2);
 									if($objectrango == $toolrango){
 										$idsingle = $key;
 										break;

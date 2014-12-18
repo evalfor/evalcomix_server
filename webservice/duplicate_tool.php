@@ -27,22 +27,31 @@
 	}
 
 	$url = HOST.'webservice/get_tool.php?tool='.$oldid.'&format=xml';
-	$xml = simplexml_load_file($url);
-	$xmlstring = $xml->asXML();
-	
-	$url = HOST . 'webservice/import_tool.php?id='. $newid;
-	$port = '';
-	$response = xml_post($xmlstring, $url, $port);
-	$xml2 = simplexml_load_string($response);
+	include_once(DIRROOT . '/classes/curl.class.php');
+	$curl = new Curl();
+	$response1 = $curl->get($url);
 
-	if(isset($xml2->status) && (string)$xml2->status == 'success' && isset($xml2->description)){
-		$xml_result = current($xml2->description);
-		echo '<evalcomix><status>success</status><description>'.(string)$xml_result['id'].'</description></evalcomix>';
+	if ($response1 && $curl->getHttpCode()>=200 && $curl->getHttpCode()<400){
+		$xml = simplexml_load_string($response1);
+		$xmlstring = $xml->asXML();	
+	
+		$url = HOST . 'webservice/import_tool.php?id='. $newid;
+		$port = '';
+		$response = xml_post($xmlstring, $url, $port);
+		$xml2 = simplexml_load_string($response);
+	
+		if(isset($xml2->status) && (string)$xml2->status == 'success' && isset($xml2->description)){
+			$xml_result = current($xml2->description);
+			echo '<evalcomix><status>success</status><description>'.(string)$xml_result['id'].'</description></evalcomix>';
+		}
+		else{
+			echo '<evalcomix><status>error</status><id>#</id><description></description></evalcomix>';
+			exit;
+		}
 	}
 	else{
-		echo '<evalcomix><status>error</status><id>#</id><description></description></evalcomix>';
+		echo '<evalcomix><status>error</status><id>#</id><description>An internal error has happened</description></evalcomix>';
 		exit;
 	}
-
 
 ?>

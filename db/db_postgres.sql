@@ -179,7 +179,7 @@ CREATE TABLE dimcomment(
 	id SERIAL PRIMARY KEY,
 	dic_eva INTEGER,
 	dic_dim INTEGER,
-	dic_obs VARCHAR,
+	dic_obs TEXT,
 	FOREIGN KEY (dic_eva) REFERENCES assessment(id) ON DELETE CASCADE,
 	FOREIGN KEY (dic_dim) REFERENCES dimen(id) ON DELETE CASCADE
 );
@@ -190,5 +190,5 @@ CREATE TABLE config (
 	value TEXT
 );
 		
-INSERT INTO config(name, value) VALUES('version', '2014040701');
-INSERT INTO config(name, value) VALUES('release', 'EvalCOMIX 4.1.1');
+INSERT INTO config(name, value) VALUES('version', '2014121200');
+INSERT INTO config(name, value) VALUES('release', 'EvalCOMIX 4.1.3');

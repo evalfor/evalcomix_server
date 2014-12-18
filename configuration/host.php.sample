@@ -1,12 +1,12 @@
 <?php
-	//URI de EvalCOMIX con esquema HTTP.
-	//IMPORTANTE: debe finalizar con el caractar '/'
+	//EvalCOMIX URI with HTTP scheme.
+	//IMPORTANT: It has to end with '/' character
 	DEFINE("HOST", "http://www.host.com/evalcomix/");
 
-	/*URI de EvalCOMIX con esquema HTTPS.
-	En el caso de que la máquina no tenga instalado el certificado SSL, entonces, 
-	especificar la URI de EvalCOMIX con esquema HTTP
+	/*EvalCOMIX URI with HTTPS scheme.
+	If the machine has not got the SSL certificate installed, 
+	indicate the EvalCOMIX URI with HTTP scheme.
 	*/
-	//IMPORTANTE: debe finalizar con el caracter '/'
+	//IMPORTANT: It has to end with '/' character
 	DEFINE("SHOST", "https://www.host.com/evalcomix/");
 ?>

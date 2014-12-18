@@ -28,7 +28,7 @@
 		$title = getParam($_POST['tit']);
 	}
 	
-	if($idTool == '' || $idAssessment == ''){
+	if(empty($idTool) || empty($idAssessment)){
 		echo '<evalcomix><status>error</status><id>#4</id><description>Missing Parameters</description></evalcomix>';
 		exit;
 	}

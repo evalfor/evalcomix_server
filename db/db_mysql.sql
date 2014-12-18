@@ -184,5 +184,5 @@ CREATE TABLE config (
 	value TEXT
 )ENGINE=INNODB;
 		
-INSERT INTO config(name, value) VALUES("version", "2014040701");
-INSERT INTO config(name, value) VALUES("release", "EvalCOMIX 4.1.1");
+INSERT INTO config(name, value) VALUES("version", "2014121200");
+INSERT INTO config(name, value) VALUES("release", "EvalCOMIX 4.1.3");

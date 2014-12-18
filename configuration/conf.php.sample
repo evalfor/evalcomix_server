@@ -15,7 +15,7 @@
 		define('DIRROOT', '/path/evalcomix');
 	}
 	
-	//posibles valores: 'postgresql', 'mysql' u 'oracle'
+	//possible values: 'postgresql' or 'mysql'
 	if(!defined('TYPEDB')){
 		define('TYPEDB', 'mysql');
 	}

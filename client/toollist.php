@@ -900,7 +900,8 @@
 				$plantilla->pla_por = $porcentage;
 				
 				if($updateplantilla == true){
-					plantilla::set_properties($plantilla, array('id' => $tableid));
+					$pla_glo = '0';
+					plantilla::set_properties($plantilla, array('id' => $tableid, 'pla_glo' => $pla_glo));
 					$plantilla->update();
 				}
 				
@@ -973,6 +974,8 @@
 							$update = true;
 						}
 						if($update == true){
+							$dimensions[$id_plane]->dim_glo = '0';
+							$dimensions[$id_plane]->dim_com = '0';
 							$dimensions[$id_plane]->dim_nom = $this->dimension[$id][$dim]['nombre'];
 							$dimensions[$id_plane]->dim_pos = $dim_pos;
 							$dimensions[$id_plane]->dim_por = $this->dimpor[$id][$dim];
@@ -1272,6 +1275,7 @@
 				include_once('../classes/assessment.php');
 				if($assessments = assessment::fetch_all(array('ass_pla' => $tableid))){
 					$plantilla->pla_mod = '1';
+					$plantilla->pla_glo = '0';
 					$plantilla->update();
 					include_once('../lib/finalgrade.php');
 					foreach($assessments as $assessment){

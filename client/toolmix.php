@@ -568,6 +568,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/mixtool http://avanza
 			$plantillamain->pla_des = $observation;			
 				
 			if($updateplantilla == true){
+				$plantillamain->pla_glo = '0';
 				plantilla::set_properties($plantillamain, array('id' => $tableid));
 				$plantillamain->update();
 			}
@@ -599,6 +600,12 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/mixtool http://avanza
 					}
 					if($update == true){
 						$plantillas[$id_plane]->pla_por = $porcentage;
+						
+						$pla_glo = '0';
+						if(isset($plantilla->pla_glo)){
+						    $pla_glo = (string)$plantilla->pla_glo;
+						}
+						$plantillas[$id_plane]->pla_glo = $pla_glo;
 						$plantillas[$id_plane]->update();
 						$mixtotools[$id_plane]->mip_pos = $position;
 						$mixtotools[$id_plane]->update();
@@ -691,6 +698,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/mixtool http://avanza
 			include_once('../classes/assessment.php');
 			if($assessments = assessment::fetch_all(array('ass_pla' => $tableid))){
 				$plantillamain->pla_mod = '1';
+				$plantillamain->pla_glo = '0';
 				$plantillamain->update();
 				include_once('../lib/finalgrade.php');
 				foreach($assessments as $assessment){

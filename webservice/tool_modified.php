@@ -28,8 +28,14 @@
 					if($value == 'true'){
 						$pla_mod = '1';
 					}
+				
 					if($plantilla->pla_mod != $pla_mod){
 						$plantilla->pla_mod = $pla_mod;
+						$pla_glo = '0';
+						if(!empty($plantilla->pla_glo)){
+							$pla_glo = (string)$plantilla->pla_glo;
+						}
+						$plantilla->pla_glo = $pla_glo;
 						$plantilla->update();
 					}
 				}

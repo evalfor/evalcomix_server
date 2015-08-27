@@ -1054,7 +1054,7 @@
 				$plantilla->pla_por = $porcentage;
 				
 				if($updateplantilla == true){
-					plantilla::set_properties($plantilla, array('id' => $tableid));
+					plantilla::set_properties($plantilla, array('id' => $tableid, 'pla_glo' => '0'));
 					$plantilla->update();
 				}
 			
@@ -1393,6 +1393,7 @@
 				include_once('../classes/assessment.php');
 				if($assessments = assessment::fetch_all(array('ass_pla' => $tableid))){
 					$plantilla->pla_mod = '1';
+					$plantilla->pla_glo = '0';
 					$plantilla->update();
 					include_once('../lib/finalgrade.php');
 					foreach($assessments as $assessment){

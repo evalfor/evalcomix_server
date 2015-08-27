@@ -58,7 +58,12 @@
 			$select = "'1'";
 			foreach($params as $key => $value){
 				if(is_string($value)){
-					$select .= " AND $key = '".addslashes($value)."'";
+					$match = addslashes($value);
+					if($this->dbtype == 'postgresql'){
+					  $aux_value = str_replace("\'", "''", $match);
+					  $match = str_replace('\"', '"', $aux_value);
+					}
+					$select .= " AND $key = '". $match ."'";
 				}
 				else{
 					$select .= " AND $key = $value";
@@ -129,6 +134,10 @@
 			foreach($params as $key => $value){
 				if(isset($value)){
 					$processed_params[$key] = $value;
+					if($this->dbtype == 'postgresql'){
+					  $aux_value = str_replace("\'", "''", $value);
+					  $processed_params[$key] = str_replace('\"', '"', $aux_value);
+					}
 				}
 			}
 			$fields = implode(',', array_keys($processed_params));
@@ -187,7 +196,14 @@
 		
 			foreach ($params as $field=>$value) {
 				if(is_string($value) && $value != 'NULL'){
-					$sets[] = "$field = '".addslashes($value)."'";
+					$value = addslashes($value);
+					if($this->dbtype == 'postgresql'){
+					  $aux_value = str_replace("\'", "''", $value);
+					  $value = str_replace('\"', '"', $aux_value);
+					 // $match = "$field = '". $value ."'";
+					}
+					$match = "$field = '". $value . "'";
+					$sets[] = $match;
 				}
 				elseif(isset($value)){
 					$sets[] = "$field = $value";

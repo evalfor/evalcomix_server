@@ -5,6 +5,7 @@ include_once(DIRROOT . '/lib/weblib.php');
 include_once(DIRROOT . '/classes/plantilla.php');
 include_once(DIRROOT . '/classes/dimension.php');
 include_once(DIRROOT . '/classes/subdimension.php');
+include_once(DIRROOT . '/classes/atributo.php');
 include_once(DIRROOT . '/classes/assessment.php');
 include_once(DIRROOT . '/classes/grade.php');
 
@@ -78,26 +79,61 @@ foreach($xml as $x){
 				case 'rubrica': $object = new graderubrica($assessment->id, $tool->id);break;
 				case 'diferencial': $object = new gradedifferential($assessment->id, $tool->id);break;
 				case 'argumentario': $object = new gradeargumentset($assessment->id, $tool->id);break;
-				case 'mixto': $object = new grademix($assessmentId);break;
+				case 'mixto': $object = new grademix($assessment->id);break;
 				default:
 			}
 
-			// Find the subdimension and get its grade
-			if($dimensions = dimension::fetch_all(array('dim_pla' => $tool->id))){
+			if($type == 'mixto'){
+				$mixtools = array();
+				$mixtoplas = mixtopla::fetch_all(array('mip_mix' => $tool->id));
+				foreach($mixtoplas as $mip_pla){
+					$mixtools[] = plantilla::fetch(array('id' => $mip_pla->mip_pla));
+				}
+				foreach($mixtools as $mixtool){
+					if($grade == ''){
+						$mixtype = $mixtool->pla_tip;
+						$mixobject = null;
+						switch($mixtype){
+							case 'escala': $mixobject = new gradescale($assessment->id, $mixtool->id); break;
+							case 'lista': $mixobject = new gradescale($assessment->id, $mixtool->id); break;
+							case 'lista+escala': $mixobject = new gradelistscale($assessment->id, $mixtool->id);break;
+							case 'rubrica': $mixobject = new graderubrica($assessment->id, $mixtool->id);break;
+							case 'diferencial': $mixobject = new gradedifferential($assessment->id, $mixtool->id);break;
+							case 'argumentario': $mixobject = new gradeargumentset($assessment->id, $mixtool->id);break;
+							default:
+						}
+						// Find the subdimension and get its grade
+						
+						if($mixtype == 'diferencial'){
+							$grade = get_grade_attribute_differential($mixtool, $mixobject, $subdimensionCod);				
+						}
+						else{
+							$grade = get_grade_subdimension($mixtool, $mixobject, $subdimensionCod);
+							/*if($dimensions = dimension::fetch_all(array('dim_pla' => $mixtool->id))){
 
-				foreach($dimensions as $dimension){
-					if ($subdimensions = subdimension::fetch_all(array('sub_dim' => $dimension->id))){
+								foreach($dimensions as $dimension){
+									if ($subdimensions = subdimension::fetch_all(array('sub_dim' => $dimension->id))){
 
-						foreach($subdimensions as $subdimension){
-							$id = encrypt_tool_element($subdimension->id);
-							if($id == $subdimensionCod){
-
-								$grade = $object->get_grade_subdimension($subdimension, $dimension);
-								break;
-							}
+										foreach($subdimensions as $subdimension){
+											$id = encrypt_tool_element($subdimension->id);
+											if($id == $subdimensionCod){
+												$grade = $mixobject->get_grade_subdimension($subdimension, $dimension);
+												break;
+											}
+										}
+									}
+								}
+							}*/
 						}
 					}
 				}
+			}
+			elseif($type == 'diferencial'){
+				$grade = get_grade_attribute_differential($tool, $object, $subdimensionCod);				
+			}
+			else{
+				// Find the subdimension and get its grade
+				$grade = get_grade_subdimension($tool, $object, $subdimensionCod);
 			}
 		}
 	}
@@ -112,6 +148,49 @@ foreach($xml as $x){
 
 echo '</subdimensiongrades>';
 
+
+function get_grade_attribute_differential($tool, $object, $subdimensionCod){
+	$attributes = explode('-', $subdimensionCod);
+	$att_neg = '';
+	if(isset($attributes[0])){
+		$att_neg = $attributes[0];
+	}
+	if($att_neg != ''){
+		if($dimensions = dimension::fetch_all(array('dim_pla' => $tool->id))){
+			foreach($dimensions as $dimension){
+				if ($subdimensions = subdimension::fetch_all(array('sub_dim' => $dimension->id))){
+					foreach($subdimensions as $subdimension){
+						if($attributes = atributo::fetch_all(array('atr_sub' => $subdimension->id))){
+							foreach($attributes as $attribute){
+								$id = encrypt_tool_element($attribute->id);
+								if($id == $att_neg){
+									return $object->get_attribute_grade($attribute, $dimension);									
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+function get_grade_subdimension($tool, $object, $subdimensionCod){
+	if($dimensions = dimension::fetch_all(array('dim_pla' => $tool->id))){
+
+		foreach($dimensions as $dimension){
+			if ($subdimensions = subdimension::fetch_all(array('sub_dim' => $dimension->id))){
+
+				foreach($subdimensions as $subdimension){
+					$id = encrypt_tool_element($subdimension->id);
+					if($id == $subdimensionCod){
+						return $object->get_grade_subdimension($subdimension, $dimension);
+					}
+				}
+			}
+		}
+	}
+}
 
 /*
 

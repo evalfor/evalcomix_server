@@ -5,16 +5,14 @@
 	include_once(DIRROOT . '/classes/cleanxml.php');
 	include_once(DIRROOT . '/lib/weblib.php');
 	
-	if ( !isset( $HTTP_RAW_POST_DATA ) ) {
-		$HTTP_RAW_POST_DATA = file_get_contents( 'php://input' ); 
-	}
-	if ( !isset( $HTTP_RAW_POST_DATA ) ) {
+	$post_data = file_get_contents( 'php://input' );
+	if ( !isset( $post_data ) ) {
 		echo '<evalcomix><status>error</status><id>#1</id><description>Missing Parameters</description></evalcomix>';
 		exit;
 	}
 	
 
-	$xml_string = $HTTP_RAW_POST_DATA;
+	$xml_string = $post_data;
 	$xml = simplexml_load_string($xml_string);
 	$xml = cleanxml($xml);
 

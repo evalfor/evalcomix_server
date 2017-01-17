@@ -7,15 +7,13 @@
 	include_once(DIRROOT . '/lib/weblib.php');
 	include_once(DIRROOT . '/lib/post_xml.php');
 
-	if ( !isset( $HTTP_RAW_POST_DATA ) ) {
-		$HTTP_RAW_POST_DATA = file_get_contents( 'php://input' ); 
-	}
-	if ( !isset( $HTTP_RAW_POST_DATA ) ) {
-		echo '<evalcomix><status>error</status><id>#4</id><description>Parameters wrong</description></evalcomix>';
+	$post_data = file_get_contents( 'php://input' );
+	if ( !isset( $post_data ) ) {
+		echo '<evalcomix><status>error</status><id>#1</id><description>Missing Parameters</description></evalcomix>';
 		exit;
 	}
 
-	$xml_string = $HTTP_RAW_POST_DATA;
+	$xml_string = $post_data;
 	$xml = simplexml_load_string($xml_string);
 	
 	$hashtools = array();

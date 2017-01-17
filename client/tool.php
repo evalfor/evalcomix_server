@@ -48,7 +48,7 @@ class tool{
 			<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 			<html>
 				<head>
-					<title>EvalCOMIX 4.1</title>
+					<title>EvalCOMIX 4.2</title>
 					<link href="'.HOST.'client/style/copia.css" type="text/css" rel="stylesheet">
 					<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 					<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
@@ -799,7 +799,7 @@ class tool{
 			<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 			<html>
 				<head>
-					<title>EvalCOMIX 4.1</title>
+					<title>EvalCOMIX 4.2</title>
 					<link href="style/copia.css" type="text/css" rel="stylesheet">
 					<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 					<script type="text/javascript" src="javascript/size.js"></script>
@@ -888,19 +888,30 @@ class tool{
 	function print_tool(){
 		return $this->object->print_tool();
 	}
+	
+	function view_assessment_header(){
+		//<!-- <link href="'.$root.'client/style/platform.css" type="text/css" rel="stylesheet"> -->
+		echo '
+		<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+				<html>
+
+					<head>
+						<title>EVALCOMIX</title>
+						<style>
+body {background-color: #fff;font-family: "arial";font-size: 0.72em; 	margin:0; }  p{margin:0; }  form{margin:0; }  h1,h2,h3,h4,h5,h6{color: #146C84; } #linea{height: 5px;background-color: #f5751a; }  #titulo{font-size: 1em;color:#146C84;font-weight: bold;font-style:italic;margin-top: -2em;margin-left:5em;margin-bottom: 1em; }#cabecera{border-bottom: 1px solid #000; }  /*campos1------------------------------------*/ #ca1_env{float: right;margin-bottom: 1em; } /*-------------------------------------------*/  #crear{padding-left: 0.5em; }#dim{background-color: #146C84;color: #fff; }  .planmenu{text-decoration:none;border-right: 1px solid #fff;padding: 0.8em 1em 0.7em 0;color:#fff; }  /*.planmenu:hover{text-decoration:none;color: #fff;background-color: #00aaff;border-right: 1px solid #000000;padding-right: 1em; }*/  .tam{width: 85%; }  .fields{margin-bottom: 1em; }  .fields legend{color: #146C84;font-weight: bold; }  .tabla{width: 100%;background-color: #E5F0FD;font-family: "arial"; 	margin:0; 	padding:0; /*   font-size: 1em;*/ }  .tabla th{background-color: #146C84;color: #fff; }  .td{ 	font-size: 0.8em;font-weight: bold;text-align:center; }  .rub{width: 12em; }  .eval{margin:0; 	padding:0; }  .global{text-align:right;font-style: italic;font-weight: bold; }  .boton_est{text-decoration:none;color: #0000ff;font-weight:bold;padding: 0.3em 0.8em 0.3 0.8em;background-color: #a3a3a3;border-right: 1px solid #000;border-bottom: 1px solid #000;border-top: 1px solid #fff;border-left: 1px solid #fff; }  .botones{padding-bottom: 2em; }  .boton{float:right; }  .table_rubrica{width: 90%; }  .table_rubrica textarea{width:100%; }  .arubric{padding: 5% 40% 5% 40%;background-color:#fff;text-decoration:none; }  .float{margin-left: 1em;float:left; }  .obligatorio{font-size: 0.7em;font-weight: bold; }  .bold{font-weight: bold; }  .subdim{font-style:italic;font-weight:bold; }  .rango{text-align:center; }  .search_menu{text-decoration:none;color:#146f8f;padding:0.1em 0.2em 0.1em 0.2em;background-color:#e3e3e3;border: 1px solid #a3a3a3;font-weight: bold; }  .clear{clear:both; }  .pordim{ 	font-weight: bold; 	witdh: 3em;	 }  .subdimpor{ 	font-style:italic;	font-weight:bold; 	text-align:center; 	font-size: 0.9em; }  .atribpor{ 	text-align:right; 	font-size:0.8em }  .showcomment, .showcomment:hover{ 	background-image: url("../images/editar.gif"); 	width: 19px; 	height: 16px; 	border:0; 	background-color:#fff; 	background-repeat: no-repeat; }  .showcomment{ 	border: 1px solid #434343;	 }  .showcomment:hover{ 	border: 2px solid #0076C1; }  
+						</style>
+		';
+		
+	}
+	
 	function view_tool($root = '', $grade = '', $print='view', $title = ''){
 			include('lang/'. $this->language . '/evalcomix.php');
 			$wprint = '';
 			if($print == 'print'){
 				$wprint = 'onload="window.print()"';
 			}
+			$this->view_assessment_header();
 			echo '
-			<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-				<html>
-
-					<head>
-						<title>EVALCOMIX</title>
-						<link href="'.$root.'client/style/platform.css" type="text/css" rel="stylesheet">
 						<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 						<script language="JavaScript" type="text/javascript">
 							function muestra_oculta(id){
@@ -989,15 +1000,8 @@ class tool{
 		function assessment_tool($root = '', $assessmentid = 0, $idTool = 0, $grade = '', $saved = '', $title = ''){
 			include('lang/'. $this->language . '/evalcomix.php');
 			$action = $root . 'assessment/saveassess.php?ass=' . $assessmentid . '&tool='.$idTool;
-			
-			echo '
-			<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-				<html>
-
-					<head>
-						<title>EVALCOMIX</title>
-						<link href="'.$root.'client/style/platform.css" type="text/css" rel="stylesheet">
-						<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+			$this->view_assessment_header();
+			echo '	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 						<script type="text/javascript" src="'.$root.'client/javascript/ajax.js"></script>
 						<script>
 							function limpiar_mainform(){
@@ -1120,14 +1124,8 @@ class tool{
 		function assessment_tool_mixed($root = '', $assessmentid = 0, $idTool = '', $grade = '', $saved = '', $tools = array(), $title = ''){
 			include('lang/'. $this->language . '/evalcomix.php');
 			$action = $root . 'assessment/saveassess.php?ass=' . $assessmentid . '&tool='.$idTool;
-			
+			$this->view_assessment_header();
 			echo '
-			<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-				<html>
-
-					<head>
-						<title>EVALCOMIX</title>
-						<link href="'.$root.'client/style/platform.css" type="text/css" rel="stylesheet">
 						<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 						<script type="text/javascript" src="'.$root.'client/javascript/ajax.js"></script>
 						<script>
@@ -1249,14 +1247,8 @@ class tool{
 			include('lang/'. $this->language . '/evalcomix.php');
 			//$action = $root . '/assessment/webservice/services/saveassess.php?ass=' . $assessmentid . '&tool='.$idTool;
 			$action = '';
-			
+			$this->view_assessment_header();
 			echo '
-			<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-				<html>
-
-					<head>
-						<title>EVALCOMIX</title>
-						<link href="'.$root.'client/style/platform.css" type="text/css" rel="stylesheet">
 						<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 						<script>
 							function limpiar_mainform(form){

@@ -11,7 +11,7 @@
 		<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 			<html>
 				<head>
-					<title>EvalCOMIX 4.1</title>
+					<title>EvalCOMIX 4.2</title>
 					<link href="style/copia.css" type="text/css" rel="stylesheet">
 					<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 				</head>

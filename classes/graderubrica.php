@@ -64,8 +64,10 @@
 			$i = 0;
 			foreach($this->dimensions as $dim){
 				$dimensionGrade = $this->get_grade_dimension($dim);
-				$weightedValue = $dimensionGrade * ($dimensionPorcentages[$i] / 100);
-				$result += $weightedValue;
+				if(trim($dimensionGrade) != ''){
+					$weightedValue = $dimensionGrade * ($dimensionPorcentages[$i] / 100);
+					$result += $weightedValue;
+				}
 				++$i;
 			}		
 			if($this->tool->pla_glo == 't' || $this->tool->pla_glo == '1'){
@@ -116,9 +118,11 @@
 
 			$i = 0;
 			foreach($subdimensions as $sub){
-				$subdimensionGrade = $this->get_grade_subdimension($sub, $dimension); 
-				$weightedValue = $subdimensionGrade * ($subdimensionPorcentages[$i] / 100); 
-				$result += $weightedValue;
+				$subdimensionGrade = $this->get_grade_subdimension($sub, $dimension);
+				if(trim($subdimensionGrade) != ''){
+					$weightedValue = $subdimensionGrade * ($subdimensionPorcentages[$i] / 100); 
+					$result += $weightedValue;
+				}
 				++$i;
 			}
 			

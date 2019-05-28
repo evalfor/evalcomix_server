@@ -69,8 +69,10 @@
 			$i = 0;
 			foreach($subdimensions as $sub){
 				$subdimensionGrade = $this->get_grade_subdimension($sub, $dimension);
-				$weightedValue = $subdimensionGrade * ($subdimensionPorcentages[$i] / 100); 
-				$result += $weightedValue;
+				if(trim($subdimensionGrade) != ''){
+					$weightedValue = $subdimensionGrade * ($subdimensionPorcentages[$i] / 100); 
+					$result += $weightedValue;
+				}
 				++$i;
 			}
 			

@@ -190,5 +190,5 @@ CREATE TABLE config (
 	value TEXT
 );
 		
-INSERT INTO config(name, value) VALUES('version', '2017011300');
-INSERT INTO config(name, value) VALUES('release', 'EvalCOMIX 4.2.0');
+INSERT INTO config(name, value) VALUES('version', '2019052100');
+INSERT INTO config(name, value) VALUES('release', 'EvalCOMIX 4.2.1');

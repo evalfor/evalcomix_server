@@ -48,7 +48,7 @@
 				$dimensionPorcentages[$id] = $dim->dim_por;
 			}
 						
-			if((string)$this->tool->pla_glo == 'f' || (string)$this->tool->pla_glo == '0'){
+			if((string)$this->tool->pla_glo == 'f' || (string)$this->tool->pla_glo == '0' || $this->tool->pla_glo == false){
 				$diffPorcentages = 100 - $sumPorcentages;
 				if($diffPorcentages != 0){
 					foreach($dimensionPorcentages as $key => $item){

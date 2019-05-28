@@ -43,8 +43,8 @@
 				$grade[$i] = $gradeObject->get_grade();
 				if(trim($grade[$i]) != ''){
 					$this->calificated = true;
+					$result += $grade[$i] * ($toolPorcentages[$i] / 100);
 				}
-				$result += $grade[$i] * ($toolPorcentages[$i] / 100); 			
 			}
 			
 			if(isset($this->calificated) && $this->calificated == false){

@@ -861,7 +861,7 @@
 				$tableid = $plantilla->id;
 			}
 			$valtotal = '0';
-			if($this->valtotal[$id] == 'true' || $this->valtotal[$id] == 't'){
+			if(isset($this->valtotal[$id]) && ($this->valtotal[$id] == 'true' || $this->valtotal[$id] == 't')){
 				$valtotal = '1';
 			}
 			$observation = '';

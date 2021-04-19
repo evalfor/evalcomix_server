@@ -587,7 +587,7 @@
 			//print_r($data);	
 			$checked = '';
 			$disabled = 'disabled';
-			if($this->valtotal[$this->id] == 'true' || $this->valtotal[$this->id] == 't'){
+			if(isset($this->valtotal[$this->id]) && ($this->valtotal[$this->id] == 'true' || $this->valtotal[$this->id] == 't')){
 				$checked = 'checked';
 				$disabled = '';
 			}
@@ -651,7 +651,7 @@
 				$this->display_dimension($dim, $data, $id, $mix);
 				echo '</div>';
 			}
-			if($this->valtotal[$this->id] == 'true' || $this->valtotal[$this->id] == 't'){
+			if(isset($this->valtotal[$this->id]) && ($this->valtotal[$this->id] == 'true' || $this->valtotal[$this->id] == 't')){
 				echo '
 					<div class="valoraciontotal">
 				';
@@ -697,7 +697,7 @@
 				</div>';
 			}
 			if(!is_numeric($mix)){
-				if(isset($data['observation'.$id])){
+				if(!empty($data['observation'.$id])){
 					$this->observation[$id] = stripslashes($data['observation'.$id]);
 					$thisobservationid = $this->observation[$id];
 				}
@@ -1207,7 +1207,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 				$xml .= "</Dimension>\n";
 			}
 
-			if($this->valtotal[$id] == 'true' || $this->valtotal[$id] == 't'){	
+			if(isset($this->valtotal[$id]) && ($this->valtotal[$id] == 'true' || $this->valtotal[$id] == 't')){	
 				$xml .= '<GlobalAssessment values="' . $this->numtotal[$id] . '" percentage="' . $this->valtotalpor[$id] . '">
 		<Values>
 ';
@@ -1709,7 +1709,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 			}
 
 			$valtotal = '0';
-			if($this->valtotal[$id] == 'true' || $this->valtotal[$id] == 't'){
+			if(isset($this->valtotal[$id]) && ($this->valtotal[$id] == 'true' || $this->valtotal[$id] == 't')){
 				$valtotal = '1';
 			}
 			$observation = '';
@@ -2234,7 +2234,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 					$dim_position++;
 				}	
 
-				if($this->valtotal[$id] == 'true' || $this->valtotal[$id] == 't'){
+				if(isset($this->valtotal[$id]) && ($this->valtotal[$id] == 'true' || $this->valtotal[$id] == 't')){
 					$position = 0;
 					foreach($this->valorestotal[$id] as $grado => $elemvalue){
 						$params_value['val_cod'] = $this->valorestotal[$id][$grado]['nombre'];

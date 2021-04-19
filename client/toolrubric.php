@@ -658,7 +658,7 @@
 			//print_r($data);	
 			$checked = '';
 			$disabled = 'disabled';
-			if($this->valtotal[$this->id] == 'true' || $this->valtotal[$this->id] == 't'){
+			if(isset($this->valtotal[$this->id]) && ($this->valtotal[$this->id] == 'true' || $this->valtotal[$this->id] == 't')){
 				$checked = 'checked';
 				$disabled = '';
 			}
@@ -719,7 +719,7 @@
 				$this->display_dimension($dim, $data, $id, $mix);
 				echo '</div>';
 			}
-			if($this->valtotal[$this->id] == 'true' || $this->valtotal[$this->id] == 't'){
+			if(isset($this->valtotal[$this->id]) && ($this->valtotal[$this->id] == 'true' || $this->valtotal[$this->id] == 't')){
 				echo '
 					<div class="valoraciontotal">
 				';
@@ -765,9 +765,10 @@
 				</div>';
 			}
 			if(!is_numeric($mix)){
-				if(isset($data['observation'.$id]))
+				if(!empty($data['observation'.$id])) {
 					$this->observation[$id] = stripslashes($data['observation'.$id]);
-				
+				}
+
 				$observation = '';
 				if(isset($this->observation[$id])){
 					$observation = $this->observation[$id];
@@ -1326,7 +1327,12 @@
 
 			//DIMENSIONS------------------
 			foreach($this->dimension[$id] as $dim => $itemdim){
-					$xml .= '<Dimension id="'.$this->dimensionsId[$id][$dim].'" name="' . htmlspecialchars($this->dimension[$id][$dim]['nombre']) . '" subdimensions="' . $this->numsubdim[$id][$dim] . '" values="' . $this->numvalores[$id][$dim] . '" percentage="' . $this->dimpor[$id][$dim] . '">
+				$dimid = (empty($this->dimensionsId[$id][$dim])) ? '' : $this->dimensionsId[$id][$dim];
+				$xml .= '<Dimension id="'.$dimid.'" name="' .
+					htmlspecialchars($this->dimension[$id][$dim]['nombre']) .
+					'" subdimensions="' . $this->numsubdim[$id][$dim] . 
+					'" values="' . $this->numvalores[$id][$dim] . 
+					'" percentage="' . $this->dimpor[$id][$dim] . '">
 		';
 				$xml .=  "<Values>\n";
 				//VALUES-----------------------
@@ -1395,7 +1401,7 @@
 				$xml .=  "</Dimension>\n";
 			}
 
-			if($this->valtotal[$id] == 'true' || $this->valtotal[$id] == 't'){
+			if(isset($this->valtotal[$id]) && ($this->valtotal[$id] == 'true' || $this->valtotal[$id] == 't')) {
 				$xml .=  '<GlobalAssessment values="' . $this->numtotal[$id] . '" percentage="'.$this->valtotalpor[$id].'">
 				<Values>
 		';
@@ -1941,7 +1947,7 @@
 			}
 	
 			$valtotal = '0';
-			if($this->valtotal[$id] == 'true' || $this->valtotal[$id] == 't'){
+			if(isset($this->valtotal[$id]) && ($this->valtotal[$id] == 'true' || $this->valtotal[$id] == 't')){
 				$valtotal = '1';
 			}
 			$observation = '';
@@ -2404,7 +2410,7 @@
 				}
 				
 				$plv_pos = 0;
-				if($this->valtotal[$id] == 'true' || $this->valtotal[$id] == 't'){	
+				if (isset($this->valtotal[$id]) && ($this->valtotal[$id] == 'true' || $this->valtotal[$id] == 't')){	
 					foreach($this->valorestotal[$id] as $grado => $elemvalue){
 						$idPlaval = $this->valorestotalesId[$id][$grado];
 						if(isset($plavalsCod[$idPlaval])){
@@ -2631,7 +2637,7 @@
 					$dim_position++;
 				}
 				
-				if($this->valtotal[$id] == 'true' || $this->valtotal[$id] == 't'){
+				if(isset($this->valtotal[$id]) && ($this->valtotal[$id] == 'true' || $this->valtotal[$id] == 't')){
 					$position = 0;
 					foreach($this->valorestotal[$id] as $grado => $elemvalue){
 						$params_value['val_cod'] = $this->valorestotal[$id][$grado]['nombre'];

@@ -26,7 +26,7 @@ class Curl {
         curl_setopt($this->curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
         curl_setopt($this->curl, CURLOPT_ENCODING, 'gzip,deflate');
         curl_setopt($this->curl, CURLOPT_AUTOREFERER, true);
-	$this->setSsl();
+		$this->setSsl();
         
         if (ini_get('open_basedir') == '' && ini_get('safe_mode' == 'Off')){
             curl_setopt($this->curl, CURLOPT_FOLLOWLOCATION, true);
@@ -261,6 +261,40 @@ class Curl {
         return $page;
         //return $this->maybeFollow($page);
     }
+	
+	function put($url, $data = null) {
+		$fields = $this->makeQuery($data);
+        
+        curl_setopt($this->curl, CURLOPT_URL, $url);
+		curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_setopt($this->curl, CURLOPT_POSTFIELDS, $fields);
+        $page = curl_exec($this->curl);
+            
+        $error = curl_errno($this->curl);
+        if ($error != CURLE_OK || empty($page)) {
+            return false;
+        }
+		
+        curl_setopt($this->curl, CURLOPT_POSTFIELDS, '');
+        
+        return $this->maybeFollow($page);
+	}
+	
+	function delete($url, $data = null) {
+		$fields = $this->makeQuery($data);
+        
+        curl_setopt($this->curl, CURLOPT_URL, $url);
+		curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+        curl_setopt($this->curl, CURLOPT_POSTFIELDS, $fields);
+        $page = curl_exec($this->curl);
+            
+        $error = curl_errno($this->curl);
+        if ($error != CURLE_OK || empty($page)) {
+            return false;
+        }
+		
+        curl_setopt($this->curl, CURLOPT_POSTFIELDS, '');
+        
+        return $this->maybeFollow($page);
+	}
 }
-
-?>

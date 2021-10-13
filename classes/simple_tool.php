@@ -56,7 +56,7 @@ class simple_tool{
 	}
 
 	function recovery_grades($assessments){
-		include_once('db.php');
+		require_once('db.php');
 		if(empty($assessments)){
 			return false;
 		}
@@ -98,7 +98,6 @@ class simple_tool{
 			$read_next_attribute_comment = 1;
 			
 			for($i = 0; $i < $this->num_dimensions; $i++){
-				//$scale = simple_tool::get_numeric_scale($this->values_dim[$i]);
 				for($l = 0; $l < $this->num_subdimension[$i]; $l++){
 					for($j = 0; $j < $this->num_atr_dim[$i][$l]; $j++){
 						if($read_next_attribute == 1){
@@ -106,33 +105,18 @@ class simple_tool{
 						}
 						$read_next_attribute = 0;
 						
-						if($this->attributes_code[$i][$l][$j] == $row_atr['atributoid']){
+						if(isset($row_atr['atributoid']) && $this->attributes_code[$i][$l][$j] == $row_atr['atributoid']){
 							$value = $row_atr['ate_val'];
-							//$valoracion = valoracion::fetch(array('id' => $value));
-							//$value_cod = $valoracion->val_cod;
-							//if(!isset($rate[$i][$l][$j][$value_cod])){
-							//	$rate[$i][$l][$j][$value_cod] = 0;
-							//}
 							if(!isset($rate[$i][$l][$j][$value])){
 								$rate[$i][$l][$j][$value] = 0;
 							}
 							
-							//$rate[$i][$l][$j][$value_cod]++;
-							//$grade_attribute[$as][$i][$l][$j] = $value_cod;
 							$rate[$i][$l][$j][$value]++;
 							$grade_attribute[$as][$i][$l][$j] = $value;
 							
 							if($this->type == 'rubrica'){
 								$range = $row_atr['ate_ran'];
-								//$rango = rango::fetch(array('id' => $range));
-								//$range_cod = $rango->ran_cod;
 								if(isset($range)){
-									/*if(!isset($rate_range[$i][$l][$j][$range_cod])){
-										$rate_range[$i][$l][$j][$range_cod] = 0;
-									}
-
-									$rate_range[$i][$l][$j][$range_cod]++;
-									$grade_attribute_range[$as][$i][$l][$j] = $range;*/
 									if(!isset($rate_range[$i][$l][$j][$range])){
 										$rate_range[$i][$l][$j][$range] = 0;
 									}
@@ -162,11 +146,10 @@ class simple_tool{
 							$row_atrcom = db::next_row($rst_atrcom);
 						}
 						$read_next_attribute_comment = 0;
-						if($this->attributes_code[$i][$l][$j] == $row_atrcom['atributoid']){
+						if(isset($row_atrcom['atributoid']) && $this->attributes_code[$i][$l][$j] == $row_atrcom['atributoid']){
 							$value_com = $row_atrcom['atc_obs'];
 							
 							$this->comment_attribute[$i][$l][$j] = $value_com;
-					//print_r($this->comment_attribute);
 							$read_next_attribute_comment = 1;
 						}
 					}
@@ -189,16 +172,10 @@ class simple_tool{
 					$row_dim = db::next_row($rst_dim);
 				}
 				$read_next_dimension = 0;
-				if($this->dimen_code[$i] == $row_dim['dimensionid']){
+				if(isset($row_dim['dimensionid']) && $this->dimen_code[$i] == $row_dim['dimensionid']){
 					$read_next_dimension = 1;
 					$value = $row_dim['die_val'];
-					/*$valoracion = valoracion::fetch(array('id' => $value));
-					$value_cod = $valoracion->val_cod;
-					if(!isset($rate_dimension[$i][$value_cod])){
-						$rate_dimension[$i][$value_cod] = 0;
-					}
-					$rate_dimension[$i][$value_cod]++;
-					$grade_dimension[$as][$i] = $value_cod;*/
+				
 					if(!isset($rate_dimension[$i][$value])){
 						$rate_dimension[$i][$value] = 0;
 					}
@@ -206,14 +183,7 @@ class simple_tool{
 					$grade_dimension[$as][$i] = $value;
 					if($this->type == 'rubrica'){
 						$range = $row_dim['die_ran'];
-						//$rango = rango::fetch(array('id' => $range));
-						//$range_cod = $rango->ran_cod;
 						if(isset($range)){
-							/*if(!isset($rate_dimension_range[$i][$range_cod])){
-								$rate_dimension_range[$i][$range_cod] = 0;
-							}
-							$rate_dimension_range[$i][$range_cod]++;
-							$grade_dimension_range[$as][$i] = $range_cod;*/
 							if(!isset($rate_dimension_range[$i][$range])){
 								$rate_dimension_range[$i][$range] = 0;
 							}
@@ -241,7 +211,7 @@ class simple_tool{
 					$row_dimcom = db::next_row($rst_dimcom);
 				}
 				$read_next_dimension_comment = 0;
-				if($this->dimen_code[$i] == $row_dimcom['dimensionid']){
+				if(isset($row_dimcom['dimensionid']) && $this->dimen_code[$i] == $row_dimcom['dimensionid']){
 					$value_com = $row_dimcom['dic_obs'];
 					
 					$this->comment_dimension[$i] = $value_com;
@@ -256,16 +226,13 @@ class simple_tool{
 						WHERE ple_pla = ".$this->id." AND ple_eva = ".$assessment_id;
 			$rst_pla = db::query($sql_pla);
 			if($row_pla = db::next_row($rst_pla)){
-				//$this->grade_tool = $row_pla['ple_val'];
 				$value = $row_pla['ple_val'];
-				//$valoracion = valoracion::fetch(array('id' => $value));
 				if(!isset($rate_tool[$value])){
 					$rate_tool[$value] = 0;
 				}
 				else{
 					$rate_tool[$value]++;
 				}
-				//$this->grade_tool = $valoracion->val_cod;
 				$this->grade_tool = $value;
 			}	
 			else{
@@ -302,7 +269,6 @@ class simple_tool{
 				}
 			}
 		}
-		//print_r($this->grade_attribute);
 		foreach($grade_attribute_range as $grade){ 
 			for($i = 0; $i < $this->num_dimensions; $i++){
 				$max_dim = 0;
@@ -332,16 +298,16 @@ class simple_tool{
 	}
 	
 	function recovery(){
-		include_once('plantilla.php');
-		include_once('dimension.php');
-		include_once('subdimension.php');
-		include_once('atributo.php');
-		include_once('dimval.php');
-		include_once('rango.php');
-		include_once('ranval.php');
-		include_once('atribdes.php');
-		include_once('plaval.php');
-		include_once('valoracion.php');
+		require_once('plantilla.php');
+		require_once('dimension.php');
+		require_once('subdimension.php');
+		require_once('atributo.php');
+		require_once('dimval.php');
+		require_once('rango.php');
+		require_once('ranval.php');
+		require_once('atribdes.php');
+		require_once('plaval.php');
+		require_once('valoracion.php');
 		$plantilla = plantilla::fetch(array('id' => $this->id));
 
 		$this->title = $plantilla->pla_tit;
@@ -356,8 +322,6 @@ class simple_tool{
 			$this->num_total_value = count($plaval);
 			$i = 0;
 			foreach($plaval as $plv){
-				//$value = valoracion::fetch(array('id' => $plv->plv_val));
-				//$this->name_total_values[$i] = $value->val_cod;
 				$this->name_total_values[$i] = $plv->plv_val;
 				$this->cod_total_values[$i] = $plv->id;
 				++$i;
@@ -379,16 +343,12 @@ class simple_tool{
 			$this->values_dim[$i][0] = $dimension->dim_nom;
 			$v = 1;
 			foreach($dimval as $div){
-				//$value = valoracion::fetch(array('id' => $div->div_val));
-				//$this->values_dim[$i][$v] = $value->val_cod;
 				$this->values_dim[$i][$v] = $div->div_val;
 				$this->values_dimension_id[$i][$v] = $div->id;
 				if($ranval = ranval::fetch_all(array('rav_dim' => $dimension->id, 'rav_val' => $div->div_val), array('rav_pos'))){
 					$this->num_rango[$i][$v-1] = count($ranval);
 					$r = 0;
 					foreach($ranval as $rav){
-						//$rango = rango::fetch(array('id' => $rav->rav_ran));
-						//$this->rango[$i][$v-1][$r] = $rango->ran_cod;
 						$this->rango[$i][$v-1][$r] = $rav->rav_ran;
 						$this->rango_id[$i][$v-1][$r] = $rav->id;
 						++$r;
@@ -476,4 +436,3 @@ class simple_tool{
 		return $result;
 	}
 }
-?>

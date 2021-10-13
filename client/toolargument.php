@@ -148,7 +148,7 @@
 		}
 		
 		function addDimension($dim, $key){
-			include($this->filediccionario);
+			require($this->filediccionario);
 			$dimen;
 			$this->numdim[$this->id] += 1;
 			if(!isset($dim)){
@@ -176,7 +176,7 @@
 		
 		
 		function addSubdimension($dim, $subdim, $key){
-			include($this->filediccionario);
+			require($this->filediccionario);
 			$subdimen;
 			$this->numsubdim[$this->id][$dim] += 1;
 			if(!isset($subdim)){
@@ -198,7 +198,7 @@
 		
 		
 		function addAtributo($dim, $subdim, $atrib, $key){
-			include($this->filediccionario);
+			require($this->filediccionario);
 			$this->numatr[$this->id][$dim][$subdim]++;
 	
 			if(!isset($atrib)){
@@ -225,7 +225,7 @@
 				$this->numdim[$this->id]--;
 			}
 			else{
-				include($this->filediccionario);
+				require($this->filediccionario);
 				echo '<span class="mensaje">'.$string['alertdimension'].'</span>';
 			}
 			return 1;
@@ -242,7 +242,7 @@
 				$this->numatr[$this->id][$dim] = $this->arrayElimina($this->numatr[$this->id][$dim], $subdim);
 			}
 			else{
-				include($this->filediccionario);
+				require($this->filediccionario);
 				echo '<span class="mensaje">'.$string['alertsubdimension'].'</span>';
 			}
 			return 1;
@@ -257,15 +257,15 @@
 					$this->atribpor[$this->id][$dim][$subdim] = $this->arrayElimina($this->atribpor[$this->id][$dim][$subdim], $atrib);
 				}
 				else{
-					include($this->filediccionario);
+					require($this->filediccionario);
 					echo '<span class="mensaje">'.$string['alertatrib'].'</span>';
 				}
 			}
 			return 1;
 		}
 		function upBlock($params){
-			include($this->filediccionario);
-			include_once('array.class.php');
+			require($this->filediccionario);
+			require_once('array.class.php');
 			$id = $this->id;
 				
 			$instanceName = $params['instanceName'];
@@ -302,8 +302,8 @@
 		}
 		
 		function downBlock($params){
-			include($this->filediccionario);
-			include_once('array.class.php');
+			require($this->filediccionario);
+			require_once('array.class.php');
 			$id = $this->id;
 		
 			$instanceName = $params['instanceName'];
@@ -407,7 +407,7 @@
 			if(isset($data['titulo'.$this->id]))
 				$this->titulo = stripslashes($data['titulo'.$this->id]);
 	
-			include($this->filediccionario);
+			require($this->filediccionario);
 			$numdimen = count($this->dimension[$this->id]);
 			
 			if($this->view == 'view' && !is_numeric($mix)){
@@ -483,7 +483,7 @@
 			
 			
 			$checked = '';
-			include($this->filediccionario);
+			require($this->filediccionario);
 			
 			if($this->view == 'design')
 				echo '
@@ -536,7 +536,7 @@
 		}		
 		function display_subdimension($dim, $subdim, $data, $id='0', $mix=''){
 			$id = $this->id;
-			include($this->filediccionario);
+			require($this->filediccionario);
 			if(isset($data['subdimension'.$id.'_'.$dim.'_'.$subdim])) 
 				$this->subdimension[$id][$dim][$subdim]['nombre'] = stripslashes($data['subdimension'.$id.'_'.$dim.'_'.$subdim]);
 				
@@ -621,11 +621,7 @@
 						echo '<td style="width:60%">
 							<textarea disabled style="width:97%;" id="atributocomment'.$id.'_'.$dim.'_'.$subdim.'_'.$atrib.'"></textarea>
 						</td>';
-					/*foreach($this->valores[$this->id][$dim] as $grado => $elemvalue){
-						echo '<td><input type="radio" name="radio'.$dim.'_'.$subdim.'_'.$atrib.'" /></td>
-						';
-					}*/	
-								
+							
 					echo '</tr>';
 					
 					
@@ -697,12 +693,12 @@
 				throw new InvalidArgumentException('Missing scale cod');
 			}
 			
-			include_once('../classes/plantilla.php');
-			include_once('../classes/dimension.php');
-			include_once('../classes/subdimension.php');
-			include_once('../classes/atributo.php');
-			include_once('../classes/atrcomment.php');
-			include_once('../classes/db.php');
+			require_once(DIRROOT . '/classes/plantilla.php');
+			require_once(DIRROOT . '/classes/dimension.php');
+			require_once(DIRROOT . '/classes/subdimension.php');
+			require_once(DIRROOT . '/classes/atributo.php');
+			require_once(DIRROOT . '/classes/atrcomment.php');
+			require_once(DIRROOT . '/classes/db.php');
 			
 			$type = 'argumentario';
 			$tableid = 0;
@@ -822,14 +818,12 @@
 						$id_plane = $dimensionsCod[$idDim];
 						if($dimensions[$id_plane]->dim_por != $this->dimpor[$id][$dim] || $dimensions[$id_plane]->dim_sub != $this->numsubdim[$id][$dim] || $dimensions[$id_plane]->dim_gpr != $dim_gpr){
 							$update = true;
-							//$recalculate = true;
 						}
 						if($dimensions[$id_plane]->dim_nom != $this->dimension[$id][$dim]['nombre'] || $dimensions[$id_plane]->dim_pos != $dim_pos || $dimensions[$id_plane]->dim_com != $dim_com){
 							$update = true;
 						}
 						if($dimensions[$id_plane]->dim_glo != $dim_glo){
 							$update = true;
-							//$recalculate = true;
 						}
 						
 						if($update == true){
@@ -866,7 +860,6 @@
 						$dimensionsCod[$codDim] = $did;						
 						$this->dimensionsId[$id][$dim] = $codDim;						
 						
-						//$recalculate = true;
 					}
 					
 					$sub_pos = 0;
@@ -877,7 +870,6 @@
 							$id_plane_sub = $subdimensionsCod[$idSubdim];
 							if($subdimensions[$id_plane_sub]->sub_por != $this->subdimpor[$id][$dim][$subdim]){
 								$update = true;
-								//$recalculate = true;								
 							}
 							if($subdimensions[$id_plane_sub]->sub_nom != $this->subdimension[$id][$dim][$subdim]['nombre'] || $subdimensions[$id_plane_sub]->sub_pos != $sub_pos){
 								$update = true;
@@ -904,7 +896,6 @@
 							$codSubdim = encrypt_tool_element($subdimensionid);
 							$subdimensionsCod[$codSubdim] = $sid;						
 							$this->subdimensionsId[$id][$dim][$subdim] = $codSubdim;						
-							//$recalculate = true;
 						}
 						
 						$atr_pos = 0;
@@ -949,7 +940,6 @@
 								$codatributo = encrypt_tool_element($attributeid);
 								$atributosCod[$codatributo] = $aid;						
 								$this->atributosId[$id][$dim][$subdim][$atrib] = $codatributo;						
-								//$S = true;
 							}
 							$atr_pos++;
 						}
@@ -962,21 +952,18 @@
 					foreach($dimensions as $dimension){
 						$dimension->delete();
 					}
-					//$recalculate = true;
 				}
 				
 				if(!empty($subdimensions)){
 					foreach($subdimensions as $subdimension){
 						$subdimension->delete();
 					}
-					//$recalculate = true;
 				}
 				
 				if(!empty($atributos)){
 					foreach($atributos as $atributo){
 						$atributo->delete();
 					}
-					//$recalculate = true;
 				}			
 			}
 			elseif($destroy == true){
@@ -1135,7 +1122,7 @@
 				$this->numtotal[$this->id] = stripslashes($data['numvalores'.$this->id]);
 			
 	
-			include($this->filediccionario);
+			require($this->filediccionario);
 			$numdimen = count($this->dimension[$this->id]);
 			
 			$id = $this->id;
@@ -1191,7 +1178,7 @@
 			
 			$checked = '';
 			
-			include($this->filediccionario);
+			require($this->filediccionario);
 			
 
 			echo '
@@ -1224,7 +1211,7 @@
 		}		
 		function display_subdimension_view($dim, $subdim, $data, $id='0', $mix=''){
 			$id = $this->id;
-			include($this->filediccionario);
+			require($this->filediccionario);
 			if(isset($data['subdimension'.$id.'_'.$dim.'_'.$subdim])) 
 				$this->subdimension[$id][$dim][$subdim]['nombre'] = stripslashes($data['subdimension'.$id.'_'.$dim.'_'.$subdim]);
 				
@@ -1279,7 +1266,7 @@
 		
 		function print_tool($root = ''){
 			$id = $this->id;
-			include($this->filediccionario);
+			require($this->filediccionario);
 			$colspan = 0;
 			
 			echo '
@@ -1377,4 +1364,3 @@
                            <textarea name='observaciones' id='observaciones' rows=4 cols=20 style='width:100%'>".htmlspecialchars($this->observation[$id])."</textarea>";
 		}
 	}
-?>

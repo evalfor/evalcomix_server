@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns="http://avanza.uca.es/assessmentservice/assessment"
+targetNamespace="http://avanza.uca.es/assessmentservice/assessment">
+	
+	<xs:element name="identifier">
+	  <xs:simpleType>
+		<xs:restriction base="xs:string">
+		  <xs:minLength value="15"/>
+		</xs:restriction>
+	  </xs:simpleType>
+	</xs:element>
+	
+	<xs:complexType name="instrument">
+		<xs:all>
+			<xs:element name="identifier" type="identifier"/>
+			<xs:element name="publicIdentifier" type="identifier" minOccurs="0"/>
+			<xs:element name="instrumentIdentifier" type="identifier"/>
+			<xs:element name="structure" type="xs:string" minOccurs="0"/>
+			<xs:element name="grade" type="xs:integer" minOccurs="0"/>
+		</xs:all>
+		<xs:attribute name="id" type="xs:integer"/>
+	</xs:complexType>
+	
+	<xs:element name="assessment" type="assessment"/>
+
+</xs:schema>

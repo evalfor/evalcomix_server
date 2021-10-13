@@ -1,17 +1,16 @@
 <?php
-	include_once('../configuration/conf.php');
-	include_once('../configuration/host.php');
-	include_once(DIRROOT . '/lib/weblib.php');
-	include_once(DIRROOT . '/classes/atreva.php');
-	include_once(DIRROOT . '/classes/atrcomment.php');
-	include_once(DIRROOT . '/classes/dimeva.php');
-	include_once(DIRROOT . '/classes/dimcomment.php');
-	include_once(DIRROOT . '/classes/plaeva.php');
-	include_once(DIRROOT . '/classes/plantilla.php');
-	include_once(DIRROOT . '/classes/valoracion.php');
-	include_once(DIRROOT . '/classes/assessment.php');
-	include_once(DIRROOT . '/classes/simple_tool.php');
-//print_r($_POST);exit;
+	require_once('../configuration/conf.php');
+	require_once(DIRROOT . '/lib/weblib.php');
+	require_once(DIRROOT . '/classes/atreva.php');
+	require_once(DIRROOT . '/classes/atrcomment.php');
+	require_once(DIRROOT . '/classes/dimeva.php');
+	require_once(DIRROOT . '/classes/dimcomment.php');
+	require_once(DIRROOT . '/classes/plaeva.php');
+	require_once(DIRROOT . '/classes/plantilla.php');
+	require_once(DIRROOT . '/classes/valoracion.php');
+	require_once(DIRROOT . '/classes/assessment.php');
+	require_once(DIRROOT . '/classes/simple_tool.php');
+
 	if(isset($_GET['ass'])){
 		$idAss = getParam($_GET['ass']);
 	}
@@ -25,7 +24,6 @@
 		}
 	}
 
-//print_r($_POST);	
 	$assessment = assessment::fetch(array('id' => $idAss));
 	$tool = new simple_tool($instrument);
 	$tool->recovery();
@@ -40,14 +38,11 @@
 							for($m = 0; $m < $tool->num_rango[$i][($k-1)]; $m++){
 								if(isset($_POST['radio'.$i.$l.$j]) && $_POST['radio'.$i.$l.$j] == $tool->rango[$i][($k-1)][$m]){
 									if($atreva = atreva::fetch(array('ate_eva' => $idAss, 'ate_atr' => $tool->attributes_code[$i][$l][$j]))){
-										//atreva::set_properties($atreva, array('ate_val' => $tool->values_dimension_id[$i][$k], 'ate_ran' => $tool->rango_id[$i][$k-1][$m]));
-										//atreva::set_properties($atreva, array('ate_val' => $tool->values_dim[$i][$k], 'ate_ran' => $tool->rango[$i][$k-1][$m]));
 										$atreva->ate_val = $tool->values_dim[$i][$k];
 										$atreva->ate_ran = $tool->rango[$i][$k-1][$m];
 										$atreva->update();
 									}
 									else{
-										//$atreva = new atreva(array('ate_eva' => $idAss, 'ate_atr' => $tool->attributes_code[$i][$l][$j], 'ate_val' => $tool->values_dimension_id[$i][$k], 'ate_ran' => $tool->rango_id[$i][$k-1][$m]));
 										$atreva = new atreva(array('ate_eva' => $idAss, 'ate_atr' => $tool->attributes_code[$i][$l][$j], 'ate_val' => $tool->values_dim[$i][$k], 'ate_ran' => $tool->rango[$i][$k-1][$m]));
 										$atreva->insert();
 									}
@@ -61,13 +56,10 @@
 						}
 						elseif(isset($_POST['radio'.$i.$l.$j]) && $_POST['radio'.$i.$l.$j] == $k){
 							if($atreva = atreva::fetch(array('ate_eva' => $idAss, 'ate_atr' => $tool->attributes_code[$i][$l][$j]))){
-								//atreva::set_properties($atreva, array('ate_val' => $tool->values_dimension_id[$i][$k]));
-								//atreva::set_properties($atreva, array('ate_val' => $tool->values_dim[$i][$k]));
 								$atreva->ate_val = $tool->values_dim[$i][$k];
 								$atreva->update();
 							}
 							else{
-								//$atreva = new atreva(array('ate_eva' => $idAss, 'ate_atr' => $tool->attributes_code[$i][$l][$j], 'ate_val' => $tool->values_dimension_id[$i][$k]));
 								$atreva = new atreva(array('ate_eva' => $idAss, 'ate_atr' => $tool->attributes_code[$i][$l][$j], 'ate_val' => $tool->values_dim[$i][$k]));
 								$atreva->insert();
 							}
@@ -89,13 +81,10 @@
 							}
 							
 							if($atreva = atreva::fetch(array('ate_eva' => $idAss, 'ate_atr' => $tool->attributes_code[$i][$l][$j]))){
-								//atreva::set_properties($atreva, array('ate_val' => $valueid));
-								//atreva::set_properties($atreva, array('ate_val' => $valoracion->val_cod));
 								$atreva->ate_val = $valoracion->val_cod;
 								$atreva->update();
 							}
 							else{
-								//$atreva = new atreva(array('ate_eva' => $idAss, 'ate_atr' => $tool->attributes_code[$i][$l][$j], 'ate_val' => $valueid));
 								$atreva = new atreva(array('ate_eva' => $idAss, 'ate_atr' => $tool->attributes_code[$i][$l][$j], 'ate_val' => $valoracion->val_cod));
 								$atreva->insert();
 							}
@@ -112,7 +101,6 @@
 				if(isset($_POST['observaciones'.$i.'_'.$l.'_'.$j])){
 					$observaciones_atr = $_POST['observaciones'.$i.'_'.$l.'_'.$j];
 					if($atrcomment = atrcomment::fetch(array('atc_eva' => $idAss, 'atc_atr' => $tool->attributes_code[$i][$l][$j]))){
-						//atrcomment::set_properties($atrcomment, array('atc_obs' => $observaciones_atr));
 						$atrcomment->atc_obs = $observaciones_atr;
 						$atrcomment->update();
 					}
@@ -133,8 +121,6 @@
 					for($m = 0; $m < $tool->num_rango[$i][($k-1)]; $m++){
 						if(isset($_POST['radio'.$i]) && $_POST['radio'.$i] == $tool->rango[$i][($k-1)][$m]){
 							if($dimeva = dimeva::fetch(array('die_eva' => $idAss, 'die_dim' => $tool->dimen_code[$i]))){
-								//dimeva::set_properties($dimeva, array('die_val' => $tool->values_dimension_id[$i][$k], 'die_ran' => $tool->rango_id[$i][($k-1)][$m]));
-								//dimeva::set_properties($dimeva, array('die_val' => $tool->values_dim[$i][$k], 'die_ran' => $tool->rango[$i][($k-1)][$m]));
 								$dimeva->die_val = $tool->values_dim[$i][$k];
 								$dimeva->die_ran = $tool->rango[$i][($k-1)][$m];
 								$dimeva->update();
@@ -153,13 +139,10 @@
 				}
 				elseif(isset($_POST['radio'.$i]) && $_POST['radio'.$i] == $k){
 					if($dimeva = dimeva::fetch(array('die_eva' => $idAss, 'die_dim' => $tool->dimen_code[$i]))){
-						//dimeva::set_properties($dimeva, array('die_val' => $tool->values_dimension_id[$i][$k]));
-						//dimeva::set_properties($dimeva, array('die_val' => $tool->values_dim[$i][$k]));
 						$dimeva->die_val = $tool->values_dim[$i][$k];
 						$dimeva->update();
 					}
 					else{
-						//$dimeva = new dimeva(array('die_eva' => $idAss, 'die_dim' => $tool->dimen_code[$i], 'die_val' => $tool->values_dimension_id[$i][$k]));
 						$dimeva = new dimeva(array('die_eva' => $idAss, 'die_dim' => $tool->dimen_code[$i], 'die_val' => $tool->values_dim[$i][$k]));
 						$dimeva->insert();
 					}
@@ -173,7 +156,6 @@
 				if(isset($_POST['observaciones'.$i])){
 					$observaciones_dim = $_POST['observaciones'.$i];
 					if($dimcomment = dimcomment::fetch(array('dic_eva' => $idAss, 'dic_dim' => $tool->dimen_code[$i]))){
-						//dimcomment::set_properties($dimcomment, array('dic_obs' => $observaciones_dim));
 						$dimcomment->dic_obs = $observaciones_dim;
 						$dimcomment->update();
 					}
@@ -190,13 +172,10 @@
 	for($j = 0; $j < $tool->num_total_value; $j++){
 		if(isset($_POST['total']) && $_POST['total'] == $tool->name_total_values[$j]){
 			if($plaeva = plaeva::fetch(array('ple_eva' => $idAss, 'ple_pla' => $instrument))){
-				//plaeva::set_properties($plaeva, array('ple_val' => $tool->cod_total_values[$j]));
-				//plaeva::set_properties($plaeva, array('ple_val' => $tool->name_total_values[$j]));
 				$plaeva->ple_val = $tool->name_total_values[$j];
 				$plaeva->update();
 			}
 			else{
-				//$plaeva = new plaeva(array('ple_eva' => $idAss, 'ple_pla' => $instrument, 'ple_val' => $tool->cod_total_values[$j]));
 				$plaeva = new plaeva(array('ple_eva' => $idAss, 'ple_pla' => $instrument, 'ple_val' => $tool->name_total_values[$j]));
 				$plaeva->insert();
 			}
@@ -210,7 +189,7 @@
 
 
 	if($tool->type != 'argumentario'){
-		include_once('../lib/finalgrade.php');
+		require_once('../lib/finalgrade.php');
 		$finalgrade = finalgrade($idAss, $instrument);
 		$gradexp = explode( '/', $finalgrade);
 	}
@@ -224,13 +203,12 @@
 	}	
 
 	if(isset($toolmix)){
-		include_once('../lib/finalgrade.php');
+		require_once('../lib/finalgrade.php');
 		$finalgrade = finalgrade($idAss, $toolmix);
 		$gradexp = explode( '/', $finalgrade);
 	}
 	
 	if(isset($_POST['observaciones'])){
-		//assessment::set_properties($assessment, array('ass_com' => $_POST['observaciones']));
 		$assessment->ass_com = $_POST['observaciones'];
 	}		
 	assessment::set_properties($assessment, array('ass_grd' => $gradexp[0], 'ass_mxg' => $gradexp[1]));
@@ -240,18 +218,3 @@
 	
 	header('Access-Control-Allow-Origin: *');
 	echo $grade;
-	
-	 /*echo "<script>alert('Intenta de nuevo');history.back() ;</script>";
-	//header("Location:".$_SERVER['HTTP_REFERER']); 
-	include_once(DIRROOT . '/classes/curl.class.php');
-	$curl = new Curl();
-	$vars = 'ass='.$assessment->ass_id.'&pla='.$toolreturn.'&type=open&mode=assess&grade='.$grade.'&saved=saved';
-	$url = HOST . 'webservice/get_assessment_form.php';
-	$response = $curl->post($url, $vars);
-
-	if ($response && $curl->getHttpCode()>=200 && $curl->getHttpCode()<400){
-		echo $response;
-	}*/
-	//header('Location: ../webservice/get_assessment_form.php?ass='.$assessment->ass_id.'&pla='.$toolreturn.'&type=open&mode=assess&grade='.$grade.'&saved=saved'); 	
-
-?>

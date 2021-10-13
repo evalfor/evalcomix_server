@@ -1,5 +1,5 @@
 <?php
-include_once('evalcomix_object.php');
+require_once('evalcomix_object.php');
 
 /**
  * Definitions of EvalCOMIX plaeva class
@@ -135,7 +135,6 @@ include_once('evalcomix_object.php');
 					$new_tool_id = $tool_code[$old_tool_id];//de antes
 				
 					if(!$plaeva = plaeva::fetch(array('ple_eva' => $ass2, 'ple_pla' => $new_tool_id))){
-						//$plaeva = new plaeva(array('ple_eva' => $ass2, 'ple_pla' => $new_tool_id, 'ple_val' => $plaeva_old->ple_val, 'ple_obs' => $plaeva_old->ple_obs));
 						$plaeva = new plaeva(array('ple_eva' => $ass2, 'ple_pla' => $new_tool_id, 'ple_val' => $value->ple_val, 'ple_obs' => $value->ple_obs));
 						$plaeva->insert();
 					}

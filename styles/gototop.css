@@ -1,0 +1,39 @@
+.gototop{
+  position: fixed;
+  display: block;
+  box-sizing: border-box;
+  height: 50px;
+  width: 50px;
+  border: none;
+  background-color: #000;
+  border-radius: 3px;
+  bottom: 50px;
+  right: 50px;
+  margin-right: -30px;
+  outline: none;
+  opacity: 0;
+  transition: opacity .3s ease, margin-right .5s ease-out;
+}
+ 
+.visible{
+  transition: opacity .3s ease, margin-right .5s ease-out;
+  margin-right: 0px;
+  opacity: .6;
+}
+ 
+.gototop::before, .gototop::after{
+  content: '';
+  position: absolute;
+  height: 18px;
+  width: 2px;
+  background-color: #fff;
+  top: 16px;
+}
+.gototop::before{
+  left: 18px;
+  transform: rotate(45deg);
+}
+.gototop::after{
+  right: 18px;
+  transform: rotate(-45deg);
+}

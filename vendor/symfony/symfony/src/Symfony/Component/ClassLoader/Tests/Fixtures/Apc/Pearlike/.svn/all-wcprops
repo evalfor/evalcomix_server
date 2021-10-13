@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svn/inteweb-gescompeval/!svn/ver/25/branches/Gescompeval/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/Tests/Fixtures/Apc/Pearlike
+END
+Baz.php
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svn/inteweb-gescompeval/!svn/ver/25/branches/Gescompeval/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/Tests/Fixtures/Apc/Pearlike/Baz.php
+END
+Foo.php
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svn/inteweb-gescompeval/!svn/ver/25/branches/Gescompeval/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/Tests/Fixtures/Apc/Pearlike/Foo.php
+END
+Bar.php
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svn/inteweb-gescompeval/!svn/ver/25/branches/Gescompeval/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/Tests/Fixtures/Apc/Pearlike/Bar.php
+END

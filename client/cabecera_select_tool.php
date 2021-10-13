@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>EvalCOMIX 4.1</title>
+		<title>EvalCOMIX 4.3</title>
 		<link href="style/main.css" type="text/css" rel="stylesheet">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<META HTTP-EQUIV="Pragma" CONTENT="no-cache">

@@ -1,5 +1,5 @@
 <?php
-include_once('evalcomix_object.php');
+require_once('evalcomix_object.php');
 
 /**
  * Definitions of EvalCOMIX atreva class
@@ -59,9 +59,6 @@ include_once('evalcomix_object.php');
 	}
 	
 	private static function check_params($atreva, $params) {
-		if(!isset($params['id']) && !isset($params['ate_atr']) && !isset($params['ate_eva'])){
-			throw new InvalidArgumentException('Missing parameters');
-		}
 	}
 	
 	/**

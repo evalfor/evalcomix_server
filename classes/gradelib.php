@@ -1,5 +1,5 @@
 <?php
-include_once('db.php');
+require_once('db.php');
 class grade{
 	private $grades; //array
 
@@ -15,8 +15,8 @@ return the maximum value of the scale. In other case, it returns 10.
 ------------------------------------------------------------*/
 	function max_grade($tool)
 	{
-		include_once('plantilla.php');
-		include_once('dimension.php');
+		require_once('plantilla.php');
+		require_once('dimension.php');
 		$plantilla = plantilla::fetch(array('id' => $tool));
 		$type = $plantilla->pla_tip;
 		$sql = '';
@@ -135,7 +135,7 @@ It receives $tool (a simple assessment tool like a Checklist, scale, list+scale 
 		$distance = 10 / ($num_grade);
 
 		$numeric_grade = array();
-//		$numeric_grade[0] = $min;
+
 		$numeric_grade[$grades[$max]] = 10;
 
 		$accumulator = $distance;
@@ -143,15 +143,15 @@ It receives $tool (a simple assessment tool like a Checklist, scale, list+scale 
 		if($max > $min)
 		{
 			for($i = $min; $i < $max; $i++)
-			{//echo "ac:".$accumulator."<br>";
-				$numeric_grade[$grades[$i]] = $accumulator; //echo "i = $i; numeric_grade[$grades[$i]]=".	$numeric_grade[$grades[$i]] .'<br>';
+			{
+				$numeric_grade[$grades[$i]] = $accumulator;
 				$accumulator += $distance;
 			}
 		}
 		else
 		{
 			for($i = $min; $i > $max; $i--)
-			{//echo "ac:".$accumulator."<br>";
+			{
 				$numeric_grade[$grades[$i]] = $accumulator; //echo "i = $i; numeric_grade[$grades[$i]]=".	$numeric_grade[$grades[$i]] .'<br>';
 				$accumulator += $distance;
 			}
@@ -198,7 +198,7 @@ It receives $tool (a simple assessment tool like a Checklist, scale, list+scale 
 		$distance = 10 / ($num_grade);
 
 		$numeric_grade = array();
-//		$numeric_grade[0] = $min;
+
 		$numeric_grade[$grades[$max]] = 10;
 
 		$accumulator = $distance;
@@ -206,7 +206,7 @@ It receives $tool (a simple assessment tool like a Checklist, scale, list+scale 
 		if($max > $min)
 		{
 			for($i = $min; $i < $max; $i++)
-			{//echo "ac:".$accumulator."<br>";
+			{
 				$numeric_grade[$grades[$i]] = $accumulator; //echo "i = $i; numeric_grade[$grades[$i]]=".	$numeric_grade[$grades[$i]] .'<br>';
 				$accumulator += $distance;
 			}
@@ -214,7 +214,7 @@ It receives $tool (a simple assessment tool like a Checklist, scale, list+scale 
 		else
 		{
 			for($i = $min; $i > $max; $i--)
-			{//echo "ac:".$accumulator."<br>";
+			{
 				$numeric_grade[$grades[$i]] = $accumulator; //echo "i = $i; numeric_grade[$grades[$i]]=".	$numeric_grade[$grades[$i]] .'<br>';
 				$accumulator += $distance;
 			}
@@ -371,15 +371,14 @@ It receives $tool (a simple assessment tool like a Checklist, scale, list+scale 
 				$i++;
 			}	
 		}
-		
-		//print_r($marks);
+
 		$scale = $this->get_scale($dimension);//print_r($scale);
 		if(!$this->scale_is_numeric($scale) || $mix == 1 || !$this->same_scale_for_dimensions($tool)){
 			$numericMarks = $this->scale_to_numeric_values($marks, $scale);
 		}
 		else{
 			$numericMarks = $marks;
-		}//print_r($numericMarks);
+		}
 		
 		$global_mark = $this->get_average($numericMarks);
 
@@ -399,7 +398,7 @@ It receives $tool (a simple assessment tool like a Checklist, scale, list+scale 
 				  WHERE ple_pla = $tool AND ple_eva = $assessment"; 
 		$rst = db::query($sql);
 		if($row = db::next_row($rst))
-		{ // echo "finalmark:".$row['finalmark'];
+		{
 			$sql2 = "SELECT plv_val AS \"finalgrade\"
 				     FROM plaval
 				     WHERE plv_pla = $tool
@@ -409,7 +408,7 @@ It receives $tool (a simple assessment tool like a Checklist, scale, list+scale 
 
 			$i=0;
 			while($row2 = db::next_row($rst2))
-			{//echo $row2['finalgrade'];
+			{
 				$final_scale[$i] = $row2['finalgrade'];
 				$i++;
 			}
@@ -571,7 +570,4 @@ It receives $tool (a simple assessment tool like a Checklist, scale, list+scale 
 		
 		return 1;	
 	}
-
-	
 }
-?>

@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="lib/db" VERSION="20210524" COMMENT="XMLDB file for core EvalCOMIX tables"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="plantilla" COMMENT="">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" NOTNULL="true" SEQUENCE="true" PRIMARY="true"/>
+        <FIELD NAME="pla_cod" TYPE="varchar" LENGTH="256" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="pla_tit" TYPE="varchar" LENGTH="700" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="pla_tip" TYPE="varchar" LENGTH="13" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="pla_des" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="pla_glo" TYPE="bool" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="pla_por" TYPE="integer" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="pla_gpr" TYPE="int" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="pla_mod" TYPE="int" LENGTH="1" NOTNULL="false" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+	<TABLE NAME="mixtopla">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" NOTNULL="true" SEQUENCE="true" PRIMARY="true"/>
+        <FIELD NAME="mip_mix" TYPE="int" NOTNULL="false"/>
+        <FIELD NAME="mip_pla" TYPE="int" NOTNULL="false"/>
+        <FIELD NAME="mip_pos" TYPE="int" NOTNULL="false" UNSIGNED="true"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+		<KEY NAME="mip_mix" TYPE="foreign" FIELDS="mip_mix" REFTABLE="plantilla" REFFIELDS="id"/>
+		<KEY NAME="mip_pla" TYPE="foreign" FIELDS="mip_pla" REFTABLE="plantilla" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+	<TABLE NAME="dimen">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" NOTNULL="true" SEQUENCE="true" PRIMARY="true"/>
+        <FIELD NAME="dim_nom" TYPE="varchar" LENGTH="700" NOTNULL="false"/>
+        <FIELD NAME="dim_pla" TYPE="int" NOTNULL="false"/>
+        <FIELD NAME="dim_glo" TYPE="bool" NOTNULL="false"/>
+        <FIELD NAME="dim_sub" TYPE="int" NOTNULL="false" DEFAULT="0"/>
+        <FIELD NAME="dim_por" TYPE="int" NOTNULL="false"/>
+        <FIELD NAME="dim_gpr" TYPE="int" NOTNULL="false"/>
+        <FIELD NAME="dim_com" TYPE="bool" NOTNULL="false" DEFAULT="false"/>
+        <FIELD NAME="dim_pos" TYPE="int" NOTNULL="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+		<KEY NAME="dim_pla" TYPE="foreign" FIELDS="dim_pla" REFTABLE="plantilla" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+	<TABLE NAME="subdimension">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" NOTNULL="true" SEQUENCE="true" PRIMARY="true"/>
+        <FIELD NAME="sub_nom" TYPE="varchar" LENGTH="700" NOTNULL="false"/>
+        <FIELD NAME="sub_dim" TYPE="int" NOTNULL="false"/>
+        <FIELD NAME="sub_por" TYPE="smallint" NOTNULL="false"/>
+        <FIELD NAME="sub_pos" TYPE="int" NOTNULL="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+		<KEY NAME="sub_dim" TYPE="foreign" FIELDS="sub_dim" REFTABLE="dimen" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+	<TABLE NAME="atributo">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" NOTNULL="true" SEQUENCE="true" PRIMARY="true"/>
+        <FIELD NAME="atr_des" TYPE="TEXT" NOTNULL="false"/>
+        <FIELD NAME="atr_sub" TYPE="int" NOTNULL="false"/>
+        <FIELD NAME="atr_por" TYPE="int" NOTNULL="false"/>
+        <FIELD NAME="atr_com" TYPE="bool" NOTNULL="false" DEFAULT="false"/>
+        <FIELD NAME="atr_pos" TYPE="int" NOTNULL="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+		<KEY NAME="atr_sub" TYPE="foreign" FIELDS="atr_sub" REFTABLE="subdimension" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+	<TABLE NAME="atrdiferencial">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" NOTNULL="true" SEQUENCE="true" PRIMARY="true"/>
+        <FIELD NAME="atf_atn" TYPE="int" 	NOTNULL="false"/>
+        <FIELD NAME="atf_atp" TYPE="int" NOTNULL="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+		<KEY NAME="atf_atn" TYPE="foreign" FIELDS="atf_atn" REFTABLE="atributo" REFFIELDS="id"/>
+		<KEY NAME="atf_atp" TYPE="foreign" FIELDS="atf_atp" REFTABLE="atributo" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+	<TABLE NAME="valoracion">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" NOTNULL="true" SEQUENCE="true" PRIMARY="true"/>
+        <FIELD NAME="val_cod" TYPE="varchar" LENGTH="100" NOTNULL="false" UNIQUE="true"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+	<TABLE NAME="rango">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" NOTNULL="true" SEQUENCE="true" PRIMARY="true"/>
+        <FIELD NAME="ran_cod" TYPE="integer" NOTNULL="false" UNIQUE="true"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+	<TABLE NAME="atribdes">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" NOTNULL="true" SEQUENCE="true" PRIMARY="true"/>
+        <FIELD NAME="atd_atr" TYPE="int" NOTNULL="false"/>
+        <FIELD NAME="atd_val" TYPE="varchar" LENGTH="100" NOTNULL="false"/>
+        <FIELD NAME="atd_des" TYPE="text" NOTNULL="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+		<KEY NAME="atd_atr" TYPE="foreign" FIELDS="atd_atr" REFTABLE="atributo" REFFIELDS="id"/>
+		<KEY NAME="atd_val" TYPE="foreign" FIELDS="atd_val" REFTABLE="valoracion" REFFIELDS="val_cod"/>
+      </KEYS>
+    </TABLE>
+	<TABLE NAME="dimval">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" NOTNULL="true" SEQUENCE="true" PRIMARY="true"/>
+        <FIELD NAME="div_dim" TYPE="int" NOTNULL="false"/>
+        <FIELD NAME="div_val" TYPE="varchar" LENGTH="100" NOTNULL="false"/>
+        <FIELD NAME="div_ran" TYPE="int" NOTNULL="false"/>
+        <FIELD NAME="div_pos" TYPE="int" NOTNULL="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+		<KEY NAME="div_dim" TYPE="foreign" FIELDS="div_dim" REFTABLE="dimen" REFFIELDS="id"/>
+		<KEY NAME="div_val" TYPE="foreign" FIELDS="div_val" REFTABLE="valoracion" REFFIELDS="val_cod"/>
+      </KEYS>
+    </TABLE>
+	<TABLE NAME="ranval">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" NOTNULL="true" SEQUENCE="true" PRIMARY="true"/>
+        <FIELD NAME="rav_dim" TYPE="int" NOTNULL="false"/>
+        <FIELD NAME="rav_val" TYPE="varchar" LENGTH="100" NOTNULL="false"/>
+        <FIELD NAME="rav_ran" TYPE="int" NOTNULL="false"/>
+        <FIELD NAME="rav_pos" TYPE="int" NOTNULL="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+		<KEY NAME="rav_dim" TYPE="foreign" FIELDS="rav_dim" REFTABLE="dimen" REFFIELDS="id"/>
+		<KEY NAME="rav_val" TYPE="foreign" FIELDS="rav_val" REFTABLE="valoracion" REFFIELDS="val_cod"/>
+		<KEY NAME="rav_ran" TYPE="foreign" FIELDS="rav_ran" REFTABLE="rango" REFFIELDS="ran_cod"/>
+      </KEYS>
+    </TABLE>
+	<TABLE NAME="plaval">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" NOTNULL="true" SEQUENCE="true" PRIMARY="true"/>
+        <FIELD NAME="plv_pla" TYPE="int" NOTNULL="false"/>
+        <FIELD NAME="plv_val" TYPE="varchar" LENGTH="100" NOTNULL="false"/>
+        <FIELD NAME="plv_pos" TYPE="int" NOTNULL="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+		<KEY NAME="plv_pla" TYPE="foreign" FIELDS="plv_pla" REFTABLE="plantilla" REFFIELDS="id"/>
+		<KEY NAME="plv_val" TYPE="foreign" FIELDS="plv_val" REFTABLE="valoracion" REFFIELDS="val_cod"/>
+      </KEYS>
+    </TABLE>
+	<TABLE NAME="assessment">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" NOTNULL="true" SEQUENCE="true" PRIMARY="true"/>
+        <FIELD NAME="ass_id" TYPE="varchar" LENGTH="128" NOTNULL="false"/>
+        <FIELD NAME="ass_com" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="ass_grd" TYPE="varchar" LENGTH="50" NOTNULL="false"/>
+        <FIELD NAME="ass_mxg" TYPE="varchar" LENGTH="50" NOTNULL="false"/>
+        <FIELD NAME="ass_pla" TYPE="int" NOTNULL="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+		<KEY NAME="ass_pla" TYPE="foreign" FIELDS="ass_pla" REFTABLE="plantilla" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+	<TABLE NAME="plaeva">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" NOTNULL="true" SEQUENCE="true" PRIMARY="true"/>
+        <FIELD NAME="ple_eva" TYPE="int" NOTNULL="false"/>
+        <FIELD NAME="ple_pla" TYPE="int" NOTNULL="false"/>
+        <FIELD NAME="ple_val" TYPE="varchar" LENGTH="100" NOTNULL="false"/>
+        <FIELD NAME="ple_obs" TYPE="text" NOTNULL="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+		<KEY NAME="ple_eva" TYPE="foreign" FIELDS="ple_eva" REFTABLE="assessment" REFFIELDS="id"/>
+		<KEY NAME="ple_pla" TYPE="foreign" FIELDS="ple_pla" REFTABLE="plantilla" REFFIELDS="id"/>
+		<KEY NAME="ple_val" TYPE="foreign" FIELDS="ple_val" REFTABLE="valoracion" REFFIELDS="val_cod"/>
+      </KEYS>
+    </TABLE>
+	<TABLE NAME="dimeva">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" NOTNULL="true" SEQUENCE="true" PRIMARY="true"/>
+        <FIELD NAME="die_eva" TYPE="int" NOTNULL="false"/>
+        <FIELD NAME="die_dim" TYPE="int" NOTNULL="false"/>
+        <FIELD NAME="die_val" TYPE="varchar" LENGTH="100" NOTNULL="false"/>
+        <FIELD NAME="die_ran" TYPE="int" NOTNULL="false"/>
+        <FIELD NAME="die_obs" TYPE="text" NOTNULL="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+		<KEY NAME="die_eva" TYPE="foreign" FIELDS="die_eva" REFTABLE="assessment" REFFIELDS="id"/>
+		<KEY NAME="die_dim" TYPE="foreign" FIELDS="die_dim" REFTABLE="dimen" REFFIELDS="id"/>
+		<KEY NAME="die_val" TYPE="foreign" FIELDS="die_val" REFTABLE="valoracion" REFFIELDS="val_cod"/>
+		<KEY NAME="die_ran" TYPE="foreign" FIELDS="die_ran" REFTABLE="rango" REFFIELDS="ran_cod"/>
+      </KEYS>
+    </TABLE>
+	<TABLE NAME="atreva">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" NOTNULL="true" SEQUENCE="true" PRIMARY="true"/>
+        <FIELD NAME="ate_eva" TYPE="int" LENGTH="10"/>
+        <FIELD NAME="ate_atr" TYPE="int" LENGTH="10"/>
+        <FIELD NAME="ate_val" TYPE="varchar" LENGTH="100"/>
+        <FIELD NAME="ate_ran" TYPE="int" LENGTH="10"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+		<KEY NAME="ate_eva" TYPE="foreign" FIELDS="ate_eva" REFTABLE="assessment" REFFIELDS="id"/>
+		<KEY NAME="ate_atr" TYPE="foreign" FIELDS="ate_atr" REFTABLE="atributo" REFFIELDS="id"/>
+		<KEY NAME="ate_val" TYPE="foreign" FIELDS="ate_val" REFTABLE="valoracion" REFFIELDS="val_cod"/>
+		<KEY NAME="ate_ran" TYPE="foreign" FIELDS="ate_ran" REFTABLE="rango" REFFIELDS="ran_cod"/>
+      </KEYS>
+    </TABLE>
+	<TABLE NAME="atrcomment">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" NOTNULL="true" SEQUENCE="true" PRIMARY="true"/>
+        <FIELD NAME="atc_eva" TYPE="int" LENGTH="10"/>
+        <FIELD NAME="atc_atr" TYPE="int" LENGTH="10"/>
+        <FIELD NAME="atc_obs" TYPE="text"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+		<KEY NAME="atc_eva" TYPE="foreign" FIELDS="atc_eva" REFTABLE="assessment" REFFIELDS="id"/>
+		<KEY NAME="atc_atr" TYPE="foreign" FIELDS="atc_atr" REFTABLE="atributo" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+	<TABLE NAME="dimcomment">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" NOTNULL="true" SEQUENCE="true" PRIMARY="true"/>
+        <FIELD NAME="dic_eva" TYPE="int" LENGTH="10"/>
+        <FIELD NAME="dic_dim" TYPE="int" LENGTH="10"/>
+        <FIELD NAME="dic_obs" TYPE="text"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+		<KEY NAME="dic_eva" TYPE="foreign" FIELDS="dic_eva" REFTABLE="assessment" REFFIELDS="id"/>
+		<KEY NAME="dic_dim" TYPE="foreign" FIELDS="dic_dim" REFTABLE="dimen" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+	<TABLE NAME="config">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" NOTNULL="true" SEQUENCE="true" PRIMARY="true"/>
+        <FIELD NAME="name" TYPE="varchar" LENGTH="255"/>
+        <FIELD NAME="value" TYPE="text"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+	<TABLE NAME="lms">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" NOTNULL="true" SEQUENCE="true" PRIMARY="true"/>
+        <FIELD NAME="lms_nam" TYPE="varchar" LENGTH="100"/>
+        <FIELD NAME="lms_des" TYPE="text"/>
+        <FIELD NAME="lms_url" TYPE="text"/>
+        <FIELD NAME="lms_tkn" TYPE="text"/>
+        <FIELD NAME="lms_enb" TYPE="bool"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+	<TABLE NAME="users">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" NOTNULL="true" SEQUENCE="true" PRIMARY="true"/>
+        <FIELD NAME="usr_nam" TYPE="varchar" LENGTH="100" NOTNULL="true"/>
+        <FIELD NAME="usr_pss" TYPE="varchar" LENGTH="255" NOTNULL="true"/>
+        <FIELD NAME="usr_fnm" TYPE="varchar" LENGTH="100"/>
+        <FIELD NAME="usr_lnm" TYPE="varchar" LENGTH="100"/>
+        <FIELD NAME="usr_eml" TYPE="varchar" LENGTH="100"/>
+        <FIELD NAME="usr_phn" TYPE="varchar" LENGTH="50"/>
+        <FIELD NAME="usr_enb" TYPE="bool"/>
+        <FIELD NAME="usr_del" TYPE="bool"/>
+        <FIELD NAME="usr_lgn" TYPE="bigint"/>
+        <FIELD NAME="usr_com" TYPE="text"/>
+        <FIELD NAME="usr_tct" TYPE="bigint"/>
+        <FIELD NAME="usr_tmd" TYPE="bigint"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>

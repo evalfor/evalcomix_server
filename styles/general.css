@@ -1,0 +1,258 @@
+@font-face {font-family: "Ink Free"; src: url("//db.onlinewebfonts.com/t/0801c08e5412f54e4b4e9ad146d83a12.eot"); src: url("//db.onlinewebfonts.com/t/0801c08e5412f54e4b4e9ad146d83a12.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/0801c08e5412f54e4b4e9ad146d83a12.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/0801c08e5412f54e4b4e9ad146d83a12.woff") format("woff"), url("//db.onlinewebfonts.com/t/0801c08e5412f54e4b4e9ad146d83a12.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/0801c08e5412f54e4b4e9ad146d83a12.svg#Ink Free") format("svg"); }
+body{
+	font-family: "Arial Narrow";
+	background-color:#fafafa;
+	margin:0;
+	color:#555;
+}
+
+h1{font-size:2em;}
+h2{font-size:1.7em; background-color:#F5B50C}
+h3{font-size:1.4em;margin-top:9px;margin-bottom:5px}
+h4{font-size:1.2em}
+hr{margin-top:0;margin-bottom:9px}
+table{
+	font-size:0.9em;
+}
+.hides {
+	display:none;
+}
+
+.shows {
+	display:block;
+}
+.totalitems{
+	font-style: italic;
+}
+.margin{
+	padding-left:1em;
+	padding-right:1em;
+}
+
+#page{
+	background-color:#fff;
+}
+
+.path{
+	font-weight:bold;
+	color:#c33;
+}
+
+#header{
+	color:#fff;
+}
+
+#header a{
+	color:#F53D0C;
+}
+#header-main{
+	padding-bottom:1em;
+}
+#header-main h1{
+	font-weight:bold;
+	margin:0;
+}
+
+#header-main, #footer{
+	/*background-color:#15499e;*/
+	background-color:#fff;
+	margin-right:0;
+	color:#F53D0C;
+}
+
+#footer{
+	padding-top:1em;
+	padding-bottom:1em;
+}
+
+#header-path{
+	background-color:#00779C;
+}
+#header-path a{
+	color:#fff;
+}
+
+#column-left, #column-right{
+}
+#column-left{
+}
+
+#column-right{
+	min-height:500px;
+}
+
+#container{
+	margin-right:0;
+	background-color:#;
+}
+#frm_priv {
+	margin-left: auto;
+}
+.block{
+	margin:10px 0 10px 10px;
+	padding:5px;
+	background-color:#fafafa;
+	border:1px solid #E77400;
+	/*background-color:#ffda0d*/
+}
+
+.convert{
+	padding:0.5em 1em 0.5em 1em;
+	border:1px solid #ccc;
+	margin:1em;
+	width:90%;
+	transition: all 500ms ease;
+	text-align:left;
+	background-color:#fafafa;
+}
+.convert:hover {
+ background: rgba(0,0,0,0);
+ color: #3a7999;
+ box-shadow: inset 0 0 0 3px #3a7999;
+}
+.page-header {
+	border-bottom: 1px solid #00648C;
+}
+.course-name{
+	font-size:1.4em;
+}
+
+.subblock p a:hover{ color: #2961A9;}
+.subblock, .course, #header-main, #header-path, .block, .direct-access-item{
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	-webkit-box-shadow:1px 1px 3px #888;
+	-moz-box-shadow:1px 1px 3px #888;
+}
+.subblock li{border-bottom:1px solid #FFF;}
+.subblock ul li, .subblock li:last-child{border:none}
+.subblock ul li{padding-left: 10px;}
+.subblock a{
+	display:block;
+	color:#FFF;
+	text-decoration:none;
+	font-family:'Helvetica', Arial, sans-serif;
+	font-size:13px;
+	padding:3px 5px;
+	text-shadow:1px 1px 1px #325179;
+}
+.subblock a:hover{
+	color:#F9B855;
+	-webkit-transition: color 0.1s linear;
+}
+.subblock ul a{background-color:#C22B0A;}
+.subblock ul li ul a{background-color:#369;}
+.subblock ul li ul li a{background-color:#727e99;}
+.subblock ul a:hover{
+	background-color:#FFF;
+	color:#F53D0C;
+	text-shadow:none;
+	-webkit-transition: color, background-color 0.2s linear;
+}
+.subblock, .subblock ul{
+	display:block;
+	background-color:#E77400;
+	margin:0;
+	padding:0;
+	width:100%;
+	list-style:none;
+}
+.subblock li ul {display:none;}
+.subblock ul{background-color:;}
+
+#footer{
+	border-radius: 5px;
+	color:#fff;
+	text-align:center;
+}
+#footer a{
+	color: #fff;
+}
+
+#direct-access{
+	margin-top: 5em;
+}
+
+.direct-access-item{
+	width:200px;
+	height: 180px;
+	transition: all 300ms ease;
+}
+
+.direct-access-item:hover{
+	width:200px;
+	height: 180px;
+	border:3px solid #205c90;
+	color:#205c90;
+}
+
+.button, .button:hover{
+	padding:0.4em 1em 0.4em 1em; 
+	background-color:#369;color:#fff;
+	border-radius:5px;
+	text-decoration:none;
+	text-shadow:1px 1px 1px #325179;
+	font-size:13px;
+}
+
+.button:hover{
+	background-color:#6594D1;
+}
+
+.noread{
+	font-weight:bold;
+}
+.input{
+	width:80%;
+}
+
+.border-right{
+	border-right:1px solid #333;
+}
+
+.center {
+	width: 100%;
+	text-align:center;
+	padding-bottom: 1em;
+}
+
+.help {
+	width:450px;
+}
+
+.bootstrap-select>.dropdown-toggle {
+	padding-top:0;
+	padding-bottom:0;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+	background-color:#fff;
+}
+
+.footer {
+	background-color:#ccc;
+	text-align:center;
+	color:#333;
+	font-size:0.9em;
+	margin-bottom:1em;
+}
+ 
+@media screen and (max-width:350px){
+	h1{font-size:1.3em;}
+	h2{font-size:1.2em;}
+	h3{font-size:1.1em;margin-top:9px;margin-bottom:5px}
+	h4{font-size:1em}
+}
+
+@media screen and (max-width:500px){
+	.help {
+		width:300px;
+	}
+}
+
+@media screen and (max-width:768px){
+	.text-right {
+		float:left;
+	}
+}

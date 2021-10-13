@@ -83,4 +83,3 @@
 	$string['TAbout'] = 'Acerca de';
 
 	$string['mixed_por'] = 'Peso en la nota final';
-?>

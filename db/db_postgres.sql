@@ -189,6 +189,30 @@ CREATE TABLE config (
 	name VARCHAR(255),
 	value TEXT
 );
-		
-INSERT INTO config(name, value) VALUES('version', '2019052100');
-INSERT INTO config(name, value) VALUES('release', 'EvalCOMIX 4.2.1');
+
+CREATE TABLE users (
+	id SERIAL PRIMARY KEY,
+	usr_nam VARCHAR(100) NOT NULL,
+	usr_pss VARCHAR(255) NOT NULL,
+	usr_fnm VARCHAR(100),
+	usr_lnm VARCHAR(100),
+	usr_eml VARCHAR(100),
+	usr_phn VARCHAR(20),
+	usr_enb BOOLEAN,
+	usr_del BOOLEAN,
+	usr_lgn BIGINT,
+	usr_com TEXT,
+	usr_tct BIGINT,
+	usr_tmd BIGINT
+);
+
+CREATE TABLE lms (
+	id SERIAL PRIMARY KEY,
+	lms_nam VARCHAR(100),
+	lms_des TEXT,
+	lms_url TEXT,
+	lms_tkn TEXT,
+	lms_enb BOOLEAN
+);
+	
+INSERT INTO config(name, value) VALUES('version', '2021062400');

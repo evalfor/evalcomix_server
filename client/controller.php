@@ -1,17 +1,15 @@
 <?php
-//error_reporting(E_ALL);
-//ini_set('display_errors','On');
 //INICIALIZAMOS EL INSTRUMENTO DE EVALUACIÓN
 	$session_id = session_id();
 	if($session_id == ""){
 		session_start();
 	}
-	include_once('tool.php');
-	include_once('toolscale.php');
-	include_once('toollist.php');
-	include_once('weblib.php');
+	require_once('tool.php');
+	require_once('toolscale.php');
+	require_once('toollist.php');
+	require_once('weblib.php');
 	if(!isset($_SESSION['tool'])){
-		include_once('inicio.php');
+		require_once('inicio.php');
 	}
 		
 	$toolObj = $_SESSION['tool'];
@@ -366,16 +364,13 @@ Evento AÃ±adir/Eliminar dimensiones
 				$ponInput[$index] = $pordim;
 				$sumaMod += $pordim;
 			}
-			
-		//	echo "sumamod = $sumaMod y numMod = $numMod y numdim:". $numdimen;
+		
 			$state = 0;
 			if($numMod == $numdimen && $sumaMod != 100){
 				$state = 0;
-				//echo "<span class='error'>Error: La suma de porcentajes es distinta a 100. Se establecerÃ¡n valores correctos</span>";
 			}
 			elseif($numMod != $numdimen && $sumaMod > 100 ){
 				$state = 0;
-				//echo "<span class='error'>Error: La suma de porcentajes es distinta a 100. Se establecerÃ¡n valores correctos</span>";
 			}
 			elseif($numMod == $numdimen && $sumaMod == 100)
 				$state = 2;
@@ -411,7 +406,6 @@ Evento AÃ±adir/Eliminar dimensiones
 				else{
 					$dimpor[$index] = 100;
 				}
-			//echo $porcentage;
 				foreach($dimpor as $key => $value){
 					if(isset($ponInput[$key])){
 						$dimpor[$key] = $ponInput[$key];}
@@ -518,7 +512,6 @@ Evento AÃ±adir/Eliminar dimensiones
 				$tool->addValores($dim, $key, $id);
 				$secuencia++;
 				$_SESSION['secuencia'] = $secuencia;
-				//include('addvalores.php');
 			}
 		}
 		elseif(isset($numvalores[$dim]) && $postNumValues < $numvalores[$dim]){
@@ -687,11 +680,9 @@ Evento AÃ±adir/Eliminar dimensiones
 			$state = 0;
 			if($numMod == $numsubdimen[$dim] && $sumaMod != 100){
 				$state = 0;
-				//echo "<span class='error'>Error: La suma de porcentajes es distinta a 100. Se establecerÃ¡n valores correctos</span>";
 			}
 			elseif($numMod != $numsubdimen[$dim] && $sumaMod > 100 ){
 				$state = 0;
-				//echo "<span class='error'>Error: La suma de porcentajes es distinta a 100. Se establecerÃ¡n valores correctos</span>";
 			}
 			elseif($numMod == $numsubdimen[$dim] && $sumaMod == 100)
 				$state = 2;
@@ -754,29 +745,6 @@ Evento AÃ±adir/Eliminar dimensiones
 			if(isset($valglobalpor[$dim])){
 				$tool->set_valglobalpor($valglobalpor, $id);
 			}
-			
-			/*$tool->set_atribpor($atribpor, $id);
-			
-			$porcentage = $porsubdim;
-			if($numsubdimen[$dim] > 1){
-				$porcentage = floor((100 - $porsubdim) / ($numsubdimen[$dim]-1));
-			}
-			
-			foreach($subdimen[$dim] as $key => $value){
-				$subdimpor[$dim][$key] = $porcentage;
-				if((string)$key == (string)$index && $numsubdimen[$dim] > 1){
-					$subdimpor[$dim][$key] = $porsubdim;
-				}
-				elseif($numsubdimen[$dim] <= 1)
-					$subdimpor[$dim][$key] = 100;
-			}
-			if($index != 'vg')
-				$valglobalpor[$dim] = $porcentage;
-			else
-				$valglobalpor[$dim] = $porsubdim;
-			$tool->set_valglobalpor($valglobalpor, $id);
-			
-			$tool->set_subdimpor($subdimpor, $id);*/
 		}
 		elseif(!isset($_POST['comDim'])){
 			$numsubdim = $tool->get_numsubdim($id);
@@ -826,8 +794,6 @@ Evento AÃ±adir/Eliminar dimensiones
 			if($postNumAtr > $numatr[$dim][$subdim]){
 				$na = $numatr[$dim][$subdim];
 				for($i = $na; $i < $postNumAtr; $i++){
-					//$atrib = $numatr[$dim][$subdim];
-					//include('addatributo.php');
 					$key = $secuencia;
 					$tool->addAtributo($dim, $subdim, null, $key, $id);
 					$secuencia++;
@@ -843,7 +809,6 @@ Evento AÃ±adir/Eliminar dimensiones
 				foreach($atributo[$dim][$subdim] as $key => $value){
 					if($i >= $postNumAtr){
 						$atrib = $key;
-						//include('eliminaatributo.php');
 						$tool->eliminaAtributo($dim, $subdim, $atrib, $id);
 					}
 					$i++;
@@ -862,15 +827,7 @@ Evento AÃ±adir/Eliminar dimensiones
 //------------------------------------------------
 //COMENTARIO ATRIBUTO
 //------------------------------------------------
-		/*if(isset($_POST['comAtr'])){
-			$comAtr = intval($_POST['comAtr']);
-			if(isset($_POST['commentAtr'.$id.'_'.$dim.'_'.$subdim.'_'.$comAtr]))
-				$visible = $_POST['commentAtr'.$id.'_'.$dim.'_'.$subdim.'_'.$comAtr];
-			$postAtribcom = getParam($_POST['comAtr']);
-			$comment = $tool->get_commentAtr($id);
-			$comment[$id][$dim][$subdim][$comAtr] = $visible;
-			$tool->set_commentAtr($comment);
-		}*/
+		
 //-----------------------------------------------
 //PORCENTAJE ATRIBUTO ---------------------------
 //-----------------------------------------------
@@ -930,11 +887,9 @@ Evento AÃ±adir/Eliminar dimensiones
 			$state = 0;
 			if($numMod == $numatribb[$dim][$subdim] && $sumaMod != 100){
 				$state = 0;
-				//echo "<span class='error'>Error: La suma de porcentajes es distinta a 100. Se establecerÃ¡n valores correctos</span>";
 			}
 			elseif($numMod != $numatribb[$dim][$subdim] && $sumaMod > 100 ){
 				$state = 0;
-				//echo "<span class='error'>Error: La suma de porcentajes es distinta a 100. Se establecerÃ¡n valores correctos</span>";
 			}
 			elseif($numMod == $numatribb[$dim][$subdim] && $sumaMod == 100)
 				$state = 2;
@@ -978,7 +933,6 @@ Evento AÃ±adir/Eliminar dimensiones
 					else{
 						$atribpor[$dim][$subdim][$index] = 100;
 					}
-					//echo $sumpercentage;
 					foreach($atribpor[$dim][$subdim] as $key => $value){
 						if(isset($ponInput[$key]))
 							$atribpor[$dim][$subdim][$key] = $ponInput[$key];
@@ -1025,7 +979,6 @@ Evento AÃ±adir/Eliminar dimensiones
 		if(isset($postUpAtr)){
 			$params['blockIndex'] = $postUpAtr;
 			$params['instanceName'] = $atributo[$dim][$subdim][$postUpAtr]['nombre'];
-			//$tool->upAtributo($dim, $subdim, $postUpAtr, $id);
 			$tool->upBlock($params);
 			
 			if($tool->type == 'diferencial'){
@@ -1039,7 +992,6 @@ Evento AÃ±adir/Eliminar dimensiones
 			$params['blockIndex'] = $postDownAtr;
 			$params['instanceName'] = $atributo[$dim][$subdim][$postDownAtr]['nombre'];
 			$tool->downBlock($params);
-			//$tool->downAtributo($dim, $subdim, $postDownAtr, $id);
 			if($tool->type == 'diferencial'){
 				$atributopos = $tool->get_atributopos($id);
 				$params['blockIndex'] = $postDownAtr;
@@ -1113,10 +1065,8 @@ Evento AÃ±adir/Eliminar dimensiones
 			$params['blockIndex'] = $postDownTool;
 			$params['instance'] = $tools[$postDownTool];
 			$tool->downBlock($params);
-			//$tool->downSubdimension($dim, $postDownSub, $id);
 		}
 	}
 	
 		
 //----------------------------------------------------------------------------------------------->
-?>

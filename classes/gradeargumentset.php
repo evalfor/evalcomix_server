@@ -1,5 +1,5 @@
 <?php
-	include_once('gradebase.php');
+	require_once('gradebase.php');
 
 	class gradeargumentset extends gradebase{
 		function __construct($assessment1, $tool){
@@ -26,4 +26,3 @@
 		function get_global_value($dimension){}
 		
 	}
-?>

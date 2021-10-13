@@ -1,11 +1,11 @@
 <?php
 
-	include_once('dimension.php');
-	include_once('assessment.php');
-	include_once('plantilla.php');
-	include_once('subdimension.php');
-	include_once('plaeva.php');
-	include_once('plaval.php');
+	require_once('dimension.php');
+	require_once('assessment.php');
+	require_once('plantilla.php');
+	require_once('subdimension.php');
+	require_once('plaeva.php');
+	require_once('plaval.php');
 	define("NO_CALIFICATED", "");
 
 	class gradebase extends grade {
@@ -358,4 +358,3 @@
 		}
 
 	}
-?>

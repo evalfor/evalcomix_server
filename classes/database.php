@@ -41,4 +41,3 @@
 		abstract public function get_info_columns($params);
 		abstract public function get_info_keys($params);
 	}
-?>

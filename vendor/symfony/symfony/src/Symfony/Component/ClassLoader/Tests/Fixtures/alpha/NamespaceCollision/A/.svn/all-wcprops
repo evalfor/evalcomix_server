@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/svn/inteweb-gescompeval/!svn/ver/25/branches/Gescompeval/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/Tests/Fixtures/alpha/NamespaceCollision/A
+END
+Foo.php
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/svn/inteweb-gescompeval/!svn/ver/25/branches/Gescompeval/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/Tests/Fixtures/alpha/NamespaceCollision/A/Foo.php
+END
+Bar.php
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/svn/inteweb-gescompeval/!svn/ver/25/branches/Gescompeval/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/Tests/Fixtures/alpha/NamespaceCollision/A/Bar.php
+END

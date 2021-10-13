@@ -10,4 +10,3 @@ function ejecutar($sql){
 
    return $rst;
 }
-?>

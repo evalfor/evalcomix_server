@@ -110,7 +110,7 @@
 		function get_numatr(){return $this->numatr[$this->id];}
 		function get_valores(){return $this->valores[$this->id];}
 		function get_numvalores(){return $this->numvalores[$this->id];}
-		function get_valtotal(){return $this->valtotal[$this->id];}
+		function get_valtotal(){$valtotal = (isset($this->valtotal[$this->id])) ? $this->valtotal[$this->id] : null;return $valtotal;}
 		function get_numtotal($id = 0){if(isset($this->numtotal[$this->id]))return $this->numtotal[$this->id];}
 		function get_valtotalpor(){return $this->valtotalpor[$this->id];}
 		function get_valorestotal($id=0){if(isset($this->valorestotal[$this->id]))return $this->valorestotal[$this->id];}
@@ -204,7 +204,7 @@
 		}
 		
 		function addDimension($dim, $key){
-			include($this->filediccionario);
+			require($this->filediccionario);
 			$dimen;
 			$this->numdim[$this->id] += 1;
 			if(!isset($dim)){
@@ -236,7 +236,7 @@
 		
 		
 		function addSubdimension($dim, $subdim, $key){
-			include($this->filediccionario);
+			require($this->filediccionario);
 			$subdimen;
 			$id = $this->id;
 			$this->numsubdim[$id][$dim] += 1;
@@ -259,7 +259,7 @@
 		
 		
 		function addAtributo($dim, $subdim, $atrib, $key){
-			include($this->filediccionario);
+			require($this->filediccionario);
 			$id = $this->id;
 			$this->numatr[$id][$dim][$subdim]++;
 	
@@ -277,14 +277,14 @@
 		
 		
 		function addValores($dim, $key, $id=0){
-			include($this->filediccionario);
+			require($this->filediccionario);
 			$id = $this->id;
 			$this->numvalores[$id][$dim]++;
 			$this->valores[$id][$dim][$key]['nombre'] = $string['titlevalue'].$this->numvalores[$id][$dim];
 		}
 		
 		function addValoresTotal($key, $id){
-			include($this->filediccionario);
+			require($this->filediccionario);
 			if(isset($this->numtotal[$this->id])){
 				$this->numtotal[$this->id]++;
 			}
@@ -302,7 +302,7 @@
 		}
 		
 		function eliminaDimension($dim, $id = 0){	
-			include_once($this->filediccionario);
+			require_once($this->filediccionario);
 			if($this->numdim[$this->id] > 1){
 				if($this->numsubdim[$this->id][$dim] > 0)
 					$this->numsubdim[$this->id][$dim]--;
@@ -323,7 +323,7 @@
 		}
 		
 		function eliminaSubdimension($dim, $subdim){
-			include($this->filediccionario);
+			require($this->filediccionario);
 			if($this->numsubdim[$this->id][$dim] > 1){
 				$this->numsubdim[$this->id][$dim]--;
 				$this->subdimension[$this->id][$dim] = $this->arrayElimina($this->subdimension[$this->id][$dim], $subdim);
@@ -340,7 +340,7 @@
 		}
 		
 		function eliminaAtributo($dim, $subdim, $atrib){
-			include($this->filediccionario);
+			require($this->filediccionario);
 			$id = $this->id;
 			if(isset($this->atributo[$id][$dim][$subdim][$atrib])){
 				if($this->numatr[$id][$dim][$subdim] > 1){
@@ -365,75 +365,9 @@
 			}
 		}
 		
-		/*function upAtributo($dim, $subdim, $atrib){
-			include($this->filediccionario);
-			include_once('array.class.php');
-			$id = $this->id;
-		
-			if(isset($this->atributo[$id][$dim][$subdim][$atrib])){
-				$previousIndex = array_util::getPrevElement($this->atributo[$id][$dim][$subdim], $atrib);
-				if($previousIndex !== false){
-					$elem['nombre'] = $this->atributo[$id][$dim][$subdim][$atrib]['nombre'];
-					$this->atributo[$id][$dim][$subdim] = $this->arrayElimina($this->atributo[$id][$dim][$subdim], $atrib);
-					//$this->atributo[$id][$dim][$subdim] = $this->arrayAdd($this->atributo[$id][$dim][$subdim], $previousIndex, $elem, $atrib);
-					$this->atributo[$id][$dim][$subdim] = array_util::arrayAddLeft($this->atributo[$id][$dim][$subdim], $previousIndex, $elem, $atrib);
-				}
-			}
-				
-		}
-		
-		function downAtributo($dim, $subdim, $atrib){
-			include($this->filediccionario);
-			include_once('array.class.php');
-			$id = $this->id;
-		
-			if(isset($this->atributo[$id][$dim][$subdim][$atrib])){
-				$nextIndex = array_util::getNextElement($this->atributo[$id][$dim][$subdim], $atrib);
-		
-				if($nextIndex !== false){
-					$elem['nombre'] = $this->atributo[$id][$dim][$subdim][$atrib]['nombre'];
-					$this->atributo[$id][$dim][$subdim] = $this->arrayElimina($this->atributo[$id][$dim][$subdim], $atrib);
-					$this->atributo[$id][$dim][$subdim] = array_util::arrayAddRight($this->atributo[$id][$dim][$subdim], $nextIndex, $elem, $atrib);
-				}
-			}
-		
-		}
-		
-		function upSubdimension($dim, $subdim){
-			include($this->filediccionario);
-			include_once('array.class.php');
-			$id = $this->id;
-		
-			if(isset($this->subdimension[$this->id][$dim])){
-				$previousIndex = array_util::getPrevElement($this->subdimension[$this->id][$dim], $subdim);
-				if($previousIndex !== false){
-					$elem['nombre'] = $this->subdimension[$this->id][$dim][$subdim]['nombre'];
-					$this->subdimension[$this->id][$dim] = $this->arrayElimina($this->subdimension[$this->id][$dim], $subdim);
-					$this->subdimension[$this->id][$dim] = array_util::arrayAddLeft($this->subdimension[$this->id][$dim], $previousIndex, $elem, $subdim);
-				}
-			}
-		
-		}
-		function downSubdimension($dim, $subdim){
-		 include($this->filediccionario);
-		include_once('array.class.php');
-		$id = $this->id;
-		
-		if(isset($this->subdimension[$this->id][$dim])){
-		$nextIndex = array_util::getNextElement($this->subdimension[$this->id][$dim], $subdim);
-		
-		if($nextIndex !== false){
-		$elem['nombre'] = $this->subdimension[$this->id][$dim][$subdim]['nombre'];
-		$this->subdimension[$this->id][$dim] = $this->arrayElimina($this->subdimension[$this->id][$dim], $subdim);
-		$this->subdimension[$this->id][$dim] = array_util::arrayAddRight($this->subdimension[$this->id][$dim], $nextIndex, $elem, $subdim);
-		}
-		}
-		
-		}*/
-		
 		function upBlock($params){
-			include($this->filediccionario);
-			include_once('array.class.php');
+			require($this->filediccionario);
+			require_once('array.class.php');
 			$id = $this->id;
 			
 			$instanceName = $params['instanceName'];
@@ -470,8 +404,8 @@
 		}
 		
 		function downBlock($params){
-			include($this->filediccionario);
-			include_once('array.class.php');
+			require($this->filediccionario);
+			require_once('array.class.php');
 			$id = $this->id;
 				
 			$instanceName = $params['instanceName'];
@@ -591,7 +525,7 @@
 				$checked = 'checked';
 				$disabled = '';
 			}
-			include($this->filediccionario);
+			require($this->filediccionario);
 			
 			if($this->view == 'view' && !is_numeric($mix)){
 				echo '<input type="button" style="width:10em" value="'.$string['view'].'" onclick=\'javascript:location.href="generator.php?op=design"\'><br>';
@@ -678,7 +612,7 @@
 							
 							<table class="maintable">
 				';
-				//TODO
+				
 				if(isset($this->valorestotal[$id])){
 					foreach($this->valorestotal[$id] as $grado => $elemvalue){
 						if(isset($data['valor'.$id.'_'.$grado])) 
@@ -728,7 +662,6 @@
 			</html>';
 		}
 
-		//TODO
 		function display_dimension($dim, $data, $id=0, $mix=''){ 
 			$id = $this->id;
 			if(isset($data['dimension'.$id.'_'.$dim])) 
@@ -746,7 +679,7 @@
 			if(isset($this->valglobal[$id][$dim]) && $this->valglobal[$id][$dim] == "true"){
 				$globalchecked = 'checked';
 			}
-			include($this->filediccionario);
+			require($this->filediccionario);
 			
 			// To avoid a Notice in the ejecution
 			if (isset($this->numtotal[$this->id])) {
@@ -896,7 +829,7 @@
 		
 		function display_subdimension($dim, $subdim, $data, $id=0, $mix=''){
 			$id = $this->id;
-			include($this->filediccionario);
+			require($this->filediccionario);
 			if(isset($data['subdimension'.$id.'_'.$dim.'_'.$subdim])) 
 				$this->subdimension[$id][$dim][$subdim]['nombre'] = stripslashes($data['subdimension'.$id.'_'.$dim.'_'.$subdim]);
 				
@@ -1049,17 +982,7 @@
 					';
 				
 					echo '</tr>';
-					/*onclick=\'javascript://mostrar("atribcomment'.$id.'_'.$dim.'_'.$subdim.'_'.$atrib.'");
-								//var obj = document.getElementById("atribcomment'.$id.'_'.$dim.'_'.$subdim.'_'.$atrib.'");
-								sendPost("subdimensiontag'.$id.'_'.$dim.'_'.$subdim.'", "mix='.$mix.'&id='.$id.'&commentAtr'.$id.'_'.$dim.'_'.$subdim.'_'.$atrib.'='.$novisible.'&comAtr='.$atrib.'&addAtr='.$dim.'_'.$subdim.'", "mainform0");
-								
-								/*if(obj.style.visibility=="hidden"){
-									obj.style.height="1em";
-								//	sendPost("subdimensiontag'.$id.'_'.$dim.'_'.$subdim.'", "mix='.$mix.'&id='.$id.'&commentAtr='.$visible.'&&addAtr='.$dim.'_'.$subdim.'_'.$atrib.'", "mainform0");
-								} else{
-									obj.style.height="4em";
-								//	sendPost("subdimensiontag'.$id.'_'.$dim.'_'.$subdim.'", "mix='.$mix.'&id='.$id.'&&addComAtr='.$dim.'_'.$subdim.'_'.$atrib.'", "mainform0");
-								}\'>*/
+					
 //----------------------------------------------
 
 				}
@@ -1243,7 +1166,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 				$checked = 'checked';
 				$disabled = '';
 			}
-			include($this->filediccionario);
+			require($this->filediccionario);
 			$numdimen = count($this->dimension[$id]);
 		
 			$id = $this->id;
@@ -1292,7 +1215,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 							
 							<table class="maintable">
 				';
-				//TODO
+				
 				if(isset($this->valorestotal[$id])){
 					foreach($this->valorestotal[$id] as $grado => $elemvalue){
 						if(isset($data['valor'.$id.'_'.$grado])) 
@@ -1343,7 +1266,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 			if($this->valglobal[$id][$dim] == "true"){
 				$globalchecked = 'checked';
 			}
-			include($this->filediccionario);
+			require($this->filediccionario);
 			
 			echo '
 			<div class="margin">
@@ -1406,7 +1329,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 		
 		function display_subdimension_view($dim, $subdim, $data, $id=0, $mix=''){
 			$id = $this->id;
-			include($this->filediccionario);
+			require($this->filediccionario);
 			if(isset($data['subdimension'.$id.'_'.$dim.'_'.$subdim])) 
 				$this->subdimension[$id][$dim][$subdim]['nombre'] = stripslashes($data['subdimension'.$id.'_'.$dim.'_'.$subdim]);
 				
@@ -1472,7 +1395,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 		
 		function print_tool($global_comment = 'global_comment'){
 			$id = $this->id;
-			include($this->filediccionario);
+			require($this->filediccionario);
 			$colspan = max($this->numvalores[$id]);
 			
 			
@@ -1553,7 +1476,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 									$checked = 'checked';
 								}
 								echo '
-								<td><input type="radio" name="radio'.$i.$l.$j.'" value="'.$k.'" '.$checked.' style="width:100%"></td>
+								<td><input type="radio" class="custom-radio" name="radio'.$i.$l.$j.'" value="'.$k.'" '.$checked.' style="width:100%"></td>
 								';
 								$k++;
 							}
@@ -1576,20 +1499,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 									</td>
 								';
 							}
-							/*$vcomment = '';
-							if(isset($this->commentAtr[$id][$dim][$subdim][$atrib]) && $this->commentAtr[$id][$dim][$subdim][$atrib] == 'visible'){
-								
-								if(isset($this->valuecommentAtr[$id][$dim][$subdim][$atrib])){
-									$vcomment = $this->valuecommentAtr[$id][$dim][$subdim][$atrib];
-								}
-							}
-							echo '
-																	
-								<td colspan="'.($colspan + $colspandim + 1).'">
-									<div id="comAtrib'.$i.'_'.$l.'_'.$j.'" name="comAtrib">
-										<textarea rows="2" style="height:6em;width:100%" id="observaciones'.$i.'_'.$l.'_'.$j.'" name="observaciones'.$i.'_'.$l.'_'.$j.'" style="width:100%">'.$vcomment.'</textarea>
-									</div>
-								</td>';*/
+							
 							echo '
 								</tr>
 								<tr></tr>
@@ -1615,7 +1525,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 							$checked = 'checked';
 						}
 						echo "
-							<td class='td'><input type='radio' name='radio".$i."' value='".$k."' ". $checked ." style='width:100%'></td>
+							<td class='td'><input type='radio' class='custom-radio' name='radio".$i."' value='".$k."' ". $checked ." style='width:100%'></td>
 						";
 						++$k;
 					}
@@ -1664,7 +1574,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 						$checked = 'checked';
 					}
 						
-					echo '<td><input type="radio" name="total" value="'.htmlspecialchars($this->valorestotal[$id][$grado]['nombre']).'" '.$checked.' style="width:100%"/></td>
+					echo '<td><input type="radio" class="custom-radio" name="total" value="'.htmlspecialchars($this->valorestotal[$id][$grado]['nombre']).'" '.$checked.' style="width:100%"/></td>
 					';
 				}					
 			}
@@ -1685,19 +1595,19 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 				throw new InvalidArgumentException('Missing scale cod');
 			}
 			
-			include_once('../classes/plantilla.php');
-			include_once('../classes/dimension.php');
-			include_once('../classes/valoracion.php');
-			include_once('../classes/dimval.php');
-			include_once('../classes/subdimension.php');
-			include_once('../classes/atributo.php');
-			include_once('../classes/atribdes.php');
-			include_once('../classes/atreva.php');
-			include_once('../classes/dimeva.php');
-			include_once('../classes/atrcomment.php');
-			include_once('../classes/dimcomment.php');
-			include_once('../classes/plaval.php');
-			include_once('../classes/db.php');
+			require_once(DIRROOT . '/classes/plantilla.php');
+			require_once(DIRROOT . '/classes/dimension.php');
+			require_once(DIRROOT . '/classes/valoracion.php');
+			require_once(DIRROOT . '/classes/dimval.php');
+			require_once(DIRROOT . '/classes/subdimension.php');
+			require_once(DIRROOT . '/classes/atributo.php');
+			require_once(DIRROOT . '/classes/atribdes.php');
+			require_once(DIRROOT . '/classes/atreva.php');
+			require_once(DIRROOT . '/classes/dimeva.php');
+			require_once(DIRROOT . '/classes/atrcomment.php');
+			require_once(DIRROOT . '/classes/dimcomment.php');
+			require_once(DIRROOT . '/classes/plaval.php');
+			require_once(DIRROOT . '/classes/db.php');
 			
 			$type = 'escala';
 			$tableid = 0;
@@ -1878,7 +1788,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 						unset($dimensions[$id_plane]);
 					}
 					else{ 
-						//Insertamos la nueva dimensión
+						//Insertamos la nueva dimensiÃ³n
 						$dim_glo = '0';
 						$dim_com = '0';
 						$dim_gpr = '0';
@@ -1991,7 +1901,6 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 							$subdimensionsCod[$codSubdim] = $sid;						
 							$this->subdimensionsId[$id][$dim][$subdim] = $codSubdim;						
 							$recalculate = true;
-							//$destroy = true;
 						}
 						
 						$atr_pos = 0;
@@ -2008,7 +1917,6 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 								if($atributos[$id_plane_atr]->atr_por != $this->atribpor[$id][$dim][$subdim][$atrib]){
 									$update = true;
 									$recalculate = true;
-									//$destroy = true;
 								}
 								if($atributos[$id_plane_atr]->atr_des != $this->atributo[$id][$dim][$subdim][$atrib]['nombre'] || 
 									$atributos[$id_plane_atr]->atr_com != $atr_com || $atributos[$id_plane_atr]->atr_pos != $atr_pos){
@@ -2244,7 +2152,6 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 						}
 						
 						$params_plaval['plv_pla'] = $tableid;
-						//$params_plaval['plv_val'] = $valoracionid;
 						$params_plaval['plv_val'] = $this->valorestotal[$id][$grado]['nombre'];
 						$params_plaval['plv_pos'] = $position;
 						$position++;
@@ -2258,7 +2165,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 			
 			$params_result = array();
 			if($recalculate == true){				
-				include_once('../classes/assessment.php');
+				require_once('../classes/assessment.php');
 				if($assessments = assessment::fetch_all(array('ass_pla' => $tableid))){
 					$plantilla->pla_mod = '1';
 					$pla_glo = '0';
@@ -2267,13 +2174,12 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 					}
 					$plantilla->pla_glo = $pla_glo;
 					$plantilla->update();
-					include_once('../lib/finalgrade.php');
+					require_once('../lib/finalgrade.php');
 					foreach($assessments as $assessment){
 						$finalgrade = finalgrade($assessment->id, $tableid);
 						$gradexp = explode('/', $finalgrade);
 						$params['ass_grd'] = $gradexp[0];
 						$params['ass_mxg'] = $gradexp[1];
-						//$params['ass_com'] = $assessment->ass_com;
 						assessment::set_properties($assessment, $params);
 						$assessment->update();
 					}
@@ -2286,4 +2192,3 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 		}
 		
 	}
-?>

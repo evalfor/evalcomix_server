@@ -9,4 +9,3 @@
    header("Content-Disposition: attachment; filename=$filename");
    header("Content-Length: $size");
    readfile("$filename");
-?>

@@ -1,5 +1,8 @@
 <?php
-	include_once('../configuration/conf.php');
+	if (file_exists('../configuration/conf.php')) {
+		include_once('../configuration/conf.php');
+	}
+	
 	include_once('pdo_database.php');
 	
 	class DB 	{
@@ -58,5 +61,4 @@
 			return $objectdb->get_info_keys($params);
 		}
 		
-	}	
-?>
+	}

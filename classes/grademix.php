@@ -1,8 +1,8 @@
 <?php
-	include_once('grade.php');
-	include_once('assessment.php');
-	include_once('plantilla.php');
-	include_once('mixtopla.php');
+	require_once('grade.php');
+	require_once('assessment.php');
+	require_once('plantilla.php');
+	require_once('mixtopla.php');
 	
 	class grademix extends grade{
 		private $tools;
@@ -58,5 +58,3 @@
 			return 100;
 		}
 	}
-
-?>

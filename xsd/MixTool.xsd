@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+targetNamespace="http://avanza.uca.es/assessmentservice/mix"
+xmlns="http://avanza.uca.es/assessmentservice/mix"
+xmlns:cl="http://avanza.uca.es/assessmentservice/controllist"
+xmlns:ru="http://avanza.uca.es/assessmentservice/rubric"
+xmlns:ce="http://avanza.uca.es/assessmentservice/controllistevaluationset"
+xmlns:es="http://avanza.uca.es/assessmentservice/evaluationset"
+xmlns:dm="http://avanza.uca.es/assessmentservice/decisionmatrix"
+xmlns:ti="http://avanza.uca.es/assessmentservice/testinstrument">
+
+
+<xs:import namespace="http://avanza.uca.es/assessmentservice/rubric" schemaLocation="http://avanza.uca.es/assessmentservice/Rubric.xsd"/>
+<xs:import namespace="http://avanza.uca.es/assessmentservice/controllist" schemaLocation="http://avanza.uca.es/assessmentservice/ControlList.xsd"/>
+<xs:import namespace="http://avanza.uca.es/assessmentservice/evaluationset" schemaLocation="http://avanza.uca.es/assessmentservice/EvaluationSet.xsd"/>
+<xs:import namespace="http://avanza.uca.es/assessmentservice/controllistevaluationset" schemaLocation="http://avanza.uca.es/assessmentservice/ControlListEvaluationSet.xsd"/>
+<xs:import namespace="http://avanza.uca.es/assessmentservice/decisionmatrix" schemaLocation="http://avanza.uca.es/assessmentservice/DecisionMatrix.xsd"/>
+<xs:import namespace="http://avanza.uca.es/assessmentservice/testinstrument" schemaLocation="http://avanza.uca.es/assessmentservice/TestInstrument.xsd"/>
+	<xs:simpleType name="percentage">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+        <xs:complexType name="Description">
+		<xs:simpleContent>
+			<xs:extension base="xs:String"/>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="MixTool">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <mx:element name="Description" type="Description" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="MixTool" type="MixTool" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="ControlList" type="cl:ControlList" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="EvaluationSet" type="es:EvaluationSet" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="ControlListEvaluationSet" type="ce:ControlListEvaluationSet" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Rubric" type="ru:Rubric" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="DecisionMatrix" type="dm:DecisionMatrix" minOccurs="0" maxOccurs="unbounded"/>			
+                        <xs:element name="TestInstrument" type="ti:TestInstrument" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:choice>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="instruments" type="xs:nonNegativeInteger" use="required"/>
+		<xs:attribute name="percentage" type="percentage"/>
+	</xs:complexType>
+	
+		
+	<xs:element name="MixTool" type="MixTool"/>
+	
+</xs:schema>

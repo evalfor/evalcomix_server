@@ -83,4 +83,3 @@
 	$string['TAbout'] = 'About of';
 	
 	$string['mixed_por'] = 'Weight in the final grade';
-?>

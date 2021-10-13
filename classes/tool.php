@@ -1,12 +1,11 @@
 <?php
-ini_set('display_errors', 'On');
-include_once('toolscale.php');
-include_once('toollistscale.php');
-include_once('tooldifferential.php');
-include_once('toollist.php');
-include_once('toolrubric.php');
-include_once('toolmix.php');
-include_once('toolargument.php');
+require_once('toolscale.php');
+require_once('toollistscale.php');
+require_once('tooldifferential.php');
+require_once('toollist.php');
+require_once('toolrubric.php');
+require_once('toolmix.php');
+require_once('toolargument.php');
 
 class tool{
 	private $object;
@@ -223,7 +222,7 @@ class tool{
 			$valuecommentAtr = array();
 			$valuecommentDim = array();
 			
-		   //DATOS DE LA DIMENSIÃ“N
+		   //DATOS DE LA DIMENSIÓN
 			$dim = 0;
 			foreach ($xml->Dimension as $dimen){
 				if(isset($dimen->DimensionAssessment[0]->Attribute)){
@@ -358,7 +357,6 @@ class tool{
 			}break;
 		}
 		return $instrument;
-		//echo "<br><br>" .print_r($this->object);
 	}
 	
 	function display_view(){
@@ -457,7 +455,7 @@ class tool{
 		return $this->object->print_tool();
 	}
 	function view_tool($root = '', $grade = '', $print='view'){
-			include('lang/'. $this->language . '/evalcomix.php');
+			require('lang/'. $this->language . '/evalcomix.php');
 			$wprint = '';
 			if($print == 'print'){
 				$wprint = 'onload="window.print()"';
@@ -519,7 +517,7 @@ class tool{
 		}
 		
 		function assessment_tool($root = '', $assessmentid = 0, $idTool = 0, $grade = '', $saved = ''){
-			include('lang/'. $this->language . '/evalcomix.php');
+			require('lang/'. $this->language . '/evalcomix.php');
 			$action = $root . '/assessment/webservice/services/saveassess.php?ass=' . $assessmentid . '&tool='.$idTool;
 			
 			echo '
@@ -601,7 +599,7 @@ class tool{
 		}
 		
 		function assessment_tool_mixed($root = '', $assessmentid = 0, $idTool = '', $grade = '', $saved = '', $tools = array()){
-			include('lang/'. $this->language . '/evalcomix.php');
+			require('lang/'. $this->language . '/evalcomix.php');
 			$action = $root . '/assessment/webservice/services/saveassess.php?ass=' . $assessmentid . '&tool='.$idTool;
 			
 			echo '
@@ -629,7 +627,6 @@ class tool{
 						<div class="eval">
 			';
 			
-			//print_r($this->object);
 			$listTool = $this->object->get_tools();
 			$i = 0;
 			foreach($listTool as $tool){
@@ -685,7 +682,6 @@ class tool{
 				";
 				++$i;
 			}
-//			$this->object->print_assessment_tool();
 			
 			echo "<div style='text-align:right;font-size:1.7em'><span>".$string['grade'].": " . $grade . "</span></div>";
 			
@@ -705,8 +701,7 @@ class tool{
 		}
 		
 		function view_tool_mixed($root = '', $grade = ''){
-			include('lang/'. $this->language . '/evalcomix.php');
-			//$action = $root . '/assessment/webservice/services/saveassess.php?ass=' . $assessmentid . '&tool='.$idTool;
+			require('lang/'. $this->language . '/evalcomix.php');
 			$action = '';
 			
 			echo '
@@ -734,7 +729,6 @@ class tool{
 						<div class="eval">
 			';
 			
-			//print_r($this->object);
 			$listTool = $this->object->get_tools();
 			$i = 0;
 			foreach($listTool as $tool){
@@ -751,7 +745,6 @@ class tool{
 				";
 				++$i;
 			}
-//			$this->object->print_assessment_tool();
 			
 			echo "<div style='text-align:right;font-size:1.7em'><span>".$string['grade'].": " . $grade . "</span></div>";
 			
@@ -772,4 +765,3 @@ class tool{
 			';
 		}
 }
-?>

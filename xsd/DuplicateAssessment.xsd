@@ -1,0 +1,42 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="oldid" type="xs:string"/>
+  <xs:element name="newid" type="xs:string"/>
+  <xs:element name="toolIdentifier">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="oldid"/>
+        <xs:element ref="newid"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="assessmentIdentifier">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="oldid"/>
+        <xs:element ref="newid"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="toolIdentifiers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="toolIdentifier" maxOccurs="unbounded" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="assessmentIdentifiers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="assessmentIdentifier" maxOccurs="unbounded" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="assessmentTools">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="toolIdentifiers"/>
+        <xs:element ref="assessmentIdentifiers"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

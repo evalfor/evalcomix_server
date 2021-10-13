@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns="http://avanza.uca.es/assessmentservice/semanticdifferential"
+targetNamespace="http://avanza.uca.es/assessmentservice/semanticdifferential">
+
+	<xs:simpleType name="percentage">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="Value">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	
+	<xs:complexType name="Values">
+		<xs:sequence>
+			<xs:element name="Value" type="Value" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="Attribute">
+		<xs:simpleContent>
+		  <xs:extension base="xs:nonNegativeInteger">
+			<xs:attribute name="nameN" type="xs:string" use="required"/>
+			<xs:attribute name="nameP" type="xs:string" use="required"/>
+			<xs:attribute name="percentage" type="percentage" use="required"/>
+			<xs:attribute name="comment" type="xs:string" use="required"/>
+		  </xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+        <xs:complexType name="Description">
+		<xs:simpleContent>
+			<xs:extension base="xs:String"/>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="SemanticDifferentail">
+		<xs:sequence>
+                        <mx:element name="Description" type="Description" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Values" type="Values"/>
+			<xs:element name="Attributes" type="Subdimension" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="attributes" type="xs:nonNegativeInteger" use="required"/>
+		<xs:attribute name="values" type="xs:nonNegativeInteger" use="required"/>
+		<xs:attribute name="percentage" type="percentage" use="required"/>
+	</xs:complexType>
+	
+	<xs:element name="SemanticDifferentail" type="SemanticDifferentail"/>
+	
+</xs:schema>

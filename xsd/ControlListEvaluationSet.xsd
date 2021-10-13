@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns="http://avanza.uca.es/assessmentservice/controllistevaluationset"
+targetNamespace="http://avanza.uca.es/assessmentservice/controllistevaluationset">
+
+	<xs:simpleType name="percentage">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="Value">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	
+	<xs:simpleType name="selection">
+		<xs:restriction base="xs:nonNegativeInteger"/>
+	</xs:simpleType>
+	
+	<xs:complexType name="Values">
+		<xs:sequence>
+			<xs:element name="Value" type="Value" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="Attribute">
+		<xs:simpleContent>
+		  <xs:extension base="xs:nonNegativeInteger">
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="percentage" type="percentage" use="required"/>
+		  </xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="SubdimensionAttribute">
+		<xs:sequence>
+			<xs:element name="selectionControlList" type="selection"/>
+			<xs:element name="selection" type="selection"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="percentage" type="percentage" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name="Subdimension">
+		<xs:sequence>
+			<xs:element name="Attribute" type="SubdimensionAttribute" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="attributes" type="xs:nonNegativeInteger" use="required"/>
+		<xs:attribute name="percentage" type="percentage" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name="DimensionAssessment">
+		<xs:sequence>
+			<xs:element name="Attribute" type="Attribute"/>
+		</xs:sequence>
+		<xs:attribute name="percentage" type="percentage" use="required"/>
+	</xs:complexType>	
+	
+	<xs:complexType  name="ControlListValues">
+		<xs:sequence>
+			<xs:element name="Value" type="Value" minOccurs="0" maxOccurs="2"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Dimension">
+		<xs:sequence>
+			<xs:element name="ControlListValues" type="ControlListValues"/>
+			<xs:element name="Values" type="Values"/>
+			<xs:element name="Subdimension" type="Subdimension" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="DimensionAssessment" type="DimensionAssessment" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="subdimensions" type="xs:nonNegativeInteger" use="required"/>
+		<xs:attribute name="values" type="xs:nonNegativeInteger" use="required"/>
+		<xs:attribute name="percentage" type="percentage" use="required"/>
+	</xs:complexType>
+		
+	<xs:complexType name="GlobalAssessment">
+		<xs:sequence>
+			<xs:element name="Values" type="Values"/>
+			<xs:element name="Attribute" type="Attribute"/>
+		</xs:sequence>
+		<xs:attribute name="values" type="xs:nonNegativeInteger" use="required"/>
+		<xs:attribute name="percentage" type="percentage" use="required"/>
+	</xs:complexType>
+
+        <xs:complexType name="Description">
+		<xs:simpleContent>
+			<xs:extension base="xs:String"/>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="ControlListEvaluationSet">
+		<xs:sequence>
+                        <mx:element name="Description" type="Description" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Dimension" type="Dimension" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="GlobalAssessment" type="GlobalAssessment" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="dimensions" type="xs:nonNegativeInteger" use="required"/>
+		<xs:attribute name="percentage" type="percentage"/>
+	</xs:complexType>
+	
+	<xs:element name="ControlListEvaluationSet" type="ControlListEvaluationSet"/>
+
+</xs:schema>

@@ -149,10 +149,9 @@ class toolmix{
 		return $this->listTool[$id]->downAtributo($dim, $subdim, $atrib);
 	}*/
 	
-	
 	function upBlock($params){
-		include($this->filediccionario);
-		include_once('array.class.php');
+		require($this->filediccionario);
+		require_once('array.class.php');
 		
 		if(!isset($params['mixed'])){
 			$id = $params['id'];
@@ -177,8 +176,8 @@ class toolmix{
 	}
 	
 	function downBlock($params){
-		include($this->filediccionario);
-		include_once('array.class.php');
+		require($this->filediccionario);
+		require_once('array.class.php');
 		
 		
 		if(!isset($params['mixed'])){
@@ -206,7 +205,7 @@ class toolmix{
 	
 	
 	function add($type, $index=null){
-		include($this->filediccionario);
+		require($this->filediccionario);
 		$id = $this->index;
 		
 		$langAux = explode('/',$this->filediccionario);
@@ -285,7 +284,7 @@ class toolmix{
 	}
 	
 	function display_body($data){
-		include($this->filediccionario);
+		require($this->filediccionario);
 		if($this->view == 'view'){
 				echo '<input type="button" style="width:10em" value="'.$string['view'].'" onclick=\'javascript:location.href="generator.php?op=design"\'><br>';
 			}
@@ -461,7 +460,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/mixtool http://avanza
 	}
 	
 	function display_body_view($data){
-		include($this->filediccionario);
+		require($this->filediccionario);
 
 		if(isset($data['titulo']))
 				$this->titulo = stripslashes($data['titulo']);
@@ -503,8 +502,8 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/mixtool http://avanza
 		';
 	}
 	
-	function print_tool($root = ''){
-		include_once($this->filediccionario);
+	function print_tool($root = ''){echo "dentro";
+		require_once($this->filediccionario);
 		foreach($this->listTool as $tool){
 			$tool->print_tool();
 			echo '<br><br><br>';
@@ -516,14 +515,14 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/mixtool http://avanza
 			throw new InvalidArgumentException('Missing scale cod');
 		}
 			
-		include_once('../classes/plantilla.php');
-		include_once('../classes/dimension.php');
-		include_once('../classes/subdimension.php');
-		include_once('../classes/atributo.php');	
-		include_once('../classes/atreva.php');
-		include_once('../classes/dimeva.php');
-		include_once('../classes/mixtopla.php');
-		include_once('../classes/db.php');
+		require_once(DIRROOT . '/classes/plantilla.php');
+		require_once(DIRROOT . '/classes/dimension.php');
+		require_once(DIRROOT . '/classes/subdimension.php');
+		require_once(DIRROOT . '/classes/atributo.php');	
+		require_once(DIRROOT . '/classes/atreva.php');
+		require_once(DIRROOT . '/classes/dimeva.php');
+		require_once(DIRROOT . '/classes/mixtopla.php');
+		require_once(DIRROOT . '/classes/db.php');
 			
 		$type = 'mixto';
 		$tableid = 0;
@@ -695,12 +694,12 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/mixtool http://avanza
 		
 		$params_result= array();
 		if($recalculate == true){				
-			include_once('../classes/assessment.php');
+			require_once('../classes/assessment.php');
 			if($assessments = assessment::fetch_all(array('ass_pla' => $tableid))){
 				$plantillamain->pla_mod = '1';
 				$plantillamain->pla_glo = '0';
 				$plantillamain->update();
-				include_once('../lib/finalgrade.php');
+				require_once('../lib/finalgrade.php');
 				foreach($assessments as $assessment){
 					$finalgrade = finalgrade($assessment->id, $tableid);
 					$gradexp = explode('/', $finalgrade);
@@ -720,4 +719,3 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/mixtool http://avanza
 		return $params_result;
 	}
 }
-?>

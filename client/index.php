@@ -1,5 +1,5 @@
 <?php
-	include_once('selectlanguage.php');	
+	require_once('selectlanguage.php');	
 	$curso = getParam($_GET['cur']);
 	$plataforma = getParam($_GET['plt']);
 	if(!isset($curso) || !isset($plataforma)){
@@ -20,7 +20,7 @@
 	}
 	$_SESSION['curso'] = $curso;
 	$_SESSION['plataforma'] = $plataforma;
-	include('cabecera_select_tool.php');
+	require('cabecera_select_tool.php');
 ?>
 
 				<div id="titulomenu">Elija el tipo de instrumento a crear</div>
@@ -40,5 +40,5 @@
 				</form>
 			</div>
 <?php
-	include('pie_select_tool.php');
+	require('pie_select_tool.php');
 ?>

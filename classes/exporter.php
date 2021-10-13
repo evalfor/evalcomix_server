@@ -1,6 +1,6 @@
 <?php
 
-include_once('export_xml.php');
+require_once('export_xml.php');
 	
 class exporter {
 	/**
@@ -86,8 +86,8 @@ class exporter {
 	}
 		
 	function get_tool_datas(){
-		include_once('assessment.php');
-		include_once('plantilla.php');
+		require_once('assessment.php');
+		require_once('plantilla.php');
 		
 		if($tool = plantilla::fetch(array('id' => $this->tool_id))){
 			$type = '';
@@ -108,7 +108,7 @@ class exporter {
 			$assessments = array();
 		}
 		
-		include_once('collector_tool.php');
+		require_once('collector_tool.php');
 		$collector = new collector_tool($this->tool_id, $type, $assessments);
 		return $collector;
 	}
@@ -132,14 +132,12 @@ class exporter {
 		$this->exporter_object = new export_xml($params);
 	}
 	
-	public function export($mode = 'print'){
-		if($mode == 'print'){
-			$this->exporter_object->export($mode);
+	public function export($flush = 'flush', $mode = 'print'){
+		if($mode === 'flush'){
+			$this->exporter_object->export($mode, $flush);
 		}
 		else{
-			return $this->exporter_object->export($mode);
+			return $this->exporter_object->export($mode, $flush);
 		}
 	}
 }
-
-?>

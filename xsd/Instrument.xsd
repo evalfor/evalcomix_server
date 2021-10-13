@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns="http://avanza.uca.es/assessmentservice/instrument"
+targetNamespace="http://avanza.uca.es/assessmentservice/instrument">
+	
+	<xs:element name="type">
+	  <xs:simpleType>
+		<xs:restriction base="xs:string">
+		  <xs:enumeration value="control_list"/>
+		  <xs:enumeration value="value_list"/>
+		  <xs:enumeration value="control_list_value_list"/>
+		  <xs:enumeration value="rubric"/>
+		  <xs:enumeration value="decision_matrix"/>
+		  <xs:enumeration value="mix"/>
+		</xs:restriction>
+	  </xs:simpleType>
+	</xs:element>
+	
+	<xs:element name="identifier">
+	  <xs:simpleType>
+		<xs:restriction base="xs:string">
+		  <xs:minLength value="15"/>
+		</xs:restriction>
+	  </xs:simpleType>
+	</xs:element>
+	
+	<xs:complexType name="instrument">
+		<xs:all>
+			<xs:element name="identifier" type="identifier"/>
+			<xs:element name="publicIdentifier" type="identifier" minOccurs="0"/>
+			<xs:element name="title" type="xs:string" minOccurs="0"/>
+			<xs:element name="description" type="xs:string" minOccurs="0"/>
+			<xs:element name="type" type="type" minOccurs="0"/>
+			<xs:element name="structure" type="xs:string" minOccurs="0"/>
+		</xs:all>
+		<xs:attribute name="id" type="xs:integer"/>
+	</xs:complexType>
+	
+	<xs:element name="instrument" type="instrument"/>
+
+</xs:schema>

@@ -310,5 +310,3 @@ class InputFilter {
 		return $string;
 	}
 }
-
-?>

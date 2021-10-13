@@ -1,5 +1,5 @@
 <?php
-include_once('evalcomix_object.php');
+require_once('evalcomix_object.php');
 
 /**
  * Definitions of EvalCOMIX dimval class

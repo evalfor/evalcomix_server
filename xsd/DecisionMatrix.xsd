@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns="http://avanza.uca.es/assessmentservice/decisionmatrix"
+targetNamespace="http://avanza.uca.es/assessmentservice/decisionmatrix">
+
+	<xs:simpleType name="competence">
+		<xs:restriction base="xs:positiveInteger"/>
+	</xs:simpleType>
+
+	<xs:complexType name="CompetenceDescription">
+		<xs:attribute name="name" type="xs:string" use="required"/>
+	</xs:complexType>
+
+	<xs:complexType name="CriterionCompetence">
+		<xs:sequence>
+			<xs:element name="competence" type="competence" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="CriterionDescription">
+		<xs:sequence>
+			<xs:element name="CriterionCompetence" type="CriterionCompetence" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name="Competences">
+		<xs:sequence>
+			<xs:element name="CompetenceDescription" type="CompetenceDescription" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Criterions">
+		<xs:sequence>
+			<xs:element name="CriterionDescription" type="CriterionDescription" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+        <xs:complexType name="Description">
+		<xs:simpleContent>
+			<xs:extension base="xs:String"/>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="DecisionMatrix">
+		<xs:sequence>
+                        <mx:element name="Description" type="Description" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Competences" type="Competences"/>
+			<xs:element name="Criterions" type="Criterions"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="competences" type="xs:positiveInteger" use="required"/>
+		<xs:attribute name="criterions" type="xs:positiveInteger" use="required"/>
+	</xs:complexType>
+	
+	<xs:element name="DecisionMatrix" type="DecisionMatrix"/>
+</xs:schema>

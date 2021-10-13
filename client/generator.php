@@ -1,14 +1,13 @@
-<?php 
-	ini_set('display_errors', 'Off');
-	include_once('../session/check_session.php');
-	include_once('controller.php');
+<?php
+	require_once('../session/check_session.php');
+	require_once('controller.php');
 	$type = '';
 	if(isset($_GET['type'])){
 		$type = getParam($_GET['type']);
 	}
 	$postCleaned = getParam($_POST);
 
-	include_once('lang/' . $tool->language . '/evalcomix.php');
+	require_once('lang/' . $tool->language . '/evalcomix.php');
 	if($type == 'importar'){
 		$tool->display_dialog();
 	}
@@ -27,4 +26,3 @@
 	$toolObj = serialize($tool);
 	$_SESSION['tool'] = $toolObj;
 	$_SESSION['secuencia'] = $secuencia;
-?>

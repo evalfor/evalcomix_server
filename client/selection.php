@@ -1,17 +1,14 @@
 <?php
-	include_once('../session/check_session.php');
-	//session_start();
-	include_once('selectlanguage.php');	
+	require_once('../session/check_session.php');
+	require_once('selectlanguage.php');	
 	$id = getParam($_GET['identifier']);
 	$new = getParam($_GET['type']);
-	//$id = getParam($_POST['identifier']);
-	//$new = getParam($_POST['type']);
 	if(!isset($id) || !isset($new)){
 		echo '
 		<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 			<html>
 				<head>
-					<title>EvalCOMIX 4.2</title>
+					<title>EvalCOMIX 4.3</title>
 					<link href="style/copia.css" type="text/css" rel="stylesheet">
 					<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 				</head>
@@ -27,7 +24,7 @@
 	if($new == 'new'){
 		$_SESSION['id'] = $id;	
 		unset($_SESSION['open']);
-		include('cabecera_select_tool.php');
+		require('cabecera_select_tool.php');
 ?>
 
 				<div style="margin-left: 3em"><img src="images/evalcomix.jpg" alt="EvalCOMIX 4.0"></div>
@@ -49,37 +46,30 @@
 				</form>
 			</div>
 <?php
-		include('pie_select_tool.php');
+		require('pie_select_tool.php');
 	}
 	elseif($new == 'open'){
 		$_SESSION['id'] = $id;
 		$_SESSION['open'] = 1;
-		include_once('../configuration/conf.php');
-		include_once(DIRROOT . '/configuration/host.php');
-		include_once('post_xml.php');
-		include_once("../classes/curl.class.php");
+		require_once('../configuration/conf.php');
+		require_once('post_xml.php');
+		require_once("../classes/plantilla.php");
+		require_once("../classes/exporter.php");
 		
-		$variables = 'tool='.$id.'&format=xml';
-		
-		$url = HOST . 'webservice/get_tool.php?'.$variables;	//echo $url;
-		//$url = HOST .'instruments/export/XML/exportXML.php?format=xml&tool='.$id;//echo $url;
-		//$xml = simplexml_load_file($url);
-		
-		include_once("../classes/curl.class.php");
-		$curl = new Curl();
-		$result = $curl->get($url);
-		$xml = simplexml_load_string($result);
-
-		if ($result && $curl->getHttpCode()>=200 && $curl->getHttpCode()<400){
-			include('inicio.php');
+		if ($plantilla = plantilla::fetch(array('pla_cod' => $id))) {
+			$params['tool_id'] = $plantilla->id;
+			$format = 'xml';
+			$result = new exporter($params, $format);
+			$xmlstring = $result->export(null);
+			$xml = simplexml_load_string($xmlstring);
+			require('inicio.php');
 			$tool->import($xml);
 			$tool->display_header();
 			$tool->display_body('');
 			$tool->display_footer();
 			$toolObj = serialize($tool);
 			$_SESSION['tool'] = $toolObj;
-		}
-		else{
+		} else{
 			die('This Tool is not enabled');
 		}
 	}

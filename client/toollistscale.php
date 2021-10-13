@@ -9,31 +9,31 @@
 		//array -- titulo de cada dimensiones
 		private $dimension;
 		
-		//array -- nÃºmero de dimensiones de cada dimensiÃ³n
+		//array -- número de dimensiones de cada dimensiÃ³n
 		private $numdim;
 		
 		//array -- titulo de cada subdimensiÃ³n de cada dimensiÃ³n
 		private $subdimension;
 		
-		//array -- nÃºmero de subdimensiones de cada subdimensiÃ³n
+		//array -- número de subdimensiones de cada subdimensiÃ³n
 		private $numsubdim;
 		
 		//array -- titulo de cada atributo de cada subdimensiÃ³n de cada dimensiÃ³n
 		private $atributo;
 		
-		//array -- nÃºmero de atributos de cada subdimensiÃ³n
+		//array -- número de atributos de cada subdimensiÃ³n
 		private $numatr;
 		
 		//array -- valores de cada dimensiÃ³n
 		private $valores;
 		
-		//array -- nÃºmero de valores de cada dimensiÃ³n
+		//array -- número de valores de cada dimensiÃ³n
 		private $numvalores;
 		
 		//boolean -- indica si el instrumento tiene activada la valoraciÃ³n total
 		private $valtotal;
 		
-		//integer -- nÃºmero de grados de la valoraciÃ³n total
+		//integer -- número de grados de la valoraciÃ³n total
 		private $numtotal;
 		
 		//array -- grados de la valoraciÃ³n total
@@ -187,7 +187,7 @@
 			$this->porcentage = $porcentage;
 			$this->valtotalpor = $valtotalpor;
 			$this->view = 'design';
-			include($this->filediccionario);
+			require($this->filediccionario);
 			foreach($this->subdimension[$this->id] as $dim => $value){
 				$this->valoreslista[$this->id][$dim][0]['nombre'] = $string['no'];//'No';
 				$this->valoreslista[$this->id][$dim][1]['nombre'] = $string['yes'];//'Sí';
@@ -221,7 +221,7 @@
 		}
 		
 		function addDimension($dim, $key){
-			include($this->filediccionario);
+			require($this->filediccionario);
 			$id = $this->id;
 			$dimen;
 			$this->numdim[$id] += 1;
@@ -256,7 +256,7 @@
 		
 		
 		function addSubdimension($dim, $subdim, $key){
-			include($this->filediccionario);
+			require($this->filediccionario);
 			$id = $this->id;
 			$subdimen;
 			$this->numsubdim[$id][$dim] += 1;
@@ -279,7 +279,7 @@
 		
 		
 		function addAtributo($dim, $subdim, $atrib, $key){
-			include($this->filediccionario);
+			require($this->filediccionario);
 			$id = $this->id;
 			$this->numatr[$id][$dim][$subdim]++;
 	
@@ -297,14 +297,14 @@
 		
 		
 		function addValores($dim, $key){
-			include($this->filediccionario);
+			require($this->filediccionario);
 			$id = $this->id;
 			$this->numvalores[$id][$dim]++;
 			$this->valores[$id][$dim][$key]['nombre'] = $string['titlevalue'].$this->numvalores[$id][$dim];
 		}
 		
 		function addValoresTotal($key){
-			include($this->filediccionario);
+			require($this->filediccionario);
 			$id = $this->id;
 			if(isset($this->numtotal[$id])){
 				$this->numtotal[$id]++;
@@ -378,8 +378,8 @@
 		}
 		
 	function upBlock($params){
-			include($this->filediccionario);
-			include_once('array.class.php');
+			require($this->filediccionario);
+			require_once('array.class.php');
 			$id = $this->id;
 			
 			$instanceName = $params['instanceName'];
@@ -416,8 +416,8 @@
 		}
 		
 		function downBlock($params){
-			include($this->filediccionario);
-			include_once('array.class.php');
+			require($this->filediccionario);
+			require_once('array.class.php');
 			$id = $this->id;
 				
 			$instanceName = $params['instanceName'];
@@ -526,14 +526,13 @@
 			if(isset($data['numvalores'.$id.'']) && $data['numvalores'.$id.''] >= 2)
 				$this->numtotal[$this->id] = stripslashes($data['numvalores'.$this->id]);
 			
-			//print_r($data);	
 			$checked = '';
 			$disabled = 'disabled';
 			if(isset($this->valtotal[$this->id]) && ($this->valtotal[$this->id] == 'true' || $this->valtotal[$this->id] == 't')){
 				$checked = 'checked';
 				$disabled = '';
 			}
-			include($this->filediccionario);
+			require($this->filediccionario);
 			if($this->view == 'view' && !is_numeric($mix)){
 				echo '<input type="button" style="width:10em" value="'.$string['view'].'" onclick=\'javascript:location.href="generator.php?op=design"\'><br>';
 			}
@@ -686,7 +685,7 @@
 			else {
 				$globalchecked = 'null';			
 			}
-			include($this->filediccionario);
+			require($this->filediccionario);
 			
 			if (isset($this->numtotal[$id])){
 				$thisnumtotalid = $this->numtotal[$id];
@@ -832,7 +831,7 @@
 		}		
 		function display_subdimension($dim, $subdim, $data, $id=0, $mix=''){
 			$id = $this->id;
-			include($this->filediccionario);
+			require($this->filediccionario);
 			if(isset($data['subdimension'.$id.'_'.$dim.'_'.$subdim])) 
 				$this->subdimension[$id][$dim][$subdim]['nombre'] = stripslashes($data['subdimension'.$id.'_'.$dim.'_'.$subdim]);
 				
@@ -1176,14 +1175,13 @@
 			if(isset($data['numvalores'.$id.'']) && $data['numvalores'.$id.''] >= 2)
 				$this->numtotal[$this->id] = stripslashes($data['numvalores']);
 			
-			//print_r($data);	
 			$checked = '';
 			$disabled = 'disabled';
 			if($this->valtotal[$this->id] == 'true' || $this->valtotal[$this->id] == 't'){
 				$checked = 'checked';
 				$disabled = '';
 			}
-			include($this->filediccionario);
+			require($this->filediccionario);
 		
 			$numdimen = count($this->dimension);
 			//----------------------------------------------
@@ -1235,7 +1233,6 @@
 							
 							<table class="maintable">
 				';
-				//TODO
 				if(isset($this->valorestotal[$id])){
 					foreach($this->valorestotal[$id] as $grado => $elemvalue){
 						if(isset($data['valor'.$id.'_'.$grado])) 
@@ -1287,7 +1284,7 @@
 			if($this->valglobal[$id][$dim] == "true"){
 				$globalchecked = 'checked';
 			}
-			include($this->filediccionario);
+			require($this->filediccionario);
 			
 			
 			
@@ -1351,7 +1348,7 @@
 		}		
 		function display_subdimension_view($dim, $subdim, $data, $id=0, $mix=''){
 			$id = $this->id;
-			include($this->filediccionario);
+			require($this->filediccionario);
 			if(isset($data['subdimension'.$id.'_'.$dim.'_'.$subdim])) 
 				$this->subdimension[$id][$dim][$subdim]['nombre'] = stripslashes($data['subdimension'.$id.'_'.$dim.'_'.$subdim]);
 				
@@ -1454,7 +1451,7 @@
 		
 		function print_tool($global_comment = 'global_comment'){
 			$id = $this->id;
-			include($this->filediccionario);
+			require($this->filediccionario);
 			$colspan = max($this->numvalores[$id]);
 			echo '								
 								<table class="tabla" border=1 cellpadding=5px >
@@ -1549,13 +1546,8 @@
 									$checked = 'checked';
 								}
 								
-								/*echo '<td>
-								<input type="radio" id="radio'. $i.$l.'_'.$j.'_'.$j . '_' . $ilista . '" value="'.$ilista.'" name="radio'. $i.$l.'_'.$j.'_'.$j .'" 
-						'.$checked.' style="width:100%" onclick=\'javascript:if(document.getElementById("radio'. $i.$l.'_'.$j.'_'.$j . '_' . $ilista . '").value==1){var valores=document.getElementsByName("radio'.$i.$l.$j.'");for(i=0;i<valores.length;i++){valores[i].disabled=true;}}
-						else if(document.getElementById("radio'. $i.$l.'_'.$j.'_'.$j . '_' . $ilista . '").value==2){var valores=document.getElementsByName("radio'.$i.$l.$j.'");for(i=0;i<valores.length;i++){valores[i].disabled=false;}}\' /></td>
-						';*/
 								echo '<td>
-								<input type="radio" id="radio'. $i.$l.'_'.$j.'_'.$j . '_' . $ilista . '" value="'.$ilista.'" name="radio'. $i.$l.'_'.$j.'_'.$j .'" 
+								<input type="radio" class="custom-radio" id="radio'. $i.$l.'_'.$j.'_'.$j . '_' . $ilista . '" value="'.$ilista.'" name="radio'. $i.$l.'_'.$j.'_'.$j .'" 
 						'.$checked.' style="width:100%" onclick=\'javascript:var valores = this.form.elements["radio'.$i.$l.$j.'"];
 						if(document.getElementById("radio'. $i.$l.'_'.$j.'_'.$j . '_' . $ilista . '").value==1){
 							for(i=0;i<valores.length;i++){
@@ -1580,7 +1572,7 @@
 								}
 								
 								echo '
-								<td><input type="radio" '.$disabled.' name="radio'.$i.$l.$j.'" value="'.$k.'" '.$checked.' style="width:100%"></td>
+								<td><input type="radio" class="custom-radio" '.$disabled.' name="radio'.$i.$l.$j.'" value="'.$k.'" '.$checked.' style="width:100%"></td>
 								';
 								++$k;
 							}
@@ -1627,17 +1619,12 @@
 							$checked = 'checked';
 						}
 						echo "
-							<td class='td'><input type='radio' name='radio".$i."' value='".$k."' ". $checked ." style='width:100%'></td>
+							<td class='td'><input type='radio' class='custom-radio' name='radio".$i."' value='".$k."' ". $checked ." style='width:100%'></td>
 						";
 						++$k;
 					}
 				}
-				/*foreach($this->valores[$id][$dim] as $grado => $elemvalue){
 				
-					echo "
-						<td class='td'><input type='radio' name='radio1'></td>
-					";
-				}*/
 				echo "
 					</tr>
 					<tr>
@@ -1684,7 +1671,7 @@
 						$checked = 'checked';
 					}
 					
-					echo '<td><input type="radio" name="total" value="'.htmlspecialchars($this->valorestotal[$id][$grado]['nombre']).'" '.$checked.' style="width:100%"/></td>
+					echo '<td><input type="radio" class="custom-radio" name="total" value="'.htmlspecialchars($this->valorestotal[$id][$grado]['nombre']).'" '.$checked.' style="width:100%"/></td>
 					';
 				}					
 			}
@@ -1705,19 +1692,19 @@
 				throw new InvalidArgumentException('Missing scale cod');
 			}
 			
-			include_once('../classes/plantilla.php');
-			include_once('../classes/dimension.php');
-			include_once('../classes/valoracion.php');
-			include_once('../classes/dimval.php');
-			include_once('../classes/subdimension.php');
-			include_once('../classes/atributo.php');
-			include_once('../classes/atribdes.php');
-			include_once('../classes/atreva.php');
-			include_once('../classes/dimeva.php');
-			include_once('../classes/atrcomment.php');
-			include_once('../classes/dimcomment.php');
-			include_once('../classes/plaval.php');
-			include_once('../classes/db.php');
+			require_once(DIRROOT . '/classes/plantilla.php');
+			require_once(DIRROOT . '/classes/dimension.php');
+			require_once(DIRROOT . '/classes/valoracion.php');
+			require_once(DIRROOT . '/classes/dimval.php');
+			require_once(DIRROOT . '/classes/subdimension.php');
+			require_once(DIRROOT . '/classes/atributo.php');
+			require_once(DIRROOT . '/classes/atribdes.php');
+			require_once(DIRROOT . '/classes/atreva.php');
+			require_once(DIRROOT . '/classes/dimeva.php');
+			require_once(DIRROOT . '/classes/atrcomment.php');
+			require_once(DIRROOT . '/classes/dimcomment.php');
+			require_once(DIRROOT . '/classes/plaval.php');
+			require_once(DIRROOT . '/classes/db.php');
 			
 			$type = 'lista+escala';
 			$tableid = 0;
@@ -1965,7 +1952,6 @@
 							$dimensionId = $this->dimensionsId[$id][$dim]; 
 							$dim_plane = $dimensionsCod[$dimensionId]; 
 							$params_dimval['div_dim'] = $dim_plane;
-							//$params_dimval['div_val'] = $valoracionid;
 							$params_dimval['div_val'] = $elemvalue['nombre'];
 							$params_dimval['div_pos'] = $div_pos;
 							$dimval = new dimval($params_dimval);
@@ -2036,7 +2022,6 @@
 							if($subdimensions[$id_plane_sub]->sub_por != $this->subdimpor[$id][$dim][$subdim]){
 								$update = true;
 								$recalculate = true;
-								//$destroy = true;
 							}
 							if($subdimensions[$id_plane_sub]->sub_nom != $this->subdimension[$id][$dim][$subdim]['nombre'] || $subdimensions[$id_plane_sub]->sub_pos != $sub_pos){
 								$update = true;
@@ -2064,7 +2049,6 @@
 							$subdimensionsCod[$codSubdim] = $sid;						
 							$this->subdimensionsId[$id][$dim][$subdim] = $codSubdim;						
 							$recalculate = true;
-							//$destroy = true;
 						}
 						
 						$atr_pos = 0;
@@ -2081,7 +2065,6 @@
 								if($atributos[$id_plane_atr]->atr_por != $this->atribpor[$id][$dim][$subdim][$atrib]){
 									$update = true;
 									$recalculate = true;
-									//$destroy = true;
 								}
 								if($atributos[$id_plane_atr]->atr_des != $this->atributo[$id][$dim][$subdim][$atrib]['nombre'] || 
 									$atributos[$id_plane_atr]->atr_com != $atr_com || $atributos[$id_plane_atr]->atr_pos != $atr_pos){
@@ -2265,7 +2248,6 @@
 						}
 						
 						$params_dimval['div_dim'] = $dimensionid;
-						//$params_dimval['div_val'] = $valoracionid;
 						$params_dimval['div_val'] = $this->valoreslista[$id][$dim][$grado]['nombre'];
 						$params_dimval['div_pos'] = $dim_pos;
 						$dimval = new dimval($params_dimval);
@@ -2284,7 +2266,6 @@
 						}
 						
 						$params_dimval['div_dim'] = $dimensionid;
-						//$params_dimval['div_val'] = $valoracionid;
 						$params_dimval['div_val'] = $elemvalue['nombre'];
 						$params_dimval['div_pos'] = $dim_pos;
 						$dimval = new dimval($params_dimval);
@@ -2351,7 +2332,7 @@
 			
 			$params_result = array();
 			if($recalculate == true){				
-				include_once('../classes/assessment.php');
+				require_once('../classes/assessment.php');
 				if($assessments = assessment::fetch_all(array('ass_pla' => $tableid))){
 					$plantilla->pla_mod = '1';
 					$pla_glo = '0';
@@ -2360,13 +2341,12 @@
 					}
 					$plantilla->pla_glo = $pla_glo;
 					$plantilla->update();
-					include_once('../lib/finalgrade.php');
+					require_once('../lib/finalgrade.php');
 					foreach($assessments as $assessment){
 						$finalgrade = finalgrade($assessment->id, $tableid);
 						$gradexp = explode('/', $finalgrade);
 						$params['ass_grd'] = $gradexp[0];
 						$params['ass_mxg'] = $gradexp[1];
-						//$params['ass_com'] = $assessment->ass_com;
 						assessment::set_properties($assessment, $params);
 						$assessment->update();
 					}
@@ -2378,4 +2358,3 @@
 			return $params_result;
 		}
 	}
-?>

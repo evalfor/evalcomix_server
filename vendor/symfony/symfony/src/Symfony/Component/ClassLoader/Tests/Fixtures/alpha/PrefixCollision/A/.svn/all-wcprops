@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svn/inteweb-gescompeval/!svn/ver/25/branches/Gescompeval/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/Tests/Fixtures/alpha/PrefixCollision/A
+END
+Foo.php
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/svn/inteweb-gescompeval/!svn/ver/25/branches/Gescompeval/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/Tests/Fixtures/alpha/PrefixCollision/A/Foo.php
+END
+Bar.php
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/svn/inteweb-gescompeval/!svn/ver/25/branches/Gescompeval/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/Tests/Fixtures/alpha/PrefixCollision/A/Bar.php
+END

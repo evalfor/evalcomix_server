@@ -37,9 +37,16 @@
 				$this->pdb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				return true;
 			} catch (PDOException $ex) {
-				echo "\nerrorCode(): ";
-				echo  $ex->getMessage();
-				return 2;
+				$message = $ex->getMessage();
+				throw new Exception($message);
+				/*if (isset($params['throw'])) {
+					$message = $ex->getMessage();
+					throw new Exception($message);
+				} else {
+					echo "\nerrorCode(): ";
+					echo  $ex->getMessage();
+					return 2;
+				}*/
 			}
 		}
 
@@ -373,4 +380,3 @@
 			return $instances;
 		}
 	}
-?>

@@ -1,11 +1,11 @@
 <?php
-	include_once('gradescale.php');
-	include_once('gradelistscale.php');
-	include_once('grademix.php');
-	include_once('graderubrica.php');
-	include_once('gradedifferential.php');
-	include_once('gradeargumentset.php');
-	include_once('plantilla.php');
+	require_once('gradescale.php');
+	require_once('gradelistscale.php');
+	require_once('grademix.php');
+	require_once('graderubrica.php');
+	require_once('gradedifferential.php');
+	require_once('gradeargumentset.php');
+	require_once('plantilla.php');
 
 	class grade {
 		private $object;
@@ -55,4 +55,3 @@
 		}
 
 	}
-?>

@@ -1,0 +1,157 @@
+body{
+	background-color: #eee;
+}
+
+a{
+	text-decoration:none;
+}
+
+#page{
+	background-color: #fefefe;
+	width:90%;
+	margin: 0 auto 0 auto;
+    border: 1px solid #fff;
+	box-shadow:0 1px 20px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+#header{
+	width: 100%;
+	height: 25%;
+}
+
+#header-menu-up{
+	height: 1.5em;
+	background-color: #303030;
+	text-align: right;
+	padding-right:5%;
+}
+
+#header-content{
+	width:100%;
+	height: 78%;
+	color: #fff;
+	background-color: #000;
+}
+
+#header-content-image{
+	width="100%":
+}
+
+#listcat li{
+ border-bottom: 1px solid #ddd;
+}
+#listcat{
+    padding:2em 2em 1em 0;
+    border: 1px solid #aaa;
+}
+
+/*CONTAIN-------------------------------------------------------------------------------*/
+
+#contain{
+	background-color: #f4f4f4;
+}
+
+#column-contain{
+	/*min-width: 13em;
+	width: 15%;
+	float:left;
+	*/
+	height:100%;
+	background-color: #333;
+	margin:0;
+}
+#column-contain, #main-contain{
+  min-height:600px;
+}
+#menu-contain{
+	color: #fff;
+	text-align:center;
+	padding-top: 1em;
+	font-size: 1em;
+	line-height:50px;
+	font-weight: bold;
+	
+}
+
+.elem-menu-contain{
+	width: 100%;
+}
+
+.elem-menu-contain :hover{
+	width: 100%;
+}
+
+.elem-menu-contain a{
+	color: #fff;
+	display:inline-block;
+	width: 100%;
+}
+
+.elem-menu-contain a:hover{
+	color: #000;
+	display:inline-block;
+	background-color:#fff
+}
+
+#main-contain{
+	/*width: 85%;float:left;*/
+	background-color: #fefefe;
+}
+
+table{
+  width:100%;
+  background-color:#fff;
+}
+tr {
+    cursor:pointer;
+}   
+th,td{
+  border:1px solid #333;
+  padding:5px;
+}
+
+.subcat{
+    padding-right:1em;
+}
+
+#footer{
+	width: 100%;
+	height: 8%;
+	background-color: #969696;
+	position: relative;
+	border: 1px solid 333333;
+}
+
+
+@media screen and (max-width:800px){  
+	#page{
+		width: 100%;
+		margin: 0;
+	}
+	
+
+	#column-contain{
+		width:100%;
+		margin:auto;
+		min-height:0px;
+		height:200px;
+	}
+	#menu-contain{
+	  font-size:0.7em;
+	}
+	
+	#footer{
+		
+	}
+	
+	#main-contain{
+		width: 90%;
+		margin:auto;
+	}
+
+	#form{
+		margin:0;
+	}
+}  
+ 
+ 

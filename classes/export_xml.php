@@ -1,7 +1,5 @@
-<?php
-//ini_set('display_errors', '0');	
-include_once('export_object.php');
-include_once('../lib/weblib.php');
+<?php	
+require_once('export_object.php');
 
 /**
 * Export a tool to XML format
@@ -22,10 +20,10 @@ class export_xml extends export_object{
 	/**
 	* @retunr string XML Document of $tool
 	*/
-	public function export($mode = 'print'){
+	public function export($mode = 'print', $flush = 'flush'){
 		$simple_tools = $this->tool->get_tools();
 		if($this->tool->mixed == true) {
-			if($mode == 'print'){
+			if($mode === 'print'){
 				$result = '<mt:MixTool xmlns:mt="http://avanza.uca.es/assessmentservice/mixtool"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://avanza.uca.es/assessmentservice/mixtool http://avanza.uca.es/assessmentservice/MixTool.xsd"
@@ -58,11 +56,14 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 			$result = $this->export_simple_tool($simple_tools[0], 'simple', $mode);
 		}
 		
-		if($mode == 'print'){
+		if($flush === 'flush'){
 			// Header for XML----------------------------------------------------
 			header('Content-type: text/xml; charset="utf-8"', true);
+			echo $result;
+		} else {
+			return $result;
 		}
-		echo $result;
+		
 	}
 	
 	/**
@@ -163,8 +164,11 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 							$comment = htmlspecialchars($simple_tool->comment_attribute[$i][$l][$k]);
 						}
 					}
-					
-					$xml .=  '<Attribute id="'.encrypt_tool_element($simple_tool->attributes_code[$i][$l][$k]).'" name="' . htmlspecialchars($simple_tool->attributes[$i][$l][$k]) . '"  comment="'. $comment .'" percentage="' . $simple_tool->attributes_percentage[$i][$l][$k] . '">'. htmlspecialchars($simple_tool->grade_attribute[$i][$l][$k]) .'</Attribute>
+					$gradeattribute = (isset($simple_tool->grade_attribute[$i][$l][$k])) ? $simple_tool->grade_attribute[$i][$l][$k] : '';
+					$xml .=  '<Attribute id="'.encrypt_tool_element($simple_tool->attributes_code[$i][$l][$k]).
+					'" name="' . htmlspecialchars($simple_tool->attributes[$i][$l][$k]) . '"  comment="'. $comment .
+					'" percentage="' . $simple_tool->attributes_percentage[$i][$l][$k] . '">'.
+					htmlspecialchars($gradeattribute) .'</Attribute>
 					';
 				}
 
@@ -241,8 +245,11 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 							$comment = htmlspecialchars($simple_tool->comment_attribute[$i][$l][$k]);
 						}
 					}
-					
-					$xml .= '<Attribute id="'.encrypt_tool_element($simple_tool->attributes_code[$i][$l][$k]).'" name="' . htmlspecialchars($simple_tool->attributes[$i][$l][$k]) . '" comment="'.$comment.'" percentage="' .$simple_tool->attributes_percentage[$i][$l][$k] . '">'. htmlspecialchars($simple_tool->grade_attribute[$i][$l][$k]) . '</Attribute>
+					$gradeattribute = (isset($simple_tool->grade_attribute[$i][$l][$k])) ? $simple_tool->grade_attribute[$i][$l][$k] : '';
+					$xml .= '<Attribute id="'.encrypt_tool_element($simple_tool->attributes_code[$i][$l][$k]).
+					'" name="' . htmlspecialchars($simple_tool->attributes[$i][$l][$k]) . 
+					'" comment="'.$comment.'" percentage="' .$simple_tool->attributes_percentage[$i][$l][$k] . '">'.
+					htmlspecialchars($gradeattribute) . '</Attribute>
 	';
 				}
 
@@ -367,10 +374,10 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 					if(isset($simple_tool->comment_attribute[$i][$l][$k]) && $simple_tool->comment_attribute[$i][$l][$k] != ''){
 						$comment = htmlspecialchars($simple_tool->comment_attribute[$i][$l][$k]);
 					}
-						
+					$gradeattribute = (isset($simple_tool->grade_attribute[$i][$l][$k])) ? $simple_tool->grade_attribute[$i][$l][$k] : '';
 					$xml .= '<Attribute id="'.encrypt_tool_element($simple_tool->attributes_code[$i][$l][$k]).'" name="' . htmlspecialchars($simple_tool->attributes[$i][$l][$k]) . '"  comment="'.$comment.'" percentage="' . $simple_tool->attributes_percentage[$i][$l][$k] . '">
 		<selectionControlList>1</selectionControlList>
-		<selection>' . htmlspecialchars($simple_tool->grade_attribute[$i][$l][$k]) . '</selection>
+		<selection>' . htmlspecialchars($gradeattribute) . '</selection>
 	</Attribute>
 	';
 				}
@@ -514,9 +521,10 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 					if(isset($simple_tool->grade_attribute_range[$i][$l][$k])){
 						$grade_attribute_range = $simple_tool->grade_attribute_range[$i][$l][$k];
 					}
+					$gradeattribute = (isset($simple_tool->grade_attribute[$i][$l][$k])) ? $simple_tool->grade_attribute[$i][$l][$k] : '';
 					$xml .=  '</descriptions>
 					<selection>
-						<val>' . htmlspecialchars($simple_tool->grade_attribute[$i][$l][$k]) . '</val>
+						<val>' . htmlspecialchars($gradeattribute) . '</val>
 						<instance>'. $grade_attribute_range .'</instance>
 					</selection>
 	</Attribute>
@@ -528,9 +536,6 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 			//GLOBAL VALUE-------------------
 			if($simple_tool->global_value[$i] == 't' || $simple_tool->global_value[$i] == '1')
 			{
-				/*$comment = 0;
-				if($simple_tool->dimen_com[$i] == '1' || $simple_tool->dimen_com[$i] == 't')
-					$comment = 1;*/
 				$comment = '';
 				if($simple_tool->dimen_com[$i] == '1' || $simple_tool->dimen_com[$i] == 't'){
 					$comment = 1;
@@ -549,7 +554,6 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 					$rvalue = $simple_tool->grade_dimension_range[$i];
 				}
 				
-				//$xml .=  '<DimensionAssessment percentage="' . (100 - array_sum($simple_tool->percentage_subdimension[$i])) . '">
 				$xml .=  '<DimensionAssessment percentage="' . ($simple_tool->global_value_por[$i]) . '">
 				<Attribute name="Global assessment" comment="'. htmlspecialchars($comment, ENT_QUOTES,'UTF-8') .'" percentage="0">
 				<descriptions>'."\n";
@@ -575,7 +579,6 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 
 		if($simple_tool->yesnovglobal == 't' || $simple_tool->yesnovglobal == '1')
 		{	
-			//$xml .=  '<GlobalAssessment values="' . htmlspecialchars($simple_tool->num_total_value) . '" percentage="' . (100 - array_sum($simple_tool->percentages_dim)) . '">
 			$xml .=  '<GlobalAssessment values="' . htmlspecialchars($simple_tool->num_total_value) . '" percentage="' . ($simple_tool->total_value_por) . '">
 			<Values>
 			';
@@ -642,7 +645,7 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 		$idNeg = array();
 		$idPos = array();
 		$i = 0;
-	   for($k = 0; $k < $simple_tool->num_atr_dim[0][0]; $k++)	{
+	    for($k = 0; $k < $simple_tool->num_atr_dim[0][0]; $k++)	{
 			if($k % 2 == 0){
 				$attNeg[$i] = $simple_tool->attributes[0][0][$k];
 				$idNeg[$i] = encrypt_tool_element($simple_tool->attributes_code[0][0][$k]);
@@ -653,8 +656,7 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 				$i++;
 			}
 		}
-//print_r($simple_tool->grade_attribute);
-//print_r($simple_tool->attributes_code);
+
 		$num_atr = $simple_tool->num_atr_dim[0][0] / 2;
 		$l = 0;
 		for($k = 0; $k < $num_atr; $k++){
@@ -666,12 +668,11 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 					$comment = htmlspecialchars($simple_tool->comment_attribute[0][0][$l]);
 				}
 			}
-			
-			/*if($simple_tool->attributes_com[0][0][$l] == '1' || $simple_tool->attributes_com[0][0][$l] == 't'){
-				$comment = 1;
-						}*/
-			
-			$xml .= '<Attribute idNeg="'.$idNeg[$k].'" idPos="'.$idPos[$k].'" nameN="' . htmlspecialchars($attNeg[$k]) . '" nameP="' . htmlspecialchars($attPos[$k]) . '"  comment="'.$comment.'" percentage="' .$simple_tool->attributes_percentage[0][0][$l] . '">' . $simple_tool->grade_attribute[0][0][$l] . '</Attribute>
+			$gradeattribute = (isset($simple_tool->grade_attribute[0][0][$l])) ? $simple_tool->grade_attribute[0][0][$l] : '';
+			$xml .= '<Attribute idNeg="'.$idNeg[$k].'" idPos="'.$idPos[$k].'" nameN="' .
+			htmlspecialchars($attNeg[$k]) . '" nameP="' . htmlspecialchars($attPos[$k]) . '"  comment="'.$comment.
+			'" percentage="' .$simple_tool->attributes_percentage[0][0][$l] . '">' .
+			$gradeattribute . '</Attribute>
 			';
 			$l += 2;
 		}
@@ -733,10 +734,11 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 					if(isset($simple_tool->comment_attribute[$i][$l][$k]) && $simple_tool->comment_attribute[$i][$l][$k] != ''){
 						$comment = htmlspecialchars($simple_tool->comment_attribute[$i][$l][$k]);
 					}
-					
-					/*if($simple_tool->attributes_com[$i][$l][$k] == '1' || $simple_tool->attributes_com[$i][$l][$k] == 't')
-						$comment = 1;*/
-					$xml .=  '<Attribute id="'.encrypt_tool_element($simple_tool->attributes_code[$i][$l][$k]).'" name="' . htmlspecialchars($simple_tool->attributes[$i][$l][$k]) . '"  comment="'.$comment.'" percentage="' . $simple_tool->attributes_percentage[$i][$l][$k] . '">'. $simple_tool->grade_attribute[$i][$l][$k] .'</Attribute>
+					$gradeattribute = (isset($simple_tool->grade_attribute[$i][$l][$k])) ? $simple_tool->grade_attribute[$i][$l][$k] : '';
+					$xml .=  '<Attribute id="'.encrypt_tool_element($simple_tool->attributes_code[$i][$l][$k]).
+					'" name="' . htmlspecialchars($simple_tool->attributes[$i][$l][$k]) .
+					'"  comment="'.$comment.'" percentage="' .
+					$simple_tool->attributes_percentage[$i][$l][$k] . '">' . $gradeattribute . '</Attribute>
 					';
 				}
 
@@ -749,5 +751,3 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 		return $xml;
 	}
 }
-
-?>

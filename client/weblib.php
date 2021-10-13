@@ -64,9 +64,6 @@
 	Comprueba y limpia $variable. Si variable no está establecida devuelve el valor por defecto
 	*/
 	function getParam($variable, $default = ''){
-		/*if(!isset($variable))
-			return $default;
-		*/
 		if(is_array($variable)){
 			foreach($variable as $key => $value){
 				$variable[$key] = str_replace('<<_mas_>>', '+', $value);
@@ -79,4 +76,15 @@
 			return $default;
 	}
 	
-?>
+	/**
+$param string $str 
+Calculate the hash of $str	
+*/
+	function encrypt_tool_element($str){
+		if (file_exists('../configuration/conf.php')) {
+			require_once('../configuration/conf.php');
+		} else {
+			require_once(__DIR__.'/../configuration/conf.php');
+		}
+		return md5(sha1(WWWROOT.$str));
+	}

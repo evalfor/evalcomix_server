@@ -1,6 +1,6 @@
 <?php
 
-include_once('simple_tool.php');
+require_once('simple_tool.php');
 class collector_tool{
 	
 	public $id;
@@ -43,8 +43,8 @@ class collector_tool{
 	}
 	
 	public function get_mixed_datas(){
-		include_once('plantilla.php');
-		include_once('mixtopla.php');
+		require_once('plantilla.php');
+		require_once('mixtopla.php');
 
 		$mixto = plantilla::fetch(array('id' => $this->id));
 		$mixtopla = mixtopla::fetch_all(array('mip_mix' => $mixto->id), array('mip_pos'));
@@ -63,4 +63,3 @@ class collector_tool{
 		return $this->tools;
 	}
 }
-?>

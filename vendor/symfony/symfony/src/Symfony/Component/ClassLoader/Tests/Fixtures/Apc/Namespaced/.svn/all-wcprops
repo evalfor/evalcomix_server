@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/inteweb-gescompeval/!svn/ver/25/branches/Gescompeval/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/Tests/Fixtures/Apc/Namespaced
+END
+Baz.php
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svn/inteweb-gescompeval/!svn/ver/25/branches/Gescompeval/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/Tests/Fixtures/Apc/Namespaced/Baz.php
+END
+Foo.php
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svn/inteweb-gescompeval/!svn/ver/25/branches/Gescompeval/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/Tests/Fixtures/Apc/Namespaced/Foo.php
+END
+Bar.php
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svn/inteweb-gescompeval/!svn/ver/25/branches/Gescompeval/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/Tests/Fixtures/Apc/Namespaced/Bar.php
+END
+FooBar.php
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svn/inteweb-gescompeval/!svn/ver/25/branches/Gescompeval/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/Tests/Fixtures/Apc/Namespaced/FooBar.php
+END

@@ -84,4 +84,3 @@
 	$string['TAbout'] = '-i buruz';
 
 	$string['mixed_por'] = 'Pisua';
-?>

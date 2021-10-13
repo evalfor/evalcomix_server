@@ -8,4 +8,3 @@ abstract class export_object{
 	**/
 	abstract public function export();
 }
-?>

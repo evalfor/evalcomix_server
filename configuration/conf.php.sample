@@ -1,23 +1,43 @@
-<?php
-	if(!defined('HOSTDB')){
-		define('HOSTDB', 'localhost');
-	}
-	if(!defined('USERDB')){
-		define('USERDB', 'userdb');
-	}
-	if(!defined('PASSDB')){
-		define('PASSDB', 'passworddb');
-	}
-	if(!defined('NAMEDB')){
-		define('NAMEDB', 'namedb');
-	}
-	if(!defined('DIRROOT')){
-		define('DIRROOT', '/path/evalcomix');
-	}
-	
-	//possible values: 'postgresql' or 'mysql'
-	if(!defined('TYPEDB')){
-		define('TYPEDB', 'mysql');
-	}
+<?php  // EvalCOMIX configuration file
 
-?>
+if(!defined("HOSTDB")){
+    define("HOSTDB", "localhost");
+}
+
+if(!defined("USERDB")){
+    define("USERDB", "userdb");
+}
+
+if(!defined("PASSDB")){
+    define("PASSDB", "passworddb");
+}
+
+if(!defined("NAMEDB")){
+    define("NAMEDB", "namedb");
+}
+
+if(!defined("DIRROOT")){
+    define("DIRROOT", "/path/evalcomix");
+}
+
+// Possible values: 'postgresql' or 'mysql'
+if(!defined("TYPEDB")){
+    define("TYPEDB", "mysql");
+}
+
+// Full web address to where EvalCOMIX has been installed. Do not include a trailing slash.
+if(!defined("WWWROOT")){
+    define("WWWROOT", "http://example.com/evalcomix");
+}
+
+// Control panel URI.
+if(!defined("WWWCPANEL")){
+    define("WWWCPANEL", "http://example.com/evalcomix/app.php/dashboard");
+}
+
+if(!defined("SITENAME")){
+    define("SITENAME", "EvalCOMIX Server");
+}
+
+// There is no php closing tag in this file,
+// it is intentional because it prevents trailing whitespace problems!

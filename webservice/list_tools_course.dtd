@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<!ELEMENT tools (tool*) >
-<!ELEMENT tool (id, name, type, shared) >
-<!ELEMENT id (#PCDATA) >
-<!ELEMENT name (#PCDATA) >
-<!ELEMENT type (#PCDATA) >
-<!ELEMENT shared (#PCDATA) >

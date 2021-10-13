@@ -1,7 +1,6 @@
 <?php 
-	//session_start();
 	unset($_SESSION['tool']);
-	include_once('selectlanguage.php');	
+	require_once('selectlanguage.php');	
 	
 	if (isset($_GET['type'])){
 		$postType = getParam($_GET['type']);
@@ -33,7 +32,6 @@
 	$commentAtr = null;
 	$commentDim = null;
 	if($type != 'mixta' && $type != 'importar' && !isset($_SESSION['open'])){
-		//unset($_SESSION['id']);
 		$indexTool = 0;
 		$dim = $secuencia;
 		$numdim[$indexTool] = 1;
@@ -72,9 +70,8 @@
 	if(isset($_SESSION['lang']))
 		$language = $_SESSION['lang'];
 
-	include_once('tool.php');
+	require_once('tool.php');
 	$tool = new tool($language, $type, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo, $numatr, $valores, $numvalores, "false", $numtotal, $valorestotal, $valglobal, $valglobalpor, $dimpor, $subdimpor, $atribpor, $commentAtr, $commentDim);
 	$toolObj = serialize($tool);
 	$_SESSION['tool'] = $toolObj;
 	$_SESSION['secuencia'] = $secuencia;
-?>

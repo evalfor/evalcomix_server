@@ -1,5 +1,5 @@
 <?php
-include_once('evalcomix_object.php');
+require_once('evalcomix_object.php');
 
 /**
  * Definitions of EvalCOMIX assessment class
@@ -108,9 +108,9 @@ include_once('evalcomix_object.php');
     }
 	
 	static function duplicate($params){
-		include_once('collector_tool.php');
-		include_once('plantilla.php');
-		include_once('mixtopla.php');
+		require_once('collector_tool.php');
+		require_once('plantilla.php');
+		require_once('mixtopla.php');
 		
 		$old_id = $params['oldid'];
 		$new_id = $params['newid'];
@@ -153,7 +153,6 @@ include_once('evalcomix_object.php');
 					$index = 0;
 					foreach($plantillas as $mixtopla){
 						$aux = assessment::get_attributes_code($mixtopla->mip_pla);
-						//$new_attributes_code = array_merge($new_attributes_code, $aux);
 						if(isset($aux['dimension']) && $aux['dimension']!=null){
 							foreach($aux['dimension'] as $dimension){
 								$new_attributes_code['dimension'][] = $dimension;
@@ -216,11 +215,11 @@ include_once('evalcomix_object.php');
 				$ass = $ass_object->id;
 			}
 			$asses[$ass] = $assessment_old->id;
-			include_once('atreva.php');
-			include_once('dimeva.php');
-			include_once('plaeva.php');
-			include_once('atrcomment.php');
-			include_once('dimcomment.php');
+			require_once('atreva.php');
+			require_once('dimeva.php');
+			require_once('plaeva.php');
+			require_once('atrcomment.php');
+			require_once('dimcomment.php');
 			$params_attribute['ass_old'] = $assessment_old->id; 
 			$params_attribute['ass_new'] = $ass;
 			$params_attribute['attributes'] = $tool_structure[$toolid]['attribute'];
@@ -244,10 +243,10 @@ include_once('evalcomix_object.php');
 	
 	static function get_attributes_code($toolid){
 		$result = array();
-		include_once('plantilla.php');
-		include_once('dimension.php');
-		include_once('subdimension.php');
-		include_once('atributo.php');
+		require_once('plantilla.php');
+		require_once('dimension.php');
+		require_once('subdimension.php');
+		require_once('atributo.php');
 				
 		$i = 0;
 		$j = 0;

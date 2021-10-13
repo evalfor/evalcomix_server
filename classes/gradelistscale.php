@@ -1,14 +1,14 @@
 <?php
 
-	include_once('dimension.php');
-	include_once('assessment.php');
-	include_once('plantilla.php');
-	include_once('subdimension.php');
-	include_once('plaeva.php');
-	include_once('plaval.php');
-	include_once('dimval.php');
-	include_once('gradebase.php');
-	include_once('valoracion.php');
+	require_once('dimension.php');
+	require_once('assessment.php');
+	require_once('plantilla.php');
+	require_once('subdimension.php');
+	require_once('plaeva.php');
+	require_once('plaval.php');
+	require_once('dimval.php');
+	require_once('gradebase.php');
+	require_once('valoracion.php');
 
 	class gradelistscale extends gradebase{
 
@@ -86,9 +86,6 @@
 				$weightedValue = $globalValue * ($globalValuePorcentage / 100);
 				$result += $weightedValue;
 			}
-			/*if($this->calificated == false){
-				return NO_CALIFICATED;
-			}*/
 
 			return ceil($result);
 		}
@@ -101,8 +98,6 @@
 				if(isset($this->numericScales[$dimensionId][$mark])){
 					return $this->numericScales[$dimensionId][$mark]; 
 				}
-				
-				//return $mark;		
 			}
 			return null;		
 		}
@@ -125,4 +120,3 @@
 		
 
 	}
-?>

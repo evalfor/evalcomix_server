@@ -1,17 +1,17 @@
 <?php
 
-	include_once('dimension.php');
-	include_once('assessment.php');
-	include_once('plantilla.php');
-	include_once('subdimension.php');
-	include_once('plaeva.php');
-	include_once('plaval.php');
-	include_once('gradebase.php');
-	include_once('atrdiferencial.php');
-	include_once('atributo.php');
-	include_once('atreva.php');
-	include_once('dimeva.php');
-	include_once('dimval.php');
+	require_once('dimension.php');
+	require_once('assessment.php');
+	require_once('plantilla.php');
+	require_once('subdimension.php');
+	require_once('plaeva.php');
+	require_once('plaval.php');
+	require_once('gradebase.php');
+	require_once('atrdiferencial.php');
+	require_once('atributo.php');
+	require_once('atreva.php');
+	require_once('dimeva.php');
+	require_once('dimval.php');
 
 	class gradedifferential extends gradebase{
 
@@ -161,4 +161,3 @@
 
 
 	}
-?>

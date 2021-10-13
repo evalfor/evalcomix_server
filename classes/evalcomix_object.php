@@ -1,7 +1,6 @@
 <?php
 
 include_once('db.php');
-//TODO: DESARROLLO DE PRUEBAS DE TODAS LAS CLASES CON SIMPLETEST
 
 class evalcomix_object {
 	protected $table;
@@ -145,11 +144,7 @@ class evalcomix_object {
     protected static function fetch_helper($table, $classname, $params) {
         if ($instances = evalcomix_object::fetch_all_helper($table, $classname, $params)) {
             if (count($instances) > 1) {
-                // we should not tolerate any errors here - problems might appear later
-                //error_log('morethanonerecordinfetch');
-				//AÑADIDO 23042012
 				return false;
-				//FIN AÑADIDO
             }
             return reset($instances);
         } else {
@@ -172,7 +167,7 @@ class evalcomix_object {
         $wheresql = array();
         $newparams = array();
 		
-        foreach ($params as $var=>$value) {//echo "var:$var = $value<br>";
+        foreach ($params as $var=>$value) {
             if (!in_array($var, $instance->required_fields) and !in_array($var, $instance->optional_fields)) {
                 continue;
             }
@@ -205,10 +200,7 @@ class evalcomix_object {
 	
 	public function exist()
 	{
-		//Que devuelva el ID del procedimiento
 		return $this->id;
 	}	
 	
 }
-
-?>

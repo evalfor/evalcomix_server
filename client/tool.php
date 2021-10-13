@@ -1,12 +1,11 @@
 <?php
-ini_set('display_errors', 'On');
-include_once('toolscale.php');
-include_once('toollistscale.php');
-include_once('tooldifferential.php');
-include_once('toollist.php');
-include_once('toolrubric.php');
-include_once('toolmix.php');
-include_once('toolargument.php');
+require_once('toolscale.php');
+require_once('toollistscale.php');
+require_once('tooldifferential.php');
+require_once('toollist.php');
+require_once('toolrubric.php');
+require_once('toolmix.php');
+require_once('toolargument.php');
 
 class tool{
 	private $object;
@@ -42,14 +41,13 @@ class tool{
 	}
 	
 	function display_header($data = ''){
-		include('lang/'. $this->language . '/evalcomix.php');
-		include_once('../configuration/host.php');
+		require('lang/'. $this->language . '/evalcomix.php');
 		echo '
 			<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 			<html>
 				<head>
-					<title>EvalCOMIX 4.2</title>
-					<link href="'.HOST.'client/style/copia.css" type="text/css" rel="stylesheet">
+					<title>EvalCOMIX 4.3</title>
+					<link href="style/copia.css" type="text/css" rel="stylesheet">
 					<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 					<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 					<script type="text/javascript" src="javascript/size.js"></script>
@@ -175,21 +173,20 @@ class tool{
 								}
 							}
 						*/
-							var cadena; if(document.getElementById("cuerpomix")){cadena="addtool=1&titulo="+document.getElementById("titulo").value+""}else{cadena="id=0&addDim=1&titulo0="+document.getElementById("titulo0").value+"";}sendPost("html","save=1&amp;"+cadena+"","mainform0");\'><img id="guardar" src="'.HOST.'client/images/guardar.png" onmouseover="javascript:cAmbiaOver(this.id, \''.HOST.'client/images/guardarhover.png\');" onmouseout="javascript:cAmbiaOut(this.id, \''.HOST.'client/images/guardar.png\');" alt="' . $string['TSave'] . '" title="' . $string['TSave'] . '"/></a>
+							var cadena; if(document.getElementById("cuerpomix")){cadena="addtool=1&titulo="+document.getElementById("titulo").value+""}else{cadena="id=0&addDim=1&titulo0="+document.getElementById("titulo0").value+"";}sendPost("html","save=1&amp;"+cadena+"","mainform0");\'><img id="guardar" src="images/guardar.png" onmouseover="javascript:cAmbiaOver(this.id, \'images/guardarhover.png\');" onmouseout="javascript:cAmbiaOut(this.id, \'images/guardar.png\');" alt="' . $string['TSave'] . '" title="' . $string['TSave'] . '"/></a>
 							<!--<a href="generator.php?op=import"><img id="importar" src="images/importar.png" alt="' . $string['TImport'] . '" title="' . $string['TImport'] . '" onmouseover="javascript:cAmbiaOver(this.id, \'images/importarhover.png\');" onmouseout="javascript:cAmbiaOut(this.id, \'images/importar.png\');"/></a>-->
-							<a href="generator.php?op=export" onclick=\'javascript:var r=confirm("         Estás a punto de exportar el instrumento.\n\nAsegúrate de haber GUARDADO todos los cambios realizados\n");if (r==true){return true;}return false;\'><img id="exportar" src="'.HOST.'client/images/exportar.png" alt="' . $string['TExport'] . '" title="' . $string['TExport'] . '" onmouseover="javascript:cAmbiaOver(this.id, \''.HOST.'client/images/exportarhover.png\');" onmouseout="javascript:cAmbiaOut(this.id, \''.HOST.'client/images/exportar.png\');"/></a>
-							<a onClick="MasTxt(\'mainform0\');" href=#><img id="aumentar" src="'.HOST.'client/images/aumentar.png" alt="Aumentar" title="' . $string['TAumentar'] . '" onmouseover="javascript:cAmbiaOver(this.id, \''.HOST.'client/images/aumentarhover.png\');" onmouseout="javascript:cAmbiaOut(this.id, \''.HOST.'client/images/aumentar.png\');"/></a>
-							<a onClick="MenosTxt(\'mainform0\');" href=#><img id="disminuir" src="'.HOST.'client/images/disminuir.png" alt="Disminuir" title="' . $string['TDisminuir'] . '" onmouseover="javascript:cAmbiaOver(this.id, \''.HOST.'client/images/disminuirhover.png\');" onmouseout="javascript:cAmbiaOut(this.id, \''.HOST.'client/images/disminuir.png\');"/></a>
-							<a href="generator.php?op=view"><img id="visualizar" src="'.HOST.'client/images/visualizar.png" alt="Ver" title="' . $string['TView'] . '" onmouseover="javascript:cAmbiaOver(this.id, \''.HOST.'client/images/visualizarhover.png\');" onmouseout="javascript:cAmbiaOut(this.id, \''.HOST.'client/images/visualizar.png\');"/></a>
-							<a href="servidor.php?op=imprimir"><img id="imprimir" src="'.HOST.'client/images/imprimir.png" alt="' . $string['TPrint'] . '" title="' . $string['TPrint'] . '" onmouseover="javascript:cAmbiaOver(this.id, \''.HOST.'client/images/imprimirhover.png\');" onmouseout="javascript:cAmbiaOut(this.id, \''.HOST.'client/images/imprimir.png\');"/></a>
+							<a href="generator.php?op=export" onclick=\'javascript:var r=confirm("         Estás a punto de exportar el instrumento.\n\nAsegúrate de haber GUARDADO todos los cambios realizados\n");if (r==true){return true;}return false;\'><img id="exportar" src="images/exportar.png" alt="' . $string['TExport'] . '" title="' . $string['TExport'] . '" onmouseover="javascript:cAmbiaOver(this.id, \'images/exportarhover.png\');" onmouseout="javascript:cAmbiaOut(this.id, \'images/exportar.png\');"/></a>
+							<a onClick="MasTxt(\'mainform0\');" href=#><img id="aumentar" src="images/aumentar.png" alt="Aumentar" title="' . $string['TAumentar'] . '" onmouseover="javascript:cAmbiaOver(this.id, \'images/aumentarhover.png\');" onmouseout="javascript:cAmbiaOut(this.id, \'images/aumentar.png\');"/></a>
+							<a onClick="MenosTxt(\'mainform0\');" href=#><img id="disminuir" src="images/disminuir.png" alt="Disminuir" title="' . $string['TDisminuir'] . '" onmouseover="javascript:cAmbiaOver(this.id, \'images/disminuirhover.png\');" onmouseout="javascript:cAmbiaOut(this.id, \'images/disminuir.png\');"/></a>
+							<a href="generator.php?op=view"><img id="visualizar" src="images/visualizar.png" alt="Ver" title="' . $string['TView'] . '" onmouseover="javascript:cAmbiaOver(this.id, \'images/visualizarhover.png\');" onmouseout="javascript:cAmbiaOut(this.id, \'images/visualizar.png\');"/></a>
+							<a href="servidor.php?op=imprimir"><img id="imprimir" src="images/imprimir.png" alt="' . $string['TPrint'] . '" title="' . $string['TPrint'] . '" onmouseover="javascript:cAmbiaOver(this.id, \'images/imprimirhover.png\');" onmouseout="javascript:cAmbiaOut(this.id, \'images/imprimir.png\');"/></a>
 							';
 							
 		$lang = 'es_ES';
 		if($this->language == 'en_utf8'){
 			$lang = 'en_US';
 		}
-		include('lang/'.$this->language.'/evalcomix.php');
-		//<a onclick=\'javascript:ventanaSecundaria("http://avanza.uca.es/assessmentservice/help/'.$lang.'/");\'><img id="ayuda" src="images/ayuda.png" alt="' . $string['THelp'] . '" title="' . $string['THelp'] . '" onmouseover="javascript:cAmbiaOver(this.id, \'images/ayudahover.png\');" onmouseout="javascript:cAmbiaOut(this.id, \'images/ayuda.png\');"/></a>
+		require('lang/'.$this->language.'/evalcomix.php');
 		if(!isset($id)){
 			$id = null;
 		}
@@ -240,7 +237,7 @@ class tool{
 	}
 	
 	function display_body($data){
-		include('lang/'.$this->language.'/evalcomix.php');
+		require('lang/'.$this->language.'/evalcomix.php');
 		$html = $this->object->display_body($data);
 		
 		return $html;		
@@ -262,8 +259,8 @@ class tool{
 	}
 	
 	function display_dialog(){
-		include('lang/'. $this->language . '/evalcomix.php');
-		include('cabecera_select_tool.php');
+		require('lang/'. $this->language . '/evalcomix.php');
+		require('cabecera_select_tool.php');
 		echo '
 				<div id="titulomenu">Importar Fichero</div>
 					<form name="formimport" enctype="multipart/form-data" action="servidor.php" method=post>
@@ -274,7 +271,7 @@ class tool{
 					</form>
 				</div>
 			';
-		include('pie_select_tool.php');
+		require('pie_select_tool.php');
 	}
 	
 	function addDimension($dim, $key, $id = 0){
@@ -283,19 +280,6 @@ class tool{
 	function addSubdimension($dim, $subdim, $key, $id=0){
 		return $this->object->addSubdimension($dim, $subdim, $key, $id);
 	}
-	/*function upAtributo($dim, $subdim, $atrib, $id=0){
-	 	return $this->object->upAtributo($dim, $subdim, $atrib, $id);
-	}
-	function downAtributo($dim, $subdim, $atrib, $id=0){
-		return $this->object->downAtributo($dim, $subdim, $atrib, $id);
-	}
-	
-	function upSubdimension($dim, $subdim, $id=0){
-		return $this->object->upSubdimension($dim, $subdim, $id);
-	}
-	function downSubdimension($dim, $subdim, $key, $id=0){
-		return $this->object->downSubdimension($dim, $subdim, $id);
-	}*/
 	
 	function upBlock($params){
 		return $this->object->upBlock($params);
@@ -890,7 +874,6 @@ class tool{
 	}
 	
 	function view_assessment_header(){
-		//<!-- <link href="'.$root.'client/style/platform.css" type="text/css" rel="stylesheet"> -->
 		echo '
 		<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 				<html>
@@ -898,14 +881,15 @@ class tool{
 					<head>
 						<title>EVALCOMIX</title>
 						<style>
-body {background-color: #fff;font-family: "arial";font-size: 0.72em; 	margin:0; }  p{margin:0; }  form{margin:0; }  h1,h2,h3,h4,h5,h6{color: #146C84; } #linea{height: 5px;background-color: #f5751a; }  #titulo{font-size: 1em;color:#146C84;font-weight: bold;font-style:italic;margin-top: -2em;margin-left:5em;margin-bottom: 1em; }#cabecera{border-bottom: 1px solid #000; }  /*campos1------------------------------------*/ #ca1_env{float: right;margin-bottom: 1em; } /*-------------------------------------------*/  #crear{padding-left: 0.5em; }#dim{background-color: #146C84;color: #fff; }  .planmenu{text-decoration:none;border-right: 1px solid #fff;padding: 0.8em 1em 0.7em 0;color:#fff; }  /*.planmenu:hover{text-decoration:none;color: #fff;background-color: #00aaff;border-right: 1px solid #000000;padding-right: 1em; }*/  .tam{width: 85%; }  .fields{margin-bottom: 1em; }  .fields legend{color: #146C84;font-weight: bold; }  .tabla{width: 100%;background-color: #E5F0FD;font-family: "arial"; 	margin:0; 	padding:0; /*   font-size: 1em;*/ }  .tabla th{background-color: #146C84;color: #fff; }  .td{ 	font-size: 0.8em;font-weight: bold;text-align:center; }  .rub{width: 12em; }  .eval{margin:0; 	padding:0; }  .global{text-align:right;font-style: italic;font-weight: bold; }  .boton_est{text-decoration:none;color: #0000ff;font-weight:bold;padding: 0.3em 0.8em 0.3 0.8em;background-color: #a3a3a3;border-right: 1px solid #000;border-bottom: 1px solid #000;border-top: 1px solid #fff;border-left: 1px solid #fff; }  .botones{padding-bottom: 2em; }  .boton{float:right; }  .table_rubrica{width: 90%; }  .table_rubrica textarea{width:100%; }  .arubric{padding: 5% 40% 5% 40%;background-color:#fff;text-decoration:none; }  .float{margin-left: 1em;float:left; }  .obligatorio{font-size: 0.7em;font-weight: bold; }  .bold{font-weight: bold; }  .subdim{font-style:italic;font-weight:bold; }  .rango{text-align:center; }  .search_menu{text-decoration:none;color:#146f8f;padding:0.1em 0.2em 0.1em 0.2em;background-color:#e3e3e3;border: 1px solid #a3a3a3;font-weight: bold; }  .clear{clear:both; }  .pordim{ 	font-weight: bold; 	witdh: 3em;	 }  .subdimpor{ 	font-style:italic;	font-weight:bold; 	text-align:center; 	font-size: 0.9em; }  .atribpor{ 	text-align:right; 	font-size:0.8em }  .showcomment, .showcomment:hover{ 	background-image: url("../images/editar.gif"); 	width: 19px; 	height: 16px; 	border:0; 	background-color:#fff; 	background-repeat: no-repeat; }  .showcomment{ 	border: 1px solid #434343;	 }  .showcomment:hover{ 	border: 2px solid #0076C1; }  
+body {color:#333;background-color: #fff;font-family: "arial";font-size: 0.72em; 	margin:0; }  p{margin:0; }  form{margin:0; }  h1,h2,h3,h4,h5,h6{color: #146C84; } #linea{height: 5px;background-color: #f5751a; }  #titulo{font-size: 1em;color:#146C84;font-weight: bold;font-style:italic;margin-top: -2em;margin-left:5em;margin-bottom: 1em; }#cabecera{border-bottom: 1px solid #000; }  /*campos1------------------------------------*/ #ca1_env{float: right;margin-bottom: 1em; } /*-------------------------------------------*/  #crear{padding-left: 0.5em; }#dim{background-color: #146C84;color: #fff; }  .planmenu{text-decoration:none;border-right: 1px solid #fff;padding: 0.8em 1em 0.7em 0;color:#fff; }  /*.planmenu:hover{text-decoration:none;color: #fff;background-color: #00aaff;border-right: 1px solid #000000;padding-right: 1em; }*/  .tam{width: 85%; }  .fields{margin-bottom: 1em; }  .fields legend{color: #146C84;font-weight: bold; }  .tabla{width: 100%;background-color: #E5F0FD;font-family: "arial"; 	margin:0; 	padding:0; /*   font-size: 1em;*/ }  .tabla th{background-color: #146C84;color: #fff; }  .td{ 	font-size: 0.8em;font-weight: bold;text-align:center; }  .rub{width: 12em; }  .eval{margin:0; 	padding:0; }  .global{text-align:right;font-style: italic;font-weight: bold; }  .boton_est{text-decoration:none;color: #0000ff;font-weight:bold;padding: 0.3em 0.8em 0.3 0.8em;background-color: #a3a3a3;border-right: 1px solid #000;border-bottom: 1px solid #000;border-top: 1px solid #fff;border-left: 1px solid #fff; }  .botones{padding-bottom: 2em; }  .boton{float:right; }  .table_rubrica{width: 90%; }  ._rubrica textarea{width:100%; }  .arubric{padding: 5% 40% 5% 40%;background-color:#fff;text-decoration:none; }  .float{margin-left: 1em;float:left; }  .obligatorio{font-size: 0.7em;font-weight: bold; }  .bold{font-weight: bold; }  .subdim{font-style:italic;font-weight:bold; }  .rango{text-align:center; }  .search_menu{text-decoration:none;color:#146f8f;padding:0.1em 0.2em 0.1em 0.2em;background-color:#e3e3e3;border: 1px solid #a3a3a3;font-weight: bold; }  .clear{clear:both; }  .pordim{ 	font-weight: bold; 	witdh: 3em;	 }  .subdimpor{ 	font-style:italic;	font-weight:bold; 	text-align:center; 	font-size: 0.9em; }  .atribpor{ 	text-align:right; 	font-size:0.8em }  .showcomment, .showcomment:hover{ 	background-image: url("../images/editar.gif"); 	width: 19px; 	height: 16px; 	border:0; 	background-color:#fff; 	background-repeat: no-repeat; }  .showcomment{ 	border: 1px solid #434343;	 }  .showcomment:hover{ 	border: 2px solid #0076C1; }  
+.custom-radio{width:15px;height:15px;cursor: pointer;}
 						</style>
-		';
+						';
 		
 	}
 	
 	function view_tool($root = '', $grade = '', $print='view', $title = ''){
-			include('lang/'. $this->language . '/evalcomix.php');
+			require('lang/'. $this->language . '/evalcomix.php');
 			$wprint = '';
 			if($print == 'print'){
 				$wprint = 'onload="window.print()"';
@@ -998,11 +982,11 @@ body {background-color: #fff;font-family: "arial";font-size: 0.72em; 	margin:0; 
 		}
 		
 		function assessment_tool($root = '', $assessmentid = 0, $idTool = 0, $grade = '', $saved = '', $title = ''){
-			include('lang/'. $this->language . '/evalcomix.php');
-			$action = $root . 'assessment/saveassess.php?ass=' . $assessmentid . '&tool='.$idTool;
+			require('lang/'. $this->language . '/evalcomix.php');
+			$action = $root . '/assessment/saveassess.php?ass=' . $assessmentid . '&tool='.$idTool;
 			$this->view_assessment_header();
 			echo '	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-						<script type="text/javascript" src="'.$root.'client/javascript/ajax.js"></script>
+						<script type="text/javascript" src="'.$root.'/client/javascript/ajax.js"></script>
 						<script>
 							function limpiar_mainform(){
 								if(confirm(\'¿Confirma que desea borrar todas las calificaciones asignadas al instrumentos?\'))
@@ -1122,12 +1106,12 @@ body {background-color: #fff;font-family: "arial";font-size: 0.72em; 	margin:0; 
 		}
 		
 		function assessment_tool_mixed($root = '', $assessmentid = 0, $idTool = '', $grade = '', $saved = '', $tools = array(), $title = ''){
-			include('lang/'. $this->language . '/evalcomix.php');
-			$action = $root . 'assessment/saveassess.php?ass=' . $assessmentid . '&tool='.$idTool;
+			require('lang/'. $this->language . '/evalcomix.php');
+			$action = $root . '/assessment/saveassess.php?ass=' . $assessmentid . '&tool='.$idTool;
 			$this->view_assessment_header();
 			echo '
 						<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-						<script type="text/javascript" src="'.$root.'client/javascript/ajax.js"></script>
+						<script type="text/javascript" src="'.$root.'/client/javascript/ajax.js"></script>
 						<script>
 							function limpiar_mainform(form){
 								if(confirm(\'¿Confirma que desea borrar todas las calificaciones asignadas al instrumentos?\'))
@@ -1146,8 +1130,6 @@ body {background-color: #fff;font-family: "arial";font-size: 0.72em; 	margin:0; 
 						<h2>'.$title.'</h2>
 			';
 			
-							
-			//print_r($this->object);
 			$listTool = $this->object->get_tools();
 			$countListTool = count($listTool) - 1;
 			$i = 0;
@@ -1165,8 +1147,8 @@ body {background-color: #fff;font-family: "arial";font-size: 0.72em; 	margin:0; 
 								if($type == 'toolrubric'){
 									$getrango1 = $object->get_rango();
 									$getrango2 = $tool->get_rango();
-									list(, $objectrango) = each($getrango1);
-									list(, $toolrango) = each($getrango2);
+									list(, $objectrango) = current($getrango1);
+									list(, $toolrango) = current($getrango2);
 									if($objectrango == $toolrango){
 										$idsingle = $key;
 										break;
@@ -1224,9 +1206,7 @@ body {background-color: #fff;font-family: "arial";font-size: 0.72em; 	margin:0; 
 				";
 				++$i;
 			}
-//			$this->object->print_assessment_tool();
 			echo "<div style='text-align:right;font-size:1.7em'><span>".$string['grade'].": </span><span id='totalgrade'>" . $grade . "</span></div>";
-			//echo "<div style='text-align:right;font-size:1.7em'><span>".$string['grade'].": " . $grade . "</span></div>";
 			
 			if($saved == 'saved'){
 				echo '<script type="text/javascript" language="javascript">alert("'.$string['alertsave'].'");</script>';
@@ -1244,8 +1224,7 @@ body {background-color: #fff;font-family: "arial";font-size: 0.72em; 	margin:0; 
 		}
 		
 		function view_tool_mixed($root = '', $grade = '', $title = ''){
-			include('lang/'. $this->language . '/evalcomix.php');
-			//$action = $root . '/assessment/webservice/services/saveassess.php?ass=' . $assessmentid . '&tool='.$idTool;
+			require('lang/'. $this->language . '/evalcomix.php');
 			$action = '';
 			$this->view_assessment_header();
 			echo '
@@ -1274,7 +1253,6 @@ body {background-color: #fff;font-family: "arial";font-size: 0.72em; 	margin:0; 
 						<h2>'.$title.'</h2>
 			';
 			
-			//print_r($this->object);
 			$listTool = $this->object->get_tools();
 			$countListTool = count($listTool) - 1;
 			$i = 0;
@@ -1296,7 +1274,6 @@ body {background-color: #fff;font-family: "arial";font-size: 0.72em; 	margin:0; 
 				";
 				++$i;
 			}
-//			$this->object->print_assessment_tool();
 			
 			echo "<div style='text-align:right;font-size:1.7em'><span>".$string['grade'].": " . $grade . "</span></div>";
 			
@@ -1320,4 +1297,3 @@ body {background-color: #fff;font-family: "arial";font-size: 0.72em; 	margin:0; 
 			';
 		}
 }
-?>

@@ -3,7 +3,7 @@ QUICK INSTALLATION GUIDE
 
 System requirements
 -------------------
-	- PHP 7.2.5+, 7.3.x or 7.4.x
+	- PHP 7.2.5 or later 
 	- PostgreSQL 8+ or MySQL 5+
 	- A web server for PHP version (Apache 2 is strongly recommended)
 
@@ -27,7 +27,7 @@ Before upgrading, backup data:
 We advise that you test the upgrade first on a COPY of your production site, to make sure it works as you expect.
 
 
-To upgrade from EvalCOMIX Server 4.2 to 4.3:
+To upgrade from EvalCOMIX Server 4.2 to 4.3+:
 
 1) Move your old EvalCOMIX Server software program files to another location.
    Do NOT copy new files over the old files.
@@ -55,7 +55,7 @@ GUÍA DE INSTALACIÓN RÁPIDA
 
 Requerimientos del sistema:
 ---------------------------
-	- PHP 7.2.5+, 7.3.x or 7.4.x
+	- PHP 7.2.5 o superior
 	- PostgreSQL 8+ o MySQL 5+
 	- Cualquier servidor que soporte la versión requerida de PHP (se recomienda Apache 2+)
 
@@ -85,7 +85,7 @@ Se recomienda encarecidamente que pruebe la actualización en una COPIA de su si
 para asegurarse de que funciona como espera.
 
 
-Para actualizar desde EvalCOMIX Server 4.2 a 4.3:
+Para actualizar desde EvalCOMIX Server 4.2 a 4.3+:
 
 1) Mueva sus archivos antiguos de EvalCOMIX Server hacia otra localización.
    NO COPIE y PEGUE los archivos nuevos encima de los antiguos.

@@ -9,25 +9,25 @@
 		//array -- titulo de cada dimensiones
 		private $dimension;
 		
-		//array -- número de dimensiones de cada dimensiÃ³n
+		//array -- número de dimensiones de cada dimensión
 		private $numdim;
 		
-		//array -- titulo de cada subdimensiÃ³n de cada dimensiÃ³n
+		//array -- titulo de cada subdimensión de cada dimensión
 		private $subdimension;
 		
-		//array -- número de subdimensiones de cada subdimensiÃ³n
+		//array -- número de subdimensiones de cada subdimensión
 		private $numsubdim;
 		
-		//array -- titulo de cada atributo de cada subdimensiÃ³n de cada dimensiÃ³n
+		//array -- titulo de cada atributo de cada subdimensión de cada dimensión
 		private $atributo;
 		
-		//array -- número de atributos de cada subdimensiÃ³n
+		//array -- número de atributos de cada subdimensión
 		private $numatr;
 		
-		//array -- valores de cada dimensiÃ³n
+		//array -- valores de cada dimensión
 		private $valores;
 		
-		//array -- número de valores de cada dimensiÃ³n
+		//array -- número de valores de cada dimensión
 		private $numvalores;
 		
 		//boolean -- indica si el instrumento tiene activada la valoraciÃ³n total
@@ -42,10 +42,10 @@
 		//integer -- porcentaje de la valoraciÃ³n total
 		private $valtotalpor;
 		
-		//array -- indica si estÃ¡ activada la valoraciÃ³n global por cada dimensiÃ³n
+		//array -- indica si estÃ¡ activada la valoraciÃ³n global por cada dimensión
 		private $valglobal;
 		
-		//array -- porcentaje de la valoraciÃ³n global de cada dimensiÃ³n
+		//array -- porcentaje de la valoraciÃ³n global de cada dimensión
 		private $valglobalpor;
 		
 		//string -- url del diccionario por defecto
@@ -105,6 +105,8 @@
 		//Array -- Almacena los IDs de la BD relativos a los valores de la lista de las dimensiones
 		private $valoreslistaId;
 		
+		public $comment;
+		
 		function get_tool($id){}
 		function get_titulo(){return $this->titulo;}
 		function get_dimension(){return $this->dimension[$this->id];}
@@ -115,7 +117,7 @@
 		function get_numatr(){return $this->numatr[$this->id];}
 		function get_valores(){return $this->valores[$this->id];}
 		function get_numvalores(){return $this->numvalores[$this->id];}
-		function get_valtotal(){return $this->valtotal[$this->id];}
+		function get_valtotal(){$valtotal = (isset($this->valtotal[$this->id])) ? $this->valtotal[$this->id] : null;return $valtotal;}
 		function get_numtotal($id=0){if(isset($this->numtotal[$this->id]))return $this->numtotal[$this->id];}
 		function get_valtotalpor(){return $this->valtotalpor[$this->id];}
 		function get_valorestotal($id=0){if(isset($this->valorestotal[$this->id]))return $this->valorestotal[$this->id];}
@@ -163,7 +165,13 @@
 		function set_valorestotalesId($valoresId, $id = ''){$this->valorestotalesId[$this->id] = $valoresId;}
 		function set_valoreslistaId($valoresId, $id = ''){$this->valoreslistaId[$this->id] = $valoresId;}
 		
-		function __construct($lang='es_utf8', $titulo, $dimension, $numdim = 1, $subdimension, $numsubdim = 1, $atributo, $numatr = 1, $valores, $numvalores = 2, $valtotal, $numtotal = 0, $valorestotal, $valglobal = false, $valglobalpor, $dimpor, $subdimpor, $atribpor, $commentAtr, $commentDim, $id=0, $observation = '', $porcentage = 0, $valtotalpor = array(), $valueattribute = array(), $valueglobaldim = array(), $valuetotalvalue = '', $valuecommentAtr = '', $valuecommentDim = '', $params = array()){
+		function __construct ($lang='es_utf8', $titulo = '', $dimension = array(), $numdim = 1, $subdimension = array(),
+				$numsubdim = 1, $atributo = array(), $numatr = 1, $valores = array(), $numvalores = 2, $valtotal = array(),
+				$numtotal = 0, $valorestotal = array(), $valglobal = false, $valglobalpor = array(), $dimpor = array(),
+				$subdimpor = array(), $atribpor = array(), $commentAtr = array(), $commentDim = array(), $id=0, $observation = '',
+				$porcentage = 0, $valtotalpor = array(), $valueattribute = array(), $valueglobaldim = array(),
+				$valuetotalvalue = '', $valuecommentAtr = '', $valuecommentDim = '', $params = array()) {
+					
 			$this->filediccionario = 'lang/'.$lang.'/evalcomix.php';
 			$this->titulo = $titulo;
 			$this->dimension = $dimension;
@@ -218,6 +226,7 @@
 			if(!empty($params['valoreslistaId'])){
 				$this->valoreslistaId = $params['valoreslistaId'];
 			}
+			$this->comment = (isset($params['comment'])) ? $params['comment'] : '';
 		}
 		
 		function addDimension($dim, $key){
@@ -1093,12 +1102,26 @@
 
 			//DIMENSIONS------------------
 			foreach($this->dimension[$id] as $dim => $itemdim){
-				$xml .= '<Dimension id="'.$this->dimensionsId[$id][$dim].'" name="' . htmlspecialchars($this->dimension[$id][$dim]['nombre']) . '" subdimensions="' . $this->numsubdim[$id][$dim] . '" values="' . $this->numvalores[$id][$dim] . '" percentage="' . $this->dimpor[$id][$dim] .'">
+				$dimid = (isset($this->dimensionsId[$id][$dim])) ? $this->dimensionsId[$id][$dim] : '';
+				$dimname = (isset($this->dimension[$id][$dim]['nombre'])) ? htmlspecialchars($this->dimension[$id][$dim]['nombre']) : '';
+				$numsubdim = (isset($this->numsubdim[$id][$dim])) ? $this->numsubdim[$id][$dim] : '';
+				$numvaloresdim = (isset($this->numvalores[$id][$dim])) ? $this->numvalores[$id][$dim] : 0;
+				$dimpor = (isset($this->dimpor[$id][$dim])) ? $this->dimpor[$id][$dim] : '';
+				$xml .= '<Dimension id="'
+					. $dimid.'" name="'
+					. $dimname . '" subdimensions="'
+					. $numsubdim . '" values="'
+					. $numvaloresdim . '" percentage="'
+					. $dimpor .'">
 ';
 				//CHECK LIST VALUES------------
 				$xml .= "<ControlListValues>\n";
 				foreach($this->valoreslista[$id][$dim] as $grado => $elemvalue){
-					$xml .= '<Value id="'.$this->valoreslistaId[$id][$dim][$grado].'">' . htmlspecialchars($this->valoreslista[$id][$dim][$grado]['nombre']) . "</Value>\n";
+					$valorlistaid = (isset($this->valoreslistaId[$id][$dim][$grado]))
+						? $this->valoreslistaId[$id][$dim][$grado] : '';
+					$valorlista = (isset($this->valoreslista[$id][$dim][$grado]['nombre']))
+						? htmlspecialchars($this->valoreslista[$id][$dim][$grado]['nombre']) : '';
+					$xml .= '<Value id="'.$valorlistaid.'">' . $valorlista . "</Value>\n";
 				}
 				$xml .= "</ControlListValues>\n";
 
@@ -1109,20 +1132,47 @@
 					if(isset($this->valoresId[$id][$dim][$grado])){
 						$valoresId = $this->valoresId[$id][$dim][$grado];
 					}
-					$xml .= '<Value id="'.$valoresId.'">'. htmlspecialchars($this->valores[$id][$dim][$grado]['nombre']) . "</Value>\n";
+					$valuename = (isset($this->valores[$id][$dim][$grado]['nombre'])) 
+						? htmlspecialchars($this->valores[$id][$dim][$grado]['nombre']) : '';
+					$xml .= '<Value id="'.$valoresId.'">'. $valuename . "</Value>\n";
 				}
 				$xml .= "</Values>\n";
 				
 				//SUBDIMENSIONS-----------------
 				foreach($this->subdimension[$id][$dim] as $subdim => $elemsubdim){
-					$xml .= '<Subdimension id="'.$this->subdimensionsId[$id][$dim][$subdim].'" name="' . htmlspecialchars($this->subdimension[$id][$dim][$subdim]['nombre']) . '" attributes="' . $this->numatr[$id][$dim][$subdim] . '" percentage="' . $this->subdimpor[$id][$dim][$subdim] . '">
+					$subid = (isset($this->subdimensionsId[$id][$dim][$subdim]))
+						? $this->subdimensionsId[$id][$dim][$subdim] : '';
+					$subname = (isset($this->subdimension[$id][$dim][$subdim]['nombre']))
+						? htmlspecialchars($this->subdimension[$id][$dim][$subdim]['nombre']) : '';
+					$numatr = (isset($this->numatr[$id][$dim][$subdim])) ? $this->numatr[$id][$dim][$subdim] : '';
+					$subdimpor = (isset($this->subdimpor[$id][$dim][$subdim])) ? $this->subdimpor[$id][$dim][$subdim] : '';
+					
+					$xml .= '<Subdimension id="'
+						. $subid.'" name="'
+						. $subname . '" attributes="'
+						. $numatr . '" percentage="'
+						. $subdimpor . '">
 ';
 					//ATTRIBUTES--------------------
 					foreach($this->atributo[$id][$dim][$subdim] as $atrib => $elematrib){
 						$comment = '';
-						if(isset($this->commentAtr[$id][$dim][$subdim][$atrib]) && $this->commentAtr[$id][$dim][$subdim][$atrib] == 'visible')
+						if(isset($this->commentAtr[$id][$dim][$subdim][$atrib])
+							&& $this->commentAtr[$id][$dim][$subdim][$atrib] == 'visible') {
+							
 							$comment = '1';
-						$xml .= '<Attribute id="'.$this->atributosId[$id][$dim][$subdim][$atrib].'" name="' . htmlspecialchars($this->atributo[$id][$dim][$subdim][$atrib]['nombre']) . '" comment="'. $comment .'" percentage="' . $this->atribpor[$id][$dim][$subdim][$atrib] . '">
+						}
+						$atrid = (isset($this->atributosId[$id][$dim][$subdim][$atrib]))
+							? $this->atributosId[$id][$dim][$subdim][$atrib] : '';
+						$atrname = (isset($this->atributo[$id][$dim][$subdim][$atrib]['nombre']))
+							? $this->atributo[$id][$dim][$subdim][$atrib]['nombre'] : '';
+						$atrpor = (isset($this->atribpor[$id][$dim][$subdim][$atrib]))
+							? $this->atribpor[$id][$dim][$subdim][$atrib] : '';
+						
+						$xml .= '<Attribute id="'
+							. $atrid .'" name="'
+							. htmlspecialchars($atrname) . '" comment="'
+							. $comment .'" percentage="'
+							. $atrpor . '">
 			<selectionControlList>0</selectionControlList>
 			<selection>0</selection>
 		</Attribute>
@@ -1149,9 +1199,11 @@
 				$xml .= '<GlobalAssessment values="' . $this->numtotal[$id] . '" percentage="' . $this->valtotalpor[$id] . '">
 				<Values>
 ';
-			   foreach($this->valorestotal[$id] as $grado => $elemvalue){
-				  $xml .= '<Value id="'.$this->valorestotalesId[$id][$grado].'">'. htmlspecialchars($this->valorestotal[$id][$grado]['nombre']) . "</Value>\n";
-			   }
+				foreach($this->valorestotal[$id] as $grado => $elemvalue){
+					$totalvalueid = (isset($this->valorestotalesId[$id][$grado])) ? $this->valorestotalesId[$id][$grado] : '';
+					$totalvalue = (isset($this->valorestotal[$id][$grado]['nombre'])) ? $this->valorestotal[$id][$grado]['nombre'] : '';
+					$xml .= '<Value id="'.$totalvalueid.'">'. htmlspecialchars($totalvalue) . "</Value>\n";
+				}
 				$xml .= '</Values>
 
 				<Attribute name="Global assessment" percentage="100">0</Attribute>
@@ -1590,7 +1642,7 @@
 								
 								echo '
 									<td colspan="'.($colspandim +2).'">
-										<textarea rows="2" style="height:6em;width:100%" id="observaciones'.$i.'_'.$l.'_'.$j.'" name="observaciones'.$i.'_'.$l.'_'.$j.'" style="width:100%">'.htmlspecialchars($vcomment).'</textarea>
+										<textarea rows="2" style="height:6em;width:100%" id="observaciones'.$i.'_'.$l.'_'.$j.'" name="observaciones'.$i.'_'.$l.'_'.$j.'" style="width:100%">'.$vcomment.'</textarea>
 									</td>
 								';
 							}
@@ -1633,7 +1685,7 @@
 				if(isset($this->commentDim[$id][$dim]) && $this->commentDim[$id][$dim]== 'visible'){
 					$vcomment = '';
 					if(isset($this->valuecommentDim[$id][$dim])){
-						$vcomment = htmlspecialchars($this->valuecommentDim[$id][$dim]);
+						$vcomment = $this->valuecommentDim[$id][$dim];
 					}
 
 					echo "
@@ -1680,9 +1732,18 @@
 								</tr>
 							</table>
 			';
-			if($global_comment == 'global_comment'){
-				echo "<br><label for='observaciones'>". strtoupper($string['comments'])."</label><br>
-                           <textarea name='observaciones' id='observaciones' rows=4 cols=20 style='width:100%'>".htmlspecialchars($this->observation[$id])."</textarea>";
+			if (isset($global_comment)) {
+				$global_comment = ($global_comment === 'global_comment') ? $this->observation[$id] : $global_comment;
+				$width = (empty($this->comment[$id])) ? 100 : 60;
+				$comment = (empty($this->comment[$id])) ? ($string['comments']).':' : $this->comment[$id];
+				echo '<br><br><br>
+							<table class="tabla" border=1 cellpadding="5px">
+								<tr>
+									<td>'.htmlspecialchars($comment).'</td>
+									<td style="width:'.$width.'%"><textarea name="observaciones" id="observaciones" rows=4 cols=20 style="width:100%">'.$global_comment.'</textarea></td>
+								</tr>
+							</table>
+				';
 			}
 		}
 		
@@ -1723,8 +1784,8 @@
 				$valtotal = '1';
 			}
 			$observation = '';
-			if(isset($this->observation[$id])){
-				$observation = $this->observation[$id];
+			if(isset($this->comment[$id])){
+				$observation = $this->comment[$id];
 			}
 			$porcentage = '100';
 			if(isset($this->porcentage) && $this->porcentage != ''){
@@ -1769,7 +1830,9 @@
 			else{ 
 				//Comprobamos los elementos estructurales. Si no se han modificado
 				$updateplantilla = false;
-				if($plantilla->pla_tit != $this->titulo || $plantilla->pla_glo != $valtotal || $plantilla->pla_des != $this->observation[$id] || $plantilla->pla_por != $porcentage){
+				if($plantilla->pla_tit != $this->titulo || $plantilla->pla_glo != $valtotal 
+						|| $plantilla->pla_des != $this->comment[$id] || $plantilla->pla_por != $porcentage
+						|| $plantilla->pla_gpr != $valtotalpor){
 					$updateplantilla = true;
 				}
 				if($plantilla->pla_glo != $valtotal){
@@ -1861,6 +1924,7 @@
 							$dim_com = '1';
 						}
 					}
+				
 					$idDim = $this->dimensionsId[$id][$dim];
 					if(isset($dimensionsCod[$idDim])){						
 						$update = false;
@@ -2103,7 +2167,7 @@
 				}
 				
 				$plv_pos = 0;
-				if($this->valtotal[$id] == 'true' || $this->valtotal[$id] == 't'){	
+				if(isset($this->valtotal[$id]) && ($this->valtotal[$id] == 'true' || $this->valtotal[$id] == 't')){	
 					foreach($this->valorestotal[$id] as $grado => $elemvalue){
 						$idPlaval = $this->valorestotalesId[$id][$grado];
 						if(isset($plavalsCod[$idPlaval])){
@@ -2332,7 +2396,7 @@
 			
 			$params_result = array();
 			if($recalculate == true){				
-				require_once('../classes/assessment.php');
+				require_once(DIRROOT . '/classes/assessment.php');
 				if($assessments = assessment::fetch_all(array('ass_pla' => $tableid))){
 					$plantilla->pla_mod = '1';
 					$pla_glo = '0';
@@ -2341,7 +2405,7 @@
 					}
 					$plantilla->pla_glo = $pla_glo;
 					$plantilla->update();
-					require_once('../lib/finalgrade.php');
+					require_once(DIRROOT . '/lib/finalgrade.php');
 					foreach($assessments as $assessment){
 						$finalgrade = finalgrade($assessment->id, $tableid);
 						$gradexp = explode('/', $finalgrade);

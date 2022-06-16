@@ -4,6 +4,7 @@ class simple_tool{
 	public $id;
 	public $title;
 	public $observation;
+	public $description;
 	public $percentage;
 	public $num_dimensions;
 	public $type;
@@ -79,7 +80,9 @@ class simple_tool{
 			}*/
 			$as++;
 			$assessment_id = $assessment->id;
-			$this->observation = $assessment->ass_com;
+			if (isset($assessment->ass_com)) {
+				$this->observation = $assessment->ass_com;
+			}
 	
 			$sql_atr = "SELECT atributo.id AS atributoid, ate_val, ate_ran
 						FROM atreva, atributo, subdimension, dimen 
@@ -311,7 +314,8 @@ class simple_tool{
 		$plantilla = plantilla::fetch(array('id' => $this->id));
 
 		$this->title = $plantilla->pla_tit;
-		$this->observation = $plantilla->pla_des;
+		$this->description = $plantilla->pla_des;
+		$this->observation = '';
 		$this->percentage = $plantilla->pla_por;		
 		$this->type = $plantilla->pla_tip;
 		$this->yesnovglobal = $plantilla->pla_glo;

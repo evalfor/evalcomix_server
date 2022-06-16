@@ -62,6 +62,8 @@
 		//Array -- Almacena los IDs de la BD relativos a los atributos
 		private $atributosId;
 		
+		public $comment;
+		
 		function get_tool($id){}
 		function get_titulo(){return $this->titulo;}
 		function get_dimension(){return $this->dimension[$this->id];}
@@ -117,7 +119,11 @@
 		function set_valoresId($valoresId){}
 		function set_valorestotalesId($valoresId){}
 		
-		function __construct($lang='es_utf8', $titulo, $dimension, $numdim = 1, $subdimension, $numsubdim = 1, $atributo, $numatr = 1, $dimpor, $subdimpor, $atribpor, $commentAtr, $id = 0, $observation = '', $porcentage=0, $valuecommentAtr = '', $params = array()){
+		function __construct($lang='es_utf8', $titulo = '', $dimension = array(), $numdim = 1, $subdimension = array(),
+				$numsubdim = 1, $atributo = array(), $numatr = 1, $dimpor = array(), $subdimpor = array(),
+				$atribpor = array(), $commentAtr = array(), $id = 0, $observation = '', $porcentage=0,
+				$valuecommentAtr = '', $params = array()){
+
 			$this->filediccionario = 'lang/'.$lang.'/evalcomix.php';
 			$this->titulo = $titulo;
 			$this->dimension = $dimension;
@@ -130,7 +136,7 @@
 			$this->subdimpor = $subdimpor;
 			$this->atribpor = $atribpor;
 			$this->id = $id;
-			$this->observation = $observation;
+			$this->observation = (is_array($observation)) ? $observation : array($id => $observation);
 			$this->porcentage = $porcentage;
 			$this->view = 'design';
 			$this->commentAtr = $commentAtr;			
@@ -145,6 +151,8 @@
 			if(!empty($params['atributosId'])){
 				$this->atributosId = $params['atributosId'];
 			}
+			
+			$this->comment = (isset($params['comment'])) ? $params['comment'] : '';
 		}
 		
 		function addDimension($dim, $key){
@@ -401,12 +409,14 @@
 			flush();
 		}
 		
-		function display_body($data, $mix = '', $porcentage=''){		
-			if($porcentage != '')
+		function display_body($data, $mix = '', $porcentage='') {
+			if ($porcentage != '') {
 				$this->porcentage = $porcentage;
-			if(isset($data['titulo'.$this->id]))
+			}
+			if (isset($data['titulo'.$this->id])) {
 				$this->titulo = stripslashes($data['titulo'.$this->id]);
-	
+			}
+			
 			require($this->filediccionario);
 			$numdimen = count($this->dimension[$this->id]);
 			
@@ -416,7 +426,7 @@
 			$id = $this->id;
 			//----------------------------------------------TODO
 			echo '
-			<div id="cuerpo'.$id.'"  class="cuerpo">
+			<div id="cuerpo'.$id.'" class="cuerpo">
 				<br>
 				<label for="titulo'.$id.'" style="margin-left:1em">'.$string['argument'].':</label><span class="labelcampo">
 					<textarea class="width" id="titulo'.$id.'" name="titulo'.$id.'">'.$this->titulo.'</textarea></span>
@@ -447,10 +457,11 @@
 				echo '</div>';
 			}
 			
-			if(!is_numeric($mix)){
+			if (!is_numeric($mix)) {
 				$this->observation[$id] = '';
-				if(isset($data['observation'.$id]))
+				if(isset($data['observation'.$id])) {
 					$this->observation[$id] = stripslashes($data['observation'.$id]);
+				}
 				
 				echo '
 				<div id="comentario">
@@ -710,8 +721,8 @@
 			}
 	
 			$observation = '';
-			if(isset($this->observation[$id])){
-				$observation = $this->observation[$id];
+			if(isset($this->comment[$id])){
+				$observation = $this->comment[$id];
 			}
 			$porcentage = '100';
 			if(isset($this->porcentage) && $this->porcentage != ''){
@@ -744,7 +755,7 @@
 			else{
 				//Comprobamos los elementos estructurales. Si no se han modificado
 				$updateplantilla = false;
-				if($plantilla->pla_tit != $this->titulo || $plantilla->pla_des != $this->observation[$id] || $plantilla->pla_por != $porcentage){
+				if($plantilla->pla_tit != $this->titulo || $plantilla->pla_des != $this->comment[$id] || $plantilla->pla_por != $porcentage){
 					$updateplantilla = true;
 				}
 				
@@ -1070,11 +1081,16 @@
 			elseif($mixed == '1'){
 				$root = '<ArgumentSet ';
 				$rootend = '</ArgumentSet>';
-				$percentage1 = ' percentage="' . $this->porcentage . '"';
+				$porcentagevalue = (isset($this->porcentage)) ? $this->porcentage : '';
+				$percentage1 = ' percentage="' . $porcentagevalue . '"';
 			}
 		
 			//ROOT-----------------------
-			$xml = $root . ' id="'. $idtool .'" name="' . htmlspecialchars($this->titulo) . '" dimensions="' . $this->numdim[$id] .'" ' . $percentage1 . '>
+			$title = (isset($this->titulo)) ? $this->titulo : '';
+			$numdim = (isset($this->numdim[$id])) ? $this->numdim[$id] : '';
+			$xml = $root . ' id="'. $idtool .'" name="' .
+				htmlspecialchars($title) . '" dimensions="' .
+				$numdim .'" ' . $percentage1 . '>
 			';
 			
 			if(isset($this->observation[$id])){
@@ -1084,18 +1100,51 @@
 
 			//DIMENSIONS------------------
 			foreach($this->dimension[$id] as $dim => $itemdim){
-				$xml .=  '<Dimension id="'.$this->dimensionsId[$id][$dim].'" name="' . htmlspecialchars($this->dimension[$id][$dim]['nombre']) . '" subdimensions="' . $this->numsubdim[$id][$dim] . '" values="2" percentage="' . $this->dimpor[$id][$dim] . '">
+				$dimid = (isset($this->dimensionsId[$id][$dim])) ? $this->dimensionsId[$id][$dim] : '';
+				$dimname = (isset($this->dimension[$id][$dim]['nombre'])) ? $this->dimension[$id][$dim]['nombre'] : '';
+				$numsubdim = (isset($this->numsubdim[$id][$dim])) ? $this->numsubdim[$id][$dim] : '';
+				$dimpor = (isset($this->dimpor[$id][$dim])) ? $this->dimpor[$id][$dim] : '';
+				
+				$xml .=  '<Dimension id="'.
+					$dimid.'" name="' .
+					htmlspecialchars($dimname) . '" subdimensions="' .
+					$numsubdim . '" values="2" percentage="' .
+					$dimpor . '">
 	';			
 				//SUBDIMENSIONS-----------------
 				foreach($this->subdimension[$id][$dim] as $subdim => $elemsubdim){
-					$xml .=  '<Subdimension id="'.$this->subdimensionsId[$id][$dim][$subdim].'" name="' . htmlspecialchars($this->subdimension[$id][$dim][$subdim]['nombre']) . '" attributes="' . $this->numatr[$id][$dim][$subdim] . '" percentage="' . $this->subdimpor[$id][$dim][$subdim] . '">
+					$subdimid = (isset($this->subdimensionsId[$id][$dim][$subdim]))
+						? $this->subdimensionsId[$id][$dim][$subdim] : '';
+					$subdimname = (isset($this->subdimension[$id][$dim][$subdim]['nombre'])) 
+						? $this->subdimension[$id][$dim][$subdim]['nombre'] : '';
+					$numatr = (isset($this->numatr[$id][$dim][$subdim])) ? $this->numatr[$id][$dim][$subdim] : '';
+					$subdimpor = (isset($this->subdimpor[$id][$dim][$subdim])) ? $this->subdimpor[$id][$dim][$subdim] : '';
+					
+					$xml .=  '<Subdimension id="'.
+						$subdimid.'" name="' .
+						htmlspecialchars($subdimname) . '" attributes="' .
+						$numatr . '" percentage="' .
+						$subdimpor . '">
 	';
 					//ATTRIBUTES--------------------
 					foreach($this->atributo[$id][$dim][$subdim] as $atrib => $elematrib){
 						$comment = '0';
-						if($this->commentAtr[$id][$dim][$subdim][$atrib] == 'visible')
+						if($this->commentAtr[$id][$dim][$subdim][$atrib] == 'visible') {
 							$comment = '1';
-						$xml .=  '<Attribute id="'.$this->atributosId[$id][$dim][$subdim][$atrib].'" name="' . htmlspecialchars($this->atributo[$id][$dim][$subdim][$atrib]['nombre']) . '" comment="'. $comment .'" percentage="' . $this->atribpor[$id][$dim][$subdim][$atrib] . '">0</Attribute>
+						}
+						
+						$atribid = (isset($this->atributosId[$id][$dim][$subdim][$atrib]))
+							? $this->atributosId[$id][$dim][$subdim][$atrib] : '';
+						$atribname = (isset($this->atributo[$id][$dim][$subdim][$atrib]['nombre']))
+							? $this->atributo[$id][$dim][$subdim][$atrib]['nombre'] : '';
+						$atribpor = (isset($this->atribpor[$id][$dim][$subdim][$atrib]))
+							? $this->atribpor[$id][$dim][$subdim][$atrib] : '';
+
+						$xml .=  '<Attribute id="'.
+							$atribid .'" name="' .
+							htmlspecialchars($atribname) . '" comment="'.
+							$comment .'" percentage="' .
+							$atribpor . '">0</Attribute>
 	';
 					}
 
@@ -1152,8 +1201,9 @@
 			}
 			
 			if(!is_numeric($mix)){
-				if(isset($data['observation'.$id]))
+				if(isset($data['observation'.$id])) {
 					$this->observation[$id] = stripslashes($data['observation'.$id]);
+				}
 				
 				echo '
 				<div id="comentario">
@@ -1314,7 +1364,7 @@
 						foreach($this->atributo[$this->id][$dim][$subdim] as $atrib => $elematrib){
 							$vcomment = '';
 							if(isset($this->valuecommentAtr[$id][$dim][$subdim][$atrib])){
-								$vcomment = htmlspecialchars($this->valuecommentAtr[$id][$dim][$subdim][$atrib]);
+								$vcomment = $this->valuecommentAtr[$id][$dim][$subdim][$atrib];
 							}
 							
 							echo '
@@ -1360,7 +1410,19 @@
 			echo '
 							</table>
 			';
-			echo "<br><label for='observaciones'>". strtoupper($string['comments'])."</label><br>
-                           <textarea name='observaciones' id='observaciones' rows=4 cols=20 style='width:100%'>".htmlspecialchars($this->observation[$id])."</textarea>";
+			
+			$width = (empty($this->comment[$id])) ? 100 : 60;
+			$comment = (empty($this->comment[$id])) ? ($string['comments']).':' : htmlspecialchars($this->comment[$id]);
+			echo '<br><br><br>
+							<table class="tabla" border=1 cellpadding="5px">
+								<tr>
+									<td>'.$comment.'</td>
+									<td style="width:'.$width.'%"><textarea name="observaciones" id="observaciones" rows=4 cols=20 style="width:100%">'.$this->observation[$id].'</textarea></td>
+								</tr>
+							</table>
+			';
+			
+			/*echo "<br><label for='observaciones'>". strtoupper($string['comments'])."</label><br>
+                           <textarea name='observaciones' id='observaciones' rows=4 cols=20 style='width:100%'>".htmlspecialchars($this->observation[$id])."</textarea>";*/
 		}
 	}

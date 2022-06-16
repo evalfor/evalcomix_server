@@ -71,7 +71,9 @@
 		$language = $_SESSION['lang'];
 
 	require_once('tool.php');
-	$tool = new tool($language, $type, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo, $numatr, $valores, $numvalores, "false", $numtotal, $valorestotal, $valglobal, $valglobalpor, $dimpor, $subdimpor, $atribpor, $commentAtr, $commentDim);
+	$tool = new tool($language, $type, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo,
+		$numatr, $valores, $numvalores, array('id' => 0), $numtotal, $valorestotal, $valglobal, $valglobalpor, $dimpor,
+		$subdimpor, $atribpor, $commentAtr, $commentDim);
 	$toolObj = serialize($tool);
 	$_SESSION['tool'] = $toolObj;
 	$_SESSION['secuencia'] = $secuencia;

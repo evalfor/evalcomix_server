@@ -94,7 +94,8 @@ targetNamespace="http://avanza.uca.es/assessmentservice/controllistevaluationset
 
 	<xs:complexType name="ControlListEvaluationSet">
 		<xs:sequence>
-                        <mx:element name="Description" type="Description" minOccurs="0" maxOccurs="1"/>
+            <mx:element name="Description" type="Description" minOccurs="0" maxOccurs="1"/>
+            <mx:element name="Comment" type="Description" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="Dimension" type="Dimension" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="GlobalAssessment" type="GlobalAssessment" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>

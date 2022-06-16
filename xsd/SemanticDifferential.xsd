@@ -39,7 +39,8 @@ targetNamespace="http://avanza.uca.es/assessmentservice/semanticdifferential">
 	
 	<xs:complexType name="SemanticDifferentail">
 		<xs:sequence>
-                        <mx:element name="Description" type="Description" minOccurs="0" maxOccurs="1"/>
+            <mx:element name="Description" type="Description" minOccurs="0" maxOccurs="1"/>
+            <mx:element name="Comment" type="Description" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="Values" type="Values"/>
 			<xs:element name="Attributes" type="Subdimension" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>

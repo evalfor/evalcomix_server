@@ -12,28 +12,41 @@ class tool{
 	var $language;
 	var $type;
 	
-	function __construct($language, $type, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo, $numatr, $valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal, $valglobalpor, $dimpor, $subdimpor, $atribpor, $commentAtr, $commentDim){
+	function __construct($language, $type, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo, $numatr, $valores,
+			$numvalores, $valtotal, $numtotal, $valorestotal, $valglobal, $valglobalpor, $dimpor, $subdimpor, $atribpor,
+			$commentAtr, $commentDim){
 		switch($type){
 			case 'lista':{
-				$this->object = new toollist($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo, $numatr, $valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal, $valglobalpor, $dimpor, $subdimpor, $atribpor, $commentAtr);
+				$this->object = new toollist($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim,
+					$atributo, $numatr, $valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal,
+					$valglobalpor, $dimpor, $subdimpor, $atribpor, $commentAtr);
 			}break;
 			case 'escala':{
-				$this->object = new toolscale($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo, $numatr, $valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal, $valglobalpor, $dimpor, $subdimpor, $atribpor, $commentAtr, $commentDim);
+				$this->object = new toolscale($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim,
+					$atributo, $numatr, $valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal,
+					$valglobalpor, $dimpor, $subdimpor, $atribpor, $commentAtr, $commentDim);
 			}break;
 			case 'listaescala':{
-				$this->object = new toollistscale($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo, $numatr, $valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal, $valglobalpor, $dimpor, $subdimpor, $atribpor, $commentAtr, $commentDim);
+				$this->object = new toollistscale($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim,
+					$atributo, $numatr, $valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal,
+					$valglobalpor, $dimpor, $subdimpor, $atribpor, $commentAtr, $commentDim);
 			}break;
 			case 'diferencial':{
-				$this->object = new tooldifferential($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo, $numatr, $valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal, $valglobalpor, $dimpor, $subdimpor, $atribpor, $commentAtr);
+				$this->object = new tooldifferential($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim,
+					$atributo, $numatr, $valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal, $valglobalpor,
+					$dimpor, $subdimpor, $atribpor, $commentAtr);
 			}break;
 			case 'rubrica':{
-				$this->object = new toolrubric($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo, $numatr, $valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal, $valglobalpor, $dimpor, $subdimpor, $atribpor, $commentAtr, $commentDim);
+				$this->object = new toolrubric($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim,
+					$atributo, $numatr, $valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal,
+					$valglobalpor, $dimpor, $subdimpor, $atribpor, $commentAtr, $commentDim);
 			}break;
 			case 'mixta':{
 				$this->object = new toolmix($language, $titulo);
 			}break;
 			case 'argumentario':{
-				$this->object = new toolargument($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo, $numatr, $dimpor, $subdimpor, $atribpor, $commentAtr);
+				$this->object = new toolargument($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim,
+					$atributo, $numatr, $dimpor, $subdimpor, $atribpor, $commentAtr);
 			}break;
 		}
 		$this->language = $language;
@@ -553,7 +566,8 @@ class tool{
 			$numatr[$id][$dim][$subdim] = (string)$xml['attributes'];
 			$percentage = (string)$xml['percentage'];
 			$valuecommentAtr = array();
-			$observation[$id] = (string)$xml->Description;
+			$observation[$id] = (string)$xml->Comment;
+			$comment[$id] = (string)$xml->Description;
 
 			$atributosId = array();
 			$atributosposId = array();
@@ -602,7 +616,8 @@ class tool{
 				$valuetotalvalue[$id] = '';
 			}
 			$titulo = (string)$xml['name'];
-			$observation[$id] = (string)$xml->Description;
+			$observation[$id] = (string)$xml->Comment;
+			$comment[$id] = (string)$xml->Description;
 			$percentage = (string)$xml['percentage'];
 			$numdim[$id] = (string)$xml['dimensions']; 
 			$valglobal = $valglobalpor = $commentDim = array();
@@ -752,6 +767,7 @@ class tool{
 				$params['valorestotalesId'] = $valorestotalesId;
 			}
 		}
+		$params['comment'] = $comment;
 		$instrument;
 		switch($type){
 			case 'lista':{
@@ -1105,7 +1121,7 @@ body {color:#333;background-color: #fff;font-family: "arial";font-size: 0.72em; 
 			';
 		}
 		
-		function assessment_tool_mixed($root = '', $assessmentid = 0, $idTool = '', $grade = '', $saved = '', $tools = array(), $title = ''){
+		function assessment_tool_mixed($root = '', $assessmentid = 0, $idTool = '', $grade = '', $saved = '', $tools = array(), $title = '', $toolmix = null, $assessment = null){
 			require('lang/'. $this->language . '/evalcomix.php');
 			$action = $root . '/assessment/saveassess.php?ass=' . $assessmentid . '&tool='.$idTool;
 			$this->view_assessment_header();
@@ -1183,10 +1199,22 @@ body {color:#333;background-color: #fff;font-family: "arial";font-size: 0.72em; 
 				';
 				
 				echo "<input type='button' name='".$string['TSave']."' value='".$string['TSave']."' onclick='sendPostAssess(\"totalgrade\",\"uno=1\",\"form".$i."\",\"".$action."\");alert(\"".$string['alertsave']."\");'>";
-				$global_comment = 'none';
-				if($i == $countListTool){
-					$global_comment = 'global_comment';
+				$global_comment = null;
+				if($i == $countListTool) {
+					$global_comment = '';
+					$tool->comment[$i] = (isset($toolmix->pla_des)) ? $toolmix->pla_des : null;
+					if (isset($assessment->ass_com)){
+						$global_comment = $assessment->ass_com;
+					}
 				}
+				/*
+				$global_comment = null;
+				if($i == $countListTool){
+					$global_comment = '';
+					$tool->comment[$i] = (isset($toolmix->pla_des)) ? $toolmix->pla_des : '';
+				}
+				$tool->print_tool($global_comment);
+				*/
 				$tool->print_tool($global_comment);
 				
 				echo "
@@ -1223,7 +1251,7 @@ body {color:#333;background-color: #fff;font-family: "arial";font-size: 0.72em; 
 			';
 		}
 		
-		function view_tool_mixed($root = '', $grade = '', $title = ''){
+		function view_tool_mixed($root = '', $grade = '', $title = '', $toolmix = null){
 			require('lang/'. $this->language . '/evalcomix.php');
 			$action = '';
 			$this->view_assessment_header();
@@ -1261,9 +1289,10 @@ body {color:#333;background-color: #fff;font-family: "arial";font-size: 0.72em; 
 							<form name="form'. $i .'" method="post" action="'.$action.'">
 				';
 				
-				$global_comment = 'none';
+				$global_comment = null;
 				if($i == $countListTool){
-					$global_comment = 'global_comment';
+					$global_comment = '';
+					$tool->comment[$i] = (isset($toolmix->pla_des)) ? $toolmix->pla_des : '';
 				}
 				$tool->print_tool($global_comment);
 				

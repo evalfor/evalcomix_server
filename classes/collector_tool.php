@@ -5,7 +5,7 @@ class collector_tool{
 	
 	public $id;
 	public $title;
-	public $comments;
+	public $description;
 	public $mixed = false;
 	/**
 	* @var array of tool objects
@@ -27,7 +27,7 @@ class collector_tool{
 			elseif ($type == 'composed'){
 				$mixed_datas = $this->get_mixed_datas($id);
 				$this->title = $mixed_datas->title;
-				$this->comments = $mixed_datas->comments;
+				$this->description = $mixed_datas->description;
 				$this->mixed = true;
 				$id_tools = $mixed_datas->tools_id;
 				foreach($id_tools as $id_tool){
@@ -51,7 +51,7 @@ class collector_tool{
 
 		$result = new stdClass();
 		$result->title = $mixto->pla_tit;
-		$result->comments = $mixto->pla_des;
+		$result->description = $mixto->pla_des;
 		foreach($mixtopla as $tool){
 			$result->tools_id[] = $tool->mip_pla;
 		}

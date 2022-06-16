@@ -80,7 +80,7 @@ class api_controller {
 		$tool->import($xmlobject);
 		
 		if($plantilla->pla_tip == 'mixto'){		
-			$tool->view_tool_mixed(WWWROOT, '', $title);
+			$tool->view_tool_mixed(WWWROOT, '', $title, $plantilla);
 		}
 		else{
 			$tool->view_tool(WWWROOT, '', 'view', $title);
@@ -148,6 +148,7 @@ class api_controller {
 		if (!$assessment = assessment::fetch(array('ass_id' => $assessmentid))) {
 			$params['ass_id'] = $assessmentid;
 			$params['ass_pla'] = $toolfetch->id;
+			$params['ass_com'] = '';
 			$assessment = new assessment($params);
 			$assessment->insert();
 		}
@@ -161,6 +162,9 @@ class api_controller {
 		$params = array('tool_id' => $toolfetch->id, 'assessment' => $assessment, 'format' => $format);
 		$exporter = new exporter($params, $format);
 		$xml = $exporter->export(null);
+
+		//echo "assessment: $assessment->ass_id<br><br>";
+		//echo htmlentities($xml);
 		$xmlobject = simplexml_load_string($xml);
 		$language = $_SESSION['lang'];
 		$tool = new tool($language,'','','','','','','','','','','','','','','','','','','','');
@@ -192,7 +196,7 @@ class api_controller {
 			assessment::set_properties($assessment, $params);
 			$assessment->update();
 			
-			$tool->assessment_tool_mixed(WWWROOT, $assid, $toolfetch->id, $finalgrade, $saved, $tools, $title);
+			$tool->assessment_tool_mixed(WWWROOT, $assid, $toolfetch->id, $finalgrade, $saved, $tools, $title, $toolfetch, $assessment);
 		}
 		else{
 			$tool->assessment_tool(WWWROOT, $assessment->id, $toolfetch->id, $grade, $saved, $title);
@@ -271,9 +275,6 @@ class api_controller {
 		if (!self::check_request()) {
 			return 401;
 		}
-		if (empty($toolid)) {
-			return null;
-		}
 		
 		require_once(DIRROOT . '/classes/plantilla.php');
 		$success = false;
@@ -282,8 +283,6 @@ class api_controller {
 			$tool->delete();
 			$success = true;
 			$message = 'Tool deleted successfully';
-		} else {
-			return null;
 		}
 		
 		$output = render::render_template('src/api/api_check_view.php', array('result' => $success, 'message' => $message));		
@@ -301,24 +300,20 @@ class api_controller {
 		$success = false;
 		$message = '';
 		
-		if ($t = plantilla::fetch(array('pla_cod' => $newid))) {
-			$message = $newid . ' already exists';
-		} else {	
-			$xml = simplexml_load_string($xmldatas);
-			$xml = cleanxml($xml);
+		$xml = simplexml_load_string($xmldatas);
+		$xml = cleanxml($xml);
 
-			$tool = new tool('es_utf8','','','','','','','','','','','','','','','','','','','','');
-			$tool->import($xml);
-					
-			try{
-				$resultparams = $tool->save($newid);
-				$result = $resultparams['xml'];
-				$success = true;
-				$message .= $result; 
-			}
-			catch(Exception $e){
-				$message .= $newid . ' cannot be imported';
-			}
+		$tool = new tool('es_utf8','','','','','','','','','','','','','','','','','','','','');
+		$tool->import($xml);
+		
+		try{
+			$resultparams = $tool->save($newid);
+			$result = $resultparams['xml'];
+			$success = true;
+			$message .= $result; 
+		}
+		catch(Exception $e){
+			$message .= $newid . ' cannot be imported';
 		}
 		
 		$output = render::render_template('src/api/api_check_view.php', array('result' => $success, 'message' => $message));		
@@ -450,7 +445,7 @@ class api_controller {
 	
 	public static function duplicate_tool($oldid = null, $newid = null) {
 		if (!self::check_request()) {
-			//return 401;
+			return 401;
 		}
 		
 		if (empty($oldid) || empty($newid)) {
@@ -669,6 +664,195 @@ class api_controller {
 		return new Response($output);
 	}
 	
+	public static function get_grade_subdimension($xmldatas = '') {
+		if (!self::check_request()) {
+			return 401;
+		}
+		
+		if (empty($xmldatas)) {
+			return null;
+		}
+		
+		require_once(DIRROOT . '/classes/cleanxml.php');
+		require_once(DIRROOT . '/classes/plantilla.php');
+		require_once(DIRROOT . '/classes/assessment.php');
+		require_once(DIRROOT . '/classes/grade.php');
+		require_once(DIRROOT . '/classes/gradebase.php');
+		require_once(DIRROOT . '/classes/gradescale.php');
+		require_once(DIRROOT . '/classes/gradelistscale.php');
+		require_once(DIRROOT . '/classes/grademix.php');
+		require_once(DIRROOT . '/classes/graderubrica.php');
+		require_once(DIRROOT . '/classes/gradedifferential.php');
+		require_once(DIRROOT . '/classes/gradeargumentset.php');
+		
+		libxml_use_internal_errors(true);
+		$xml = simplexml_load_string($xmldatas);
+		if ($xml) {
+			$xml = cleanxml($xml);
+		} else {
+			return null;
+		}
+		
+		$format = 'xml';
+		$datas = array();
+		foreach($xml as $subdimensionassessments){
+			$subdimensionid = (string)$subdimensionassessments['subdimensionid'];
+			foreach ($subdimensionassessments as $item) {
+				$assessmentid = (string)$item;
+				$grade = '';
+				$maxgrade = 100;
+				if ($assessment = assessment::fetch(array('ass_id' => $assessmentid))) {
+					$maxgrade = $assessment->ass_mxg;
+					if ($tool = plantilla::fetch(array('id' => $assessment->ass_pla))) {
+						$type = $tool->pla_tip;
+						$toolid = $assessment->ass_pla;
+						
+						$object = null;
+						switch($type) {
+							case 'escala': $object = new gradescale($assessment->id, $toolid); break;
+							case 'lista': $object = new gradescale($assessment->id, $toolid); break;
+							case 'lista+escala': $object = new gradelistscale($assessment->id, $toolid);break;
+							case 'rubrica': $object = new graderubrica($assessment->id, $toolid);break;
+							case 'diferencial': $object = new gradedifferential($assessment->id, $toolid);break;
+							case 'argumentario': $object = new gradeargumentset($assessment->id, $toolid);break;
+							default:
+						}
+						
+						if ($type == 'mixto') {
+							$mixtools = array();
+							$mixtoplas = mixtopla::fetch_all(array('mip_mix' => $tool->id));
+							foreach ($mixtoplas as $mip_pla) {
+								$mixtools[] = plantilla::fetch(array('id' => $mip_pla->mip_pla));
+							}
+							foreach ($mixtools as $mixtool) {
+								if ($grade == '') {
+									$mixtype = $mixtool->pla_tip;
+									$mixobject = null;
+									switch ($mixtype) {
+										case 'escala': $mixobject = new gradescale($assessment->id, $mixtool->id); break;
+										case 'lista': $mixobject = new gradescale($assessment->id, $mixtool->id); break;
+										case 'lista+escala': $mixobject = new gradelistscale($assessment->id, $mixtool->id);break;
+										case 'rubrica': $mixobject = new graderubrica($assessment->id, $mixtool->id);break;
+										case 'diferencial': $mixobject = new gradedifferential($assessment->id, $mixtool->id);break;
+										case 'argumentario': $mixobject = new gradeargumentset($assessment->id, $mixtool->id);break;
+									}
+									
+									if ($mixtype == 'diferencial' && $subdimensionid === $mixtool->pla_cod) {
+										$grade = $mixobject->get_grade();				
+									} else {
+										$grade = self::get_grade_subdimension_helper($mixtool, $mixobject, $subdimensionid);
+									}
+								}
+							}
+						} else if ($type == 'diferencial' || $type == 'argumentario') {
+							$grade = $object->get_grade();			
+						} else {
+							$grade = self::get_grade_subdimension_helper($tool, $object, $subdimensionid);
+						}
+					}
+				}
+				$data = new stdClass();
+				$data->grade = $grade;
+				$data->maxgrade = $maxgrade;
+				$datas[$subdimensionid][$assessmentid] = $data;
+			}
+		}
+		
+		$output = render::render_template('src/api/api_get_grade_subdimension_view.php', array('datas' => $datas));		
+		return new Response($output);
+	}
+	
+	private static function get_grade_subdimension_helper($tool, $object, $subdimensionCod){
+		require_once(DIRROOT . '/classes/dimension.php');
+		require_once(DIRROOT . '/classes/subdimension.php');
+		require_once(DIRROOT . '/lib/weblib.php');
+		
+		if($dimensions = dimension::fetch_all(array('dim_pla' => $tool->id))){
+
+			foreach($dimensions as $dimension){
+				if ($subdimensions = subdimension::fetch_all(array('sub_dim' => $dimension->id))){
+
+					foreach($subdimensions as $subdimension){
+						$id = encrypt_tool_element($subdimension->id);
+						if ($id == $subdimensionCod) {
+							return $object->get_grade_subdimension($subdimension, $dimension);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public static function get_commented_assessments($xmldatas = '') {
+		if (!self::check_request()) {
+			return 401;
+		}
+		
+		if (empty($xmldatas)) {
+			return null;
+		}
+		
+		require_once(DIRROOT . '/classes/cleanxml.php');
+		require_once(DIRROOT . '/classes/plantilla.php');
+		require_once(DIRROOT . '/classes/assessment.php');
+		require_once(DIRROOT . '/classes/dimcomment.php');
+		require_once(DIRROOT . '/classes/atrcomment.php');
+		
+		libxml_use_internal_errors(true);
+		$xml = simplexml_load_string($xmldatas);
+		if ($xml) {
+			$xml = cleanxml($xml);
+		} else {
+			return null;
+		}
+		
+		$minlenght = 100;
+		$datas = array();
+		foreach($xml as $assessmentid){
+			$assid = (string)$assessmentid;
+			$result = 0;
+			if ($assessment = assessment::fetch(array('ass_id' => $assid))) {
+				$asscom = strtolower(trim($assessment->ass_com));
+				if (!empty($asscom) && mb_strlen($asscom) >= $minlenght && $toolfetch = plantilla::fetch(array('id' => $assessment->ass_pla))) {
+					$plades = strtolower(str_replace(' ', '', $toolfetch->pla_des));
+					$asscom = strtolower(str_replace(' ', '', $assessment->ass_com));
+					if (empty($toolfetch->pla_des)) {
+						$result = 1;
+					} else {
+						$pos = strpos($asscom, $plades);
+						if ($pos === false) {
+							$result = 1;
+						} else if (mb_strlen($asscom) > (mb_strlen($plades))) {
+							$result = 1;
+						}
+					}
+				} 
+				if ($result == 0 && $dimcomments = dimcomment::fetch_all(array('dic_eva' => $assessment->id))) {
+					foreach ($dimcomments as $dimcomment) {
+						if (!empty($dimcomment->dic_obs) && mb_strlen($dimcomment->dic_obs) >= $minlenght) {
+							$result = 1;
+						}
+					}
+				} 
+
+				if ($result == 0 && $atrcomments = atrcomment::fetch_all(array('atc_eva' => $assessment->id))) {
+					foreach ($atrcomments as $atrcomment) {
+						if (!empty($atrcomment->atc_obs) && mb_strlen($atrcomment->atc_obs) >= $minlenght) {
+							$result = 1;
+						}
+					}
+				} 
+				
+				$datas[$assid] = new stdClass();
+				$datas[$assid]->xml = $result;
+				$datas[$assid]->assessmentfetch = $assessment;
+			}
+		}
+
+		$output = render::render_template('src/api/api_get_assessments_view.php', array('datas' => $datas));		
+		return new Response($output);
+	}
+
 	public static function check_request() {
 		require_once(DIRROOT . '/classes/lms.php');
 		$request = Request::createFromGlobals();

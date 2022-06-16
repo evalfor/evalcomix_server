@@ -1,5 +1,5 @@
 <?php
 global $version;
 global $release;
-$version = '2021092900';
-$release = 'EvalCOMIX Server v4.3.0';
+$version = '2022061500';
+$release = 'EvalCOMIX Server v4.3.1';

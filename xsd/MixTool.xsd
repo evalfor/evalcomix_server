@@ -31,7 +31,8 @@ xmlns:ti="http://avanza.uca.es/assessmentservice/testinstrument">
 
 	<xs:complexType name="MixTool">
 		<xs:choice minOccurs="0" maxOccurs="unbounded">
-                        <mx:element name="Description" type="Description" minOccurs="0" maxOccurs="1"/>
+            <mx:element name="Description" type="Description" minOccurs="0" maxOccurs="1"/>
+            <mx:element name="Comment" type="Description" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="MixTool" type="MixTool" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="ControlList" type="cl:ControlList" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="EvaluationSet" type="es:EvaluationSet" minOccurs="0" maxOccurs="unbounded"/>

@@ -9,8 +9,9 @@ class toolmix{
 	//string -- comentarios
 	private $observation;
 	private $plantillasId;
+	private $comment;
 	
-	function __construct($lang='es_utf8', $titulo, $observation='', $params = array()){
+	function __construct($lang='es_utf8', $titulo = '', $observation = '', $params = array()){
 		$this->filediccionario = 'lang/'.$lang.'/evalcomix.php';
 		$this->titulo = $titulo;
 		$this->index = 0;
@@ -20,6 +21,7 @@ class toolmix{
 		if(isset($params['plantillasId'])){
 			$this->plantillasId = $params['plantillasId'];
 		}
+		$this->comment = (isset($params['comment'])) ? $params['comment'] : '';
 	}
 
 	function get_toolpor(){return $this->toolpor;}
@@ -241,25 +243,35 @@ class toolmix{
 			$valores[$id][$dim][1]['nombre'] = $string['yes'];
 		}
 		
-		$numtotal = '';
+		$numtotal = array($id => 0);
 		$valorestotal = array();
 		$valtotal = null;
 		$tool;
 		switch($type){
 			case 'lista':{
-				$tool = new toollist($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo, $numatr, $valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal, $valglobalpor, $dimpor, $subdimpor, $atribpor, $commentAtr, $id);
+				$tool = new toollist($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo, $numatr,
+					$valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal, $valglobalpor, $dimpor, $subdimpor,
+					$atribpor, $commentAtr, $id);
 			}break;
 			case 'escala':{
-				$tool = new toolscale($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo, $numatr, $valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal, $valglobalpor, $dimpor, $subdimpor, $atribpor, $commentAtr, $commentDim, $id);
+				$tool = new toolscale($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo, $numatr,
+					$valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal, $valglobalpor, $dimpor, $subdimpor,
+					$atribpor, $commentAtr, $commentDim, $id);
 			}break;
 			case 'listaescala':{
-				$tool = new toollistscale($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo, $numatr, $valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal, $valglobalpor, $dimpor, $subdimpor, $atribpor, $commentAtr, $commentDim, $id);
+				$tool = new toollistscale($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo, $numatr,
+					$valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal, $valglobalpor, $dimpor, $subdimpor, 
+					$atribpor, $commentAtr, $commentDim, $id);
 			}break;
 			case 'diferencial':{
-				$tool = new tooldifferential($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo, $numatr, $valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal, $valglobalpor, $dimpor, $subdimpor, $atribpor, $commentAtr, $id, 1);
+				$tool = new tooldifferential($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo,
+					$numatr, $valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal, $valglobalpor, $dimpor,
+					$subdimpor, $atribpor, $commentAtr, $id, 1);
 			}break;
 			case 'rubrica':{
-				$tool = new toolrubric($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo, $numatr, $valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal, $valglobalpor, $dimpor, $subdimpor, $atribpor, $commentAtr, $commentDim, $id);
+				$tool = new toolrubric($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo, $numatr,
+					$valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal, $valglobalpor, $dimpor, $subdimpor,
+					$atribpor, $commentAtr, $commentDim, $id);
 			}break;
 			case 'mixta':{
 				$tool = new toolmix($language, $titulo);
@@ -453,7 +465,8 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/mixtool http://avanza
 		}
 
 		foreach($this->listTool as $id => $value){
-			$xml .= $this->listTool[$id]->export(array('mixed' => '1', 'id' => $this->plantillasId[$id]));
+			$tid = (isset($this->plantillasId[$id])) ? $this->plantillasId[$id] : '';
+			$xml .= $this->listTool[$id]->export(array('mixed' => '1', 'id' => $tid));
 		}
 		$xml .= $rootend;
 		return $xml;
@@ -502,7 +515,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/mixtool http://avanza
 		';
 	}
 	
-	function print_tool($root = ''){echo "dentro";
+	function print_tool($root = ''){
 		require_once($this->filediccionario);
 		foreach($this->listTool as $tool){
 			$tool->print_tool();
@@ -694,12 +707,12 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/mixtool http://avanza
 		
 		$params_result= array();
 		if($recalculate == true){				
-			require_once('../classes/assessment.php');
+			require_once(DIRROOT . '/classes/assessment.php');
 			if($assessments = assessment::fetch_all(array('ass_pla' => $tableid))){
 				$plantillamain->pla_mod = '1';
 				$plantillamain->pla_glo = '0';
 				$plantillamain->update();
-				require_once('../lib/finalgrade.php');
+				require_once(DIRROOT . '/lib/finalgrade.php');
 				foreach($assessments as $assessment){
 					$finalgrade = finalgrade($assessment->id, $tableid);
 					$gradexp = explode('/', $finalgrade);

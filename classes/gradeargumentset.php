@@ -7,7 +7,7 @@
 		}
 		
 		function get_grade(){
-			$result = $this->assessment->get_ass_grd();
+			$result = $this->assessment->ass_grd;
 			if(isset($result)){
 				$this->calificated = true;
 			}

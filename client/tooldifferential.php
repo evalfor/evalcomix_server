@@ -149,7 +149,11 @@
 		function set_atributosposId($atributo, $id){$this->atributosposId[$this->id] = $atributo;}
 
 		
-		function __construct($lang='es_utf8', $titulo, $dimension, $numdim = 1, $subdimension, $numsubdim = 1, $atributo, $numatr = 1, $valores, $numvalores = 2, $valtotal, $numtotal = 0, $valorestotal, $valglobal = false, $valglobalpor, $dimpor, $subdimpor, $atribpor, $commentAtr, $id=0, $observation='', $porcentage=0, $atributopos = null, $valueattribute = '', $valuecommentAtr = '', $params = array()){
+		function __construct($lang='es_utf8', $titulo = '', $dimension = array(), $numdim = 1, $subdimension = array(),
+				$numsubdim = 1, $atributo = array(), $numatr = 1, $valores = array(), $numvalores = 2, $valtotal = array(),
+				$numtotal = 0, $valorestotal = array(), $valglobal = false, $valglobalpor = array(), $dimpor = array(),
+				$subdimpor = array(), $atribpor = array(), $commentAtr = array(), $id=0, $observation='', $porcentage=0,
+				$atributopos = null, $valueattribute = '', $valuecommentAtr = '', $params = array()) {
 			$this->filediccionario = 'lang/'.$lang.'/evalcomix.php';
 			$this->titulo = $titulo;
 			$this->dimension = $dimension;
@@ -684,13 +688,21 @@
 			elseif($mixed == '1'){
 				$root = '<SemanticDifferential ';
 				$rootend = '</SemanticDifferential>';
-				$percentage1 = ' percentage="' . $this->porcentage . '"';
+				$percentagevalue = (isset($this->porcentage)) ? $this->porcentage : '';
+				$percentage1 = ' percentage="' . $percentagevalue . '"';
 			}
 
 			foreach($this->atributo[$this->id] as $dim => $value1){
 				foreach($value1 as $subdim => $value2){
 					//ROOT-----------------------
-					$xml = $root . ' id="'.$idtool .'" name="' . htmlspecialchars($this->titulo) . '" attributes="' . $this->numatr[$this->id][$dim][$subdim] .'" values="' . $this->numvalores[$id][$dim] . '" ' . $percentage1 . '>
+					$numatr = (isset($this->numatr[$this->id][$dim][$subdim])) ? $this->numatr[$this->id][$dim][$subdim] : '';
+					$numvalues = (isset($this->numvalores[$id][$dim])) ? $this->numvalores[$id][$dim] : '';
+					$xml = $root . ' id="'.
+						$idtool .'" name="' .
+						htmlspecialchars($this->titulo) . '" attributes="' .
+						$numatr .'" values="' .
+						$numvalues . '" ' .
+						$percentage1 . '>
 ';
 					//DESCRIPTION----------------
 					if(isset($this->observation[$id])){
@@ -702,18 +714,36 @@
 					$inicio = (int)($this->numvalores[$id][$dim] / 2);
 		
 					foreach($this->valores[$id][$dim] as $grado => $elemvalue){
-						$xml .= '<Value id="'.$this->valoresId[$id][$dim][$grado].'">'. $elemvalue['nombre'] . "</Value>\n";
+						$valueid = (isset($this->valoresId[$id][$dim][$grado])) ? $this->valoresId[$id][$dim][$grado] : '';
+						$xml .= '<Value id="'. $valueid.'">'. $elemvalue['nombre'] . "</Value>\n";
 					}
 					$xml .= "</Values>\n";
 
 					foreach ($value2 as $atrib => $value3){
 						$comment = '';
-						if(isset($this->commentAtr[$id][$dim][$subdim][$atrib]) && $this->commentAtr[$id][$dim][$subdim][$atrib] == 'visible')
+						if(isset($this->commentAtr[$id][$dim][$subdim][$atrib])
+								&& $this->commentAtr[$id][$dim][$subdim][$atrib] == 'visible') {
 							$comment = '1';
+						}
+		
+						$atribid = (isset($this->atributosId[$id][$dim][$subdim][$atrib]))
+							? $this->atributosId[$id][$dim][$subdim][$atrib] : '';
+						$atribposid = (isset($this->atributosposId[$id][$dim][$subdim][$atrib])) 
+							? $this->atributosposId[$id][$dim][$subdim][$atrib] : '';
+						$namen = (isset($this->atributo[$id][$dim][$subdim][$atrib]['nombre'])) 
+							? $this->atributo[$id][$dim][$subdim][$atrib]['nombre'] : '';
+						$namep = (isset($this->atributopos[$this->id][$dim][$subdim][$atrib]['nombre']))
+							? $this->atributopos[$this->id][$dim][$subdim][$atrib]['nombre'] : '';
+						$atribpor = (isset($this->atribpor[$id][$dim][$subdim][$atrib]))
+							? $this->atribpor[$id][$dim][$subdim][$atrib] : '';
 							
-						$xml .= '<Attribute idNeg="'.$this->atributosId[$id][$dim][$subdim][$atrib].'" idPos="'.
-						$this->atributosposId[$id][$dim][$subdim][$atrib].'" nameN="'
-						. htmlspecialchars($this->atributo[$id][$dim][$subdim][$atrib]['nombre']) . '" nameP="' . htmlspecialchars($this->atributopos[$this->id][$dim][$subdim][$atrib]['nombre']) . '" comment="'. $comment .'" percentage="' . $this->atribpor[$id][$dim][$subdim][$atrib] . '">0</Attribute>
+						$xml .= '<Attribute idNeg="'.
+							$atribid .'" idPos="'.
+							$atribposid .'" nameN="'
+							. htmlspecialchars($namen) . '" nameP="' .
+							htmlspecialchars($namep) . '" comment="'.
+							$comment .'" percentage="' .
+							$atribpor . '">0</Attribute>
 ';
 					}
 				}
@@ -926,7 +956,7 @@
 							if(isset($this->commentAtr[$id][$dim][$subdim][$atrib]) && $this->commentAtr[$id][$dim][$subdim][$atrib] == 'visible'){							
 								$vcomment = '';
 								if(isset($this->valuecommentAtr[$id][$dim][$subdim][$atrib])){
-									$vcomment = htmlspecialchars($this->valuecommentAtr[$id][$dim][$subdim][$atrib]);
+									$vcomment = $this->valuecommentAtr[$id][$dim][$subdim][$atrib];
 								}
 								echo '
 									<tr>
@@ -975,9 +1005,10 @@
 								</tr>
 							</table>
 			';
-			if($global_comment == 'global_comment'){
+			if(isset($global_comment)){
+				$global_comment = ($global_comment === 'global_comment') ? $this->observation[$id] : $global_comment;
 				echo "<br><label for='observaciones'>". strtoupper($string['comments'])."</label><br>
-                           <textarea name='observaciones' id='observaciones' rows=4 cols=20 style='width:100%'>".htmlspecialchars($this->observation[$id])."</textarea>";
+                           <textarea name='observaciones' id='observaciones' rows=4 cols=20 style='width:100%'>".$global_comment."</textarea>";
 			}
 		}
 		
@@ -1353,12 +1384,12 @@
 
 			$params_result = array();
 			if($recalculate == true){
-				require_once('../classes/assessment.php');
+				require_once(DIRROOT . '/classes/assessment.php');
 				if($assessments = assessment::fetch_all(array('ass_pla' => $tableid))){
 					$plantilla->pla_mod = '1';
 					$plantilla->pla_glo = '0';
 					$plantilla->update();
-					require_once('../lib/finalgrade.php');
+					require_once(DIRROOT . '/lib/finalgrade.php');
 					foreach($assessments as $assessment){
 						$finalgrade = finalgrade($assessment->id, $tableid);
 						$gradexp = explode('/', $finalgrade);

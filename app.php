@@ -103,6 +103,16 @@ if ($isapi === false) {
 			$postdatas = file_get_contents( 'php://input' );
 			$response = api_controller::tool_modified($postdatas);
 		}
+	}  else if ($uri == '/api/grade/subdimension') {
+			if ($method == 'POST') {
+				$postdatas = file_get_contents( 'php://input' );
+				$response = api_controller::get_grade_subdimension($postdatas);
+			} 
+	} else if ($uri == '/api/assessment/commented') {
+			if ($method == 'POST') {
+				$postdatas = file_get_contents( 'php://input' );
+				$response = api_controller::get_commented_assessments($postdatas);
+			} 
 	} else { // If URI contains REST params.
 		$uriparams = explode('/', $uri);
 		$countparams = count($uriparams) - 2;
@@ -202,5 +212,8 @@ if (empty($response)) {
 	header($_SERVER["SERVER_PROTOCOL"]." 401 Unauthorized");
 	exit;
 }
-
+$response->headers->set('Access-Control-Allow-Origin', '*');
+$response->headers->set('Access-Control-Allow-Headers', 'X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method');
+$response->headers->set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+$response->headers->set('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
 $response->send();

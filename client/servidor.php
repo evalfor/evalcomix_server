@@ -126,12 +126,14 @@
 						
 						if(isset($tool_aux_plantillasId)){
 							foreach($tool_plantillas as $id => $plantilla){
-								if(list($key1, $data1) = each($tool_aux_plantillasId)){
+								if ($key1 = key($tool_aux_plantillasId) && $data1 = current($tool_aux_plantillasId)) {
 									$plantillasId[$id] = $data1;
+									next($tool_aux_plantillasId);
 								}
 								
-								if(list($key2, $plantilla_aux2) = each($tool_aux_plantillas)){
+								if ($key2 = key($tool_aux_plantillas) && $plantilla_aux2 = current($tool_aux_plantillas)) {
 									response_tool($plantilla, $plantilla_aux2);
+									next($tool_aux_plantillas);
 								}
 							}
 						}
@@ -268,19 +270,23 @@
 		$atributosposId = array();
 		if(isset($tool_aux_dimensionsId) && isset($tool_aux_subdimensionsId) && isset($tool_aux_atributosId)){
 			foreach($tool_dimensions as $dim => $value_dimensions){
-				if(list($key2, $data2) = each($tool_aux_dimensionsId)){
+				if($key2 = key($tool_aux_dimensionsId) && $data2 = current($tool_aux_dimensionsId)) {
 					$dimensionsId[$dim] = $data2;
+					next($tool_aux_dimensionsId);
 				}
 				
 				if(isset($tool_valores[$dim])){
 					foreach($tool_valores[$dim] as $grado => $values){
-						if(isset($tool_aux_valoresId[$key2]) && list($keyv, $datav) = each($tool_aux_valoresId[$key2])){
+						if (isset($tool_aux_valoresId[$key2]) && 
+								$keyv = key($tool_aux_valoresId[$key2]) && $datav = current($tool_aux_valoresId[$key2])) {
 							$valoresId[$dim][$grado] = $datav;
+							next($tool_aux_valoresId[$key2]);
 						}
 						if($type == 'rubrica'){
 							foreach($tool_rango[$dim][$grado] as $rgrado => $rango){
-								if(list($keyr, $datar) = each($tool_aux_rangoId[$key2][$keyv])){
+								if ($keyr = key($tool_aux_rangoId[$key2][$keyv]) && $datar = current($tool_aux_rangoId[$key2][$keyv])) {
 									$rangoId[$dim][$grado][$rgrado] = $datar;
+									next($tool_aux_rangoId[$key2][$keyv]);
 								}
 							}
 						}
@@ -289,33 +295,40 @@
 						
 				if($type == 'listaescala'){
 					foreach($tool_valoreslista[$dim] as $grado => $values){
-						if(list($keyvl, $datavl) = each($tool_aux_valoreslistaId[$key2])){
+						if ($keyvl = key($tool_aux_valoreslistaId[$key2]) && $datavl = current($tool_aux_valoreslistaId[$key2])) {
 							$valoreslistaId[$dim][$grado] = $datavl;
+							next($tool_aux_valoreslistaId[$key2]);
 						}
 					}
 				}
 								
 				foreach($tool_subdimensions[$dim] as $subdim => $value_subdimensions){
-					if(list($key3, $data3) = each($tool_aux_subdimensionsId[$key2])){
+					if ($key3 = key($tool_aux_subdimensionsId[$key2]) && $data3 = current($tool_aux_subdimensionsId[$key2])) {
 						$subdimensionsId[$dim][$subdim] = $data3;
+						next($tool_aux_subdimensionsId[$key2]);
 					}
 					foreach($tool_atributos[$dim][$subdim] as $atrib => $value_attributes){
-						if(list($key4, $data4) = each($tool_aux_atributosId[$key2][$key3])){
-							$atributosId[$dim][$subdim][$atrib] = $data4;											
+						if ($key4 = key($tool_aux_atributosId[$key2][$key3]) && $data4 = current($tool_aux_atributosId[$key2][$key3])) {
+							$atributosId[$dim][$subdim][$atrib] = $data4;
+							next($tool_aux_atributosId[$key2][$key3]);
 						}
 											
 						if($type == 'rubrica'){
 							foreach($tool_description[$dim][$subdim][$atrib] as $gradod => $value_description){
-								if(list($key5, $data5) = each($tool_aux_descriptionsId[$key2][$key3][$key4])){
+								if ($key5 = key($tool_aux_descriptionsId[$key2][$key3][$key4])
+										&& $data5 = current($tool_aux_descriptionsId[$key2][$key3][$key4])) {
 									$descriptionsId[$dim][$subdim][$atrib][$gradod] = $data5;
+									next($tool_aux_descriptionsId[$key2][$key3][$key4]);
 								}
 							}
 						}
 					}
 					if($type == 'diferencial'){
 						foreach($tool_atributospos[$dim][$subdim] as $atrib => $value_attributes){
-							if(list($key6, $data6) = each($tool_aux_atributosposId[$key2][$key3])){
-								$atributosposId[$dim][$subdim][$atrib] = $data6;											
+							if ($key6 = key($tool_aux_atributosposId[$key2][$key3])
+									&& $data6 = current($tool_aux_atributosposId[$key2][$key3])) {
+								$atributosposId[$dim][$subdim][$atrib] = $data6;
+								next($tool_aux_atributosposId[$key2][$key3]);
 							}
 						}
 					}
@@ -337,10 +350,13 @@
 				$tool->set_atributosposId($atributosposId, '');
 			}
 		}
+		$valorestotalesId = array();
 		if(!empty($tool_aux_valorestotalesId)){
 			foreach($tool_valorestotales as $grade => $value){
-				if(list($key1, $data1) = each($tool_aux_valorestotalesId)){
-					$valorestotalesId[$grade] = $data1;
+				if ($key7 = key($tool_aux_valorestotalesId)
+						&& $data7 = current($tool_aux_valorestotalesId)) {
+					$valorestotalesId[$grade] = $data7;
+					next($tool_aux_valorestotalesId);
 				}
 			}
 			$tool->set_valorestotalesId($valorestotalesId, '');

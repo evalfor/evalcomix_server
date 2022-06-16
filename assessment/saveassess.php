@@ -99,7 +99,7 @@
 				}
 				
 				if(isset($_POST['observaciones'.$i.'_'.$l.'_'.$j])){
-					$observaciones_atr = $_POST['observaciones'.$i.'_'.$l.'_'.$j];
+					$observaciones_atr = htmlspecialchars($_POST['observaciones'.$i.'_'.$l.'_'.$j]);
 					if($atrcomment = atrcomment::fetch(array('atc_eva' => $idAss, 'atc_atr' => $tool->attributes_code[$i][$l][$j]))){
 						$atrcomment->atc_obs = $observaciones_atr;
 						$atrcomment->update();
@@ -154,7 +154,7 @@
 				}
 				
 				if(isset($_POST['observaciones'.$i])){
-					$observaciones_dim = $_POST['observaciones'.$i];
+					$observaciones_dim = htmlspecialchars($_POST['observaciones'.$i]);
 					if($dimcomment = dimcomment::fetch(array('dic_eva' => $idAss, 'dic_dim' => $tool->dimen_code[$i]))){
 						$dimcomment->dic_obs = $observaciones_dim;
 						$dimcomment->update();
@@ -209,7 +209,7 @@
 	}
 	
 	if(isset($_POST['observaciones'])){
-		$assessment->ass_com = $_POST['observaciones'];
+		$assessment->ass_com = htmlspecialchars($_POST['observaciones']);
 	}		
 	assessment::set_properties($assessment, array('ass_grd' => $gradexp[0], 'ass_mxg' => $gradexp[1]));
 	$assessment->update();

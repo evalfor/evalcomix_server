@@ -13,7 +13,7 @@
 	}
 		
 	$toolObj = $_SESSION['tool'];
-	//servirÃ¡ para generar identificadores
+	//servirá para generar identificadores
 	$secuencia = $_SESSION['secuencia'];
 	//representa el instrumento
 	$tool = unserialize($toolObj);
@@ -109,11 +109,11 @@
 	if(isset($_POST['tDown']))
 		$postDownTool = getParam($_POST['tDown']);
 	
-//DETERMINACIÃ“N Y MANEJO DE EVENTOS-------------------------------------------------------------------------------->
+//DETERMINACIÓN Y MANEJO DE EVENTOS-------------------------------------------------------------------------------->
 
 /***********************************************************************************
 ************************************************************************************
-Evento AÃ±adir/Eliminar Instrumentos
+Evento Añadir/Eliminar Instrumentos
 ************************************************************************************
 ************************************************************************************/
 	if(isset($_POST['addtool'.$id])){
@@ -260,11 +260,11 @@ Evento AÃ±adir/Eliminar Instrumentos
 	}
 /***********************************************************************************
 ************************************************************************************
-Evento AÃ±adir/Eliminar dimensiones
+Evento Añadir/Eliminar dimensiones
 ************************************************************************************
 ************************************************************************************/
 	if(isset($postAddDim)){
-		//nÃºmero de dimensiones
+		//número de dimensiones
 		$numdim = count($tool->get_dimension($id));
 		if(isset($postNumDim) && !isset($addim) && !isset($deldim)){
 			if($postNumDim > $numdim){
@@ -1068,5 +1068,4 @@ Evento AÃ±adir/Eliminar dimensiones
 		}
 	}
 	
-		
 //----------------------------------------------------------------------------------------------->

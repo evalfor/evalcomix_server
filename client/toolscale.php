@@ -78,12 +78,12 @@
 		//Array -- Almacena si las dimensiones tienen activadas los comentarios o no
 		private $commentDim;
 
-		//Array -- Almacena los comentarios de los atributos otorgados durante el proceso de evaluación
+		//Array -- Almacena los comentarios de los atributos otorgados durante el proceso de evaluaciÃ³n
 		private $valuecommentAtr;
 		
-		//Array -- Almacena los comentarios de las dimensiones otorgados durante el proceso de evaluación
+		//Array -- Almacena los comentarios de las dimensiones otorgados durante el proceso de evaluaciÃ³n
 		private $valuecommentDim;
-		//TODO --- Añadir $atrScore $globalScore $totalScore
+		//TODO --- AÃ±adir $atrScore $globalScore $totalScore
 		
 		//Array -- Almacena los IDs de la BD relativos a las dimensiones
 		private $dimensionsId;
@@ -99,6 +99,8 @@
 		
 		//Array -- Almacena los IDs de la BD relativos a los valores totales del instrumento
 		private $valorestotalesId;
+		
+		public $comment;
 
 		function get_tool($id){}
 		function get_titulo(){return $this->titulo;}
@@ -126,7 +128,12 @@
 		function get_subdimensionsId(){return $this->subdimensionsId[$this->id];}
 		function get_atributosId(){return $this->atributosId[$this->id];}
 		function get_valoresId(){return $this->valoresId[$this->id];}
-		function get_valorestotalesId(){return $this->valorestotalesId[$this->id];}
+		function get_valorestotalesId(){
+			if (isset($this->valorestotalesId[$this->id])) {
+				return $this->valorestotalesId[$this->id];
+			}
+			return null;
+		}
 		
 		function set_titulo($titulo){$this->titulo = $titulo;}
 		function set_dimension($dimension){$this->dimension[$this->id] = $dimension;}
@@ -155,7 +162,13 @@
 		function set_valoresId($valoresId, $id = ''){$this->valoresId[$this->id] = $valoresId;}
 		function set_valorestotalesId($valoresId, $id = ''){$this->valorestotalesId[$this->id] = $valoresId;}
 		
-		function __construct($lang='es_utf8', $titulo, $dimension, $numdim = 1, $subdimension, $numsubdim = 1, $atributo, $numatr = 1, $valores, $numvalores = 2, $valtotal, $numtotal = 0, $valorestotal, $valglobal = false, $valglobalpor, $dimpor, $subdimpor, $atribpor, $commentAtr, $commentDim, $id=0, $observation = '', $porcentage = 0, $valtotalpor = array(), $valueattribute = array(), $valueglobaldim = array(), $valuetotalvalue = '', $valuecommentAtr = '', $valuecommentDim = '', $params = array()){
+		function __construct ($lang='es_utf8', $titulo = '', $dimension = array(), $numdim = 1, $subdimension = array(),
+				$numsubdim = 1, $atributo = array(), $numatr = 1, $valores = array(), $numvalores = 2, $valtotal = array(),
+				$numtotal = 0, $valorestotal = array(), $valglobal = false, $valglobalpor = array(), $dimpor = array(),
+				$subdimpor = array(), $atribpor = array(), $commentAtr = array(), $commentDim = array(), $id=0, $observation = '',
+				$porcentage = 0, $valtotalpor = array(), $valueattribute = array(), $valueglobaldim = array(),
+				$valuetotalvalue = '', $valuecommentAtr = '', $valuecommentDim = '', $params = array()) {
+					
 			$this->filediccionario = 'lang/'.$lang.'/evalcomix.php';
 			$this->titulo = $titulo;
 			$this->dimension = $dimension;
@@ -201,6 +214,7 @@
 			if(!empty($params['valorestotalesId'])){
 				$this->valorestotalesId = $params['valorestotalesId'];
 			}
+			$this->comment = (isset($params['comment'])) ? $params['comment'] : '';
 		}
 		
 		function addDimension($dim, $key){
@@ -509,14 +523,17 @@
 		function display_body($data, $mix='', $porcentage=''){
 			if($porcentage != '')
 				$this->porcentage = $porcentage;
-			if(isset($data['titulo'.$this->id]))
+			if(isset($data['titulo'.$this->id])) {
 				$this->titulo = stripslashes($data['titulo'.$this->id]);
+			}
 
-			if(isset($data['valtotal'.$this->id]))
+			if(isset($data['valtotal'.$this->id])) {
 				$this->valtotal[$this->id] = stripslashes($data['valtotal'.$this->id]);
+			}
 	
-			if(isset($data['numvalores'.$this->id]) && $data['numvalores'.$this->id] >= 2)
+			if(isset($data['numvalores'.$this->id]) && $data['numvalores'.$this->id] >= 2) {
 				$this->numtotal[$this->id] = stripslashes($data['numvalores'.$this->id]);
+			}
 			
 			//print_r($data);	
 			$checked = '';
@@ -765,7 +782,7 @@
 				
 				echo '</tr>';
 				
-				//COMENTARIOS-DIMENSIÓN-------------------------
+				//COMENTARIOS-DIMENSIÓŽ-------------------------
 				$visible = null;
 				if(isset($data['commentDim'.$id.'_'.$dim])){
 					$visible = stripslashes($data['commentDim'.$id.'_'.$dim]);
@@ -1091,26 +1108,56 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 
 			//DIMENSIONS------------------
 			foreach($this->dimension[$id] as $dim => $itemdim){
-				$xml .= '<Dimension id="'.$this->dimensionsId[$id][$dim].'" name="' . htmlspecialchars($this->dimension[$id][$dim]['nombre']) . '" subdimensions="' . $this->numsubdim[$id][$dim] . '" values="' . $this->numvalores[$id][$dim] . '" percentage="' . $this->dimpor[$id][$dim] . '">
+				$dimid = (isset($this->dimensionsId[$id][$dim])) ? $this->dimensionsId[$id][$dim] : '';
+				$dimname = (isset($this->dimension[$id][$dim]['nombre'])) ? htmlspecialchars($this->dimension[$id][$dim]['nombre']) : '';
+				$numvaloresdim = (isset($this->numvalores[$id][$dim])) ? $this->numvalores[$id][$dim] : 0;
+				$dimpor = (isset($this->dimpor[$id][$dim])) ? $this->dimpor[$id][$dim] : '';
+				$xml .= '<Dimension id="'
+				. $dimid.'" name="' 
+				. $dimname . '" subdimensions="' 
+				. $this->numsubdim[$id][$dim] 
+				. '" values="' . $numvaloresdim 
+				. '" percentage="' . $dimpor . '">
 ';
 				$xml .= "<Values>\n";
 				//VALUES-----------------------
 				foreach($this->valores[$id][$dim] as $grado => $elemvalue){
-					$xml .= '<Value id="'.$this->valoresId[$id][$dim][$grado].'">'. htmlspecialchars($this->valores[$id][$dim][$grado]['nombre']) . "</Value>\n";
+					$valorid = (isset($this->valoresId[$id][$dim][$grado])) ? $this->valoresId[$id][$dim][$grado] : '';
+					$xml .= '<Value id="'.$valorid.'">'
+					. htmlspecialchars($this->valores[$id][$dim][$grado]['nombre']) . "</Value>\n";
 				}
 				$xml .= "</Values>\n";
 		
 				//SUBDIMENSIONS-----------------
 				foreach($this->subdimension[$id][$dim] as $subdim => $elemsubdim){
-					$xml .= '<Subdimension id="'.$this->subdimensionsId[$id][$dim][$subdim].'" name="' . htmlspecialchars($this->subdimension[$id][$dim][$subdim]['nombre']) . '" attributes="' . $this->numatr[$id][$dim][$subdim] . '" percentage="' . $this->subdimpor[$id][$dim][$subdim] . '">
+					$subid = (isset($this->subdimensionsId[$id][$dim][$subdim])) ? $this->subdimensionsId[$id][$dim][$subdim] : '';
+					$subname = (isset($this->subdimension[$id][$dim][$subdim]['nombre'])) ? $this->subdimension[$id][$dim][$subdim]['nombre'] : '';
+					$numatr = (isset($this->numatr[$id][$dim][$subdim])) ? $this->numatr[$id][$dim][$subdim] : '';
+					$subdimpor = (isset($this->subdimpor[$id][$dim][$subdim])) ? $this->subdimpor[$id][$dim][$subdim] : '';
+					$xml .= '<Subdimension id="'.$subid
+					. '" name="' . htmlspecialchars($subname)
+					. '" attributes="' . $numatr
+					. '" percentage="' . $subdimpor . '">
 ';
 					//ATTRIBUTES--------------------
 					foreach($this->atributo[$id][$dim][$subdim] as $atrib => $elematrib){
 						$comment = '';
-						if(isset($this->commentAtr[$id][$dim][$subdim][$atrib]) && $this->commentAtr[$id][$dim][$subdim][$atrib] == 'visible')
+						if(isset($this->commentAtr[$id][$dim][$subdim][$atrib]) && $this->commentAtr[$id][$dim][$subdim][$atrib] == 'visible') {
 							$comment = '1';
+						}
+						
+						$atrid = (isset($this->atributosId[$id][$dim][$subdim][$atrib]))
+							? $this->atributosId[$id][$dim][$subdim][$atrib] : '';
+						$atrname = (isset($this->atributo[$id][$dim][$subdim][$atrib]['nombre']))
+							? $this->atributo[$id][$dim][$subdim][$atrib]['nombre'] : '';
+						$atrpor = (isset($this->atribpor[$id][$dim][$subdim][$atrib]))
+							? $this->atribpor[$id][$dim][$subdim][$atrib] : '';
 							
-						$xml .= '<Attribute id="'.$this->atributosId[$id][$dim][$subdim][$atrib].'" name="' . htmlspecialchars($this->atributo[$id][$dim][$subdim][$atrib]['nombre']) . '" comment="'. $comment .'" percentage="' . $this->atribpor[$id][$dim][$subdim][$atrib] . '">0</Attribute>
+						$xml .= '<Attribute id="'. $atrid
+						. '" name="' . htmlspecialchars($atrname) 
+						. '" comment="'. $comment 
+						.'" percentage="'
+						. $atrpor . '">0</Attribute>
 ';
 					}
 	
@@ -1135,7 +1182,10 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 		<Values>
 ';
 				foreach($this->valorestotal[$id] as $grado => $elemvalue){
-					$xml .= '<Value id="'.$this->valorestotalesId[$id][$grado].'">'. htmlspecialchars($this->valorestotal[$id][$grado]['nombre']) . "</Value>\n";
+					$totalvalue = (isset($this->valorestotalesId[$id][$grado])) ? $this->valorestotalesId[$id][$grado] : '';
+					$xml .= '<Value id="'.$totalvalue
+					.'">'. htmlspecialchars($this->valorestotal[$id][$grado]['nombre'])
+					. "</Value>\n";
 				}
 				$xml .= '</Values>
 		<Attribute name="Global assessment" percentage="0">0</Attribute>
@@ -1433,7 +1483,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 				
 				echo '	
 								<tr id="dim">
-									<!--DIMENSIÓN-TITLE----------->
+									<!--DIMENSIÓŽ-TITLE----------->
 									<td class="pordim">
 									'.$this->dimpor[$this->id][$dim].'%
 									</td>
@@ -1453,7 +1503,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 				$l = 0;
 				foreach($this->subdimension[$this->id][$dim] as $subdim => $elemsubdim){
 					echo '
-								<!--TITULO-SUBDIMENSIÓN------------>
+								<!--TITULO-SUBDIMENSIÓŽ------------>
 								<tr>									
 									<td class="subdimpor">'.$this->subdimpor[$this->id][$dim][$subdim].'%</td>
 									<td class="subdim" colspan="'.($colspan + 1).'">'.htmlspecialchars($this->subdimension[$this->id][$dim][$subdim]['nombre']).'</td></tr>
@@ -1537,7 +1587,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 					if(isset($this->commentDim[$id][$dim]) && $this->commentDim[$id][$dim] == 'visible'){
 						$vcomment = '';
 						if(isset($this->valuecommentDim[$id][$dim])){
-							$vcomment = htmlspecialchars($this->valuecommentDim[$id][$dim]);
+							$vcomment = $this->valuecommentDim[$id][$dim];
 						}
 						echo "
 							<td colspan='".$colspandim."'>
@@ -1583,10 +1633,20 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 								</tr>
 							</table>
 			';
-			if($global_comment == 'global_comment'){
-				echo "<br><label for='observaciones'>". strtoupper($string['comments'])."</label><br>
-                           <textarea name='observaciones' id='observaciones' rows=4 cols=20 style='width:100%'>".htmlspecialchars($this->observation[$id])."</textarea>";
-			}	
+			
+			if (isset($global_comment)) {
+				$global_comment = ($global_comment === 'global_comment') ? $this->observation[$id] : $global_comment;
+				$width = (empty($this->comment[$id])) ? 100 : 60;
+				$comment = (empty($this->comment[$id])) ? ($string['comments']).':' : $this->comment[$id];
+				echo '<br><br><br>
+							<table class="tabla" border=1 cellpadding="5px">
+								<tr>
+									<td>'.htmlspecialchars($comment).'</td>
+									<td style="width:'.$width.'%"><textarea name="observaciones" id="observaciones" rows=4 cols=20 style="width:100%">'.$global_comment.'</textarea></td>
+								</tr>
+							</table>
+				';
+			}
 		}
 
 		function save($cod = ''){
@@ -1623,8 +1683,8 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 				$valtotal = '1';
 			}
 			$observation = '';
-			if(isset($this->observation[$id])){
-				$observation = $this->observation[$id];
+			if(isset($this->comment[$id])){
+				$observation = $this->comment[$id];
 			}
 			$porcentage = '100';
 			if(isset($this->porcentage) && $this->porcentage != ''){
@@ -1659,7 +1719,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 			else{
 			//Comprobamos los elementos estructurales. Si no se han modificado
 				$updateplantilla = false;
-				if($plantilla->pla_tit != $this->titulo || $plantilla->pla_glo != $valtotal || $plantilla->pla_des != $this->observation[$id] || $plantilla->pla_por != $porcentage){
+				if($plantilla->pla_tit != $this->titulo || $plantilla->pla_glo != $valtotal || $plantilla->pla_des != $this->comment[$id] || $plantilla->pla_por != $porcentage || $plantilla->pla_gpr != $valtotalpor){
 					$updateplantilla = true;
 				}
 				if($plantilla->pla_glo != $valtotal){
@@ -1955,7 +2015,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 				}
 				
 				$plv_pos = 0;
-				if($this->valtotal[$id] == 'true' || $this->valtotal[$id] == 't'){	
+				if(isset($this->valtotal[$id]) && ($this->valtotal[$id] == 'true' || $this->valtotal[$id] == 't')){	
 					foreach($this->valorestotal[$id] as $grado => $elemvalue){
 						$idPlaval = $this->valorestotalesId[$id][$grado];
 						if(isset($plavalsCod[$idPlaval])){
@@ -2165,7 +2225,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 			
 			$params_result = array();
 			if($recalculate == true){				
-				require_once('../classes/assessment.php');
+				require_once(DIRROOT . '/classes/assessment.php');
 				if($assessments = assessment::fetch_all(array('ass_pla' => $tableid))){
 					$plantilla->pla_mod = '1';
 					$pla_glo = '0';
@@ -2174,7 +2234,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 					}
 					$plantilla->pla_glo = $pla_glo;
 					$plantilla->update();
-					require_once('../lib/finalgrade.php');
+					require_once(DIRROOT . '/lib/finalgrade.php');
 					foreach($assessments as $assessment){
 						$finalgrade = finalgrade($assessment->id, $tableid);
 						$gradexp = explode('/', $finalgrade);
@@ -2190,5 +2250,4 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/evaluationset http://
 			$params_result['xml'] = $this->export(array('mixed' => '1', 'id' => $cod));
 			return $params_result;
 		}
-		
 	}

@@ -36,8 +36,8 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 			}
 		
 			//DESCRIPTION----------------
-			if($this->tool->comments){
-				$result .= '<Description>' . htmlspecialchars($this->tool->comments) . '</Description>
+			if($this->tool->description){
+				$result .= '<Description>' . htmlspecialchars($this->tool->description) . '</Description>
 				';
 			}
 			
@@ -129,8 +129,12 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 		$xml = $root . ' id="'.$simple_tool->pla_cod .'" name="' . htmlspecialchars($simple_tool->title) . '" dimensions="' . $simple_tool->num_dimensions .'" ' . $percentage1 . '>
 		';
 		//DESCRIPTION----------------
+		if(isset($simple_tool->description)){
+			$xml .= '<Description>' . htmlspecialchars($simple_tool->description) . '</Description>
+		';
+		}
 		if(isset($simple_tool->observation)){
-			$xml .= '<Description>' . htmlspecialchars($simple_tool->observation) . '</Description>
+			$xml .= '<Comment>' . htmlspecialchars($simple_tool->observation) . '</Comment>
 		';
 		}
 
@@ -211,9 +215,13 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 	';
 		
 		//DESCRIPTION----------------
+		if(isset($simple_tool->description)){
+			$xml .= '<Description>' . htmlspecialchars($simple_tool->description) . '</Description>
+		';
+		}
 		if(isset($simple_tool->observation)){
-			$xml .= '<Description>' . htmlspecialchars($simple_tool->observation) . '</Description>
-	';
+			$xml .= '<Comment>' . htmlspecialchars($simple_tool->observation) . '</Comment>
+		';
 		}
 
 		//DIMENSIONS------------------
@@ -333,9 +341,13 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 		$xml = $root . ' id="'.$simple_tool->pla_cod .'" name="' . htmlspecialchars($simple_tool->title) . '" dimensions="' . $simple_tool->num_dimensions .'" ' . $percentage1 . '>
 		';
 		//DESCRIPTION----------------
+		if(isset($simple_tool->description)){
+			$xml .= '<Description>' . htmlspecialchars($simple_tool->description) . '</Description>
+		';
+		}
 		if(isset($simple_tool->observation)){
-			$xml .= '<Description>' . htmlspecialchars($simple_tool->observation) . '</Description>
-			';
+			$xml .= '<Comment>' . htmlspecialchars($simple_tool->observation) . '</Comment>
+		';
 		}
 
 		//DIMENSIONS------------------
@@ -464,9 +476,13 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 		$xml = $root . ' id="'.$simple_tool->pla_cod .'" name="' . htmlspecialchars($simple_tool->title) . '" dimensions="' . $simple_tool->num_dimensions .'" ' . $percentage1 . '>
 	';
 		//DESCRIPTION----------------
+		if(isset($simple_tool->description)){
+			$xml .= '<Description>' . htmlspecialchars($simple_tool->description) . '</Description>
+		';
+		}
 		if(isset($simple_tool->observation)){
-			$xml .= '<Description>' . htmlspecialchars($simple_tool->observation) . '</Description>
-	';
+			$xml .= '<Comment>' . htmlspecialchars($simple_tool->observation) . '</Comment>
+		';
 		}
 
 		//DIMENSIONS------------------
@@ -626,9 +642,13 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 		$xml = $root . ' id="'.$simple_tool->pla_cod .'" name="' . htmlspecialchars($simple_tool->title) . '" attributes="' . ($simple_tool->num_atr_dim[0][0] / 2) .'" values="' . $simple_tool->num_values_dim[0] . '" ' . $percentage1 . '>
 		';
 		//DESCRIPTION----------------
+		if(isset($simple_tool->description)){
+			$xml .= '<Description>' . htmlspecialchars($simple_tool->description) . '</Description>
+		';
+		}
 		if(isset($simple_tool->observation)){
-			$xml .= '<Description>' . htmlspecialchars($simple_tool->observation) . '</Description>
-	';
+			$xml .= '<Comment>' . htmlspecialchars($simple_tool->observation) . '</Comment>
+		';
 		}
 
 			//VALUES-----------------------
@@ -707,8 +727,12 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 		$xml = $root . ' id="'.$simple_tool->pla_cod .'" name="' . htmlspecialchars($simple_tool->title) . '" dimensions="' . $simple_tool->num_dimensions .'" ' . $percentage1 . '>
 		';
 		//DESCRIPTION----------------
+		if(isset($simple_tool->description)){
+			$xml .= '<Description>' . htmlspecialchars($simple_tool->description) . '</Description>
+		';
+		}
 		if(isset($simple_tool->observation)){
-			$xml .= '<Description>' . htmlspecialchars($simple_tool->observation) . '</Description>
+			$xml .= '<Comment>' . htmlspecialchars($simple_tool->observation) . '</Comment>
 		';
 		}
 

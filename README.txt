@@ -27,8 +27,6 @@ Before upgrading, backup data:
 We advise that you test the upgrade first on a COPY of your production site, to make sure it works as you expect.
 
 
-To upgrade from EvalCOMIX Server 4.2 to 4.3+:
-
 1) Move your old EvalCOMIX Server software program files to another location.
    Do NOT copy new files over the old files.
    
@@ -70,7 +68,7 @@ escritura en el directorio:
 		3) Cree una base de datos vacía (PostgreSql o MySQL) para almacenar las 
 tablas (codificación de caracteres: UTF-8) y un usuario con contraseña con los permisos adecuados para la
 base de datos recién creada.
-                4) Acceda a través del navegador a la URL de EvalCOMIX Server para iniciar el asistente de instalación.
+        	4) Acceda a través del navegador a la URL de EvalCOMIX Server para iniciar el asistente de instalación.
 
 
 		
@@ -84,8 +82,6 @@ Antes de actualizar, haga un respaldo de los datos:
 Se recomienda encarecidamente que pruebe la actualización en una COPIA de su sitio en producción
 para asegurarse de que funciona como espera.
 
-
-Para actualizar desde EvalCOMIX Server 4.2 a 4.3+:
 
 1) Mueva sus archivos antiguos de EvalCOMIX Server hacia otra localización.
    NO COPIE y PEGUE los archivos nuevos encima de los antiguos.

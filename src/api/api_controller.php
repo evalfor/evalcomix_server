@@ -115,8 +115,9 @@ class api_controller {
 		$tool->import($xmlobject);
 		
 		$grade = $assessment->ass_grd . '/' . $assessment->ass_mxg;
+		$globalcomment = (isset($assessment->ass_com)) ? $assessment->ass_com : '';
 		if($plantilla->pla_tip == 'mixto'){		
-			$tool->view_tool_mixed(WWWROOT, $grade, $title);
+			$tool->view_tool_mixed(WWWROOT, $grade, $title, null, $globalcomment);
 		}
 		else{
 			$tool->view_tool(WWWROOT, $grade, 'view', $title);
@@ -684,6 +685,9 @@ class api_controller {
 		require_once(DIRROOT . '/classes/graderubrica.php');
 		require_once(DIRROOT . '/classes/gradedifferential.php');
 		require_once(DIRROOT . '/classes/gradeargumentset.php');
+		require_once(DIRROOT . '/classes/dimension.php');
+		require_once(DIRROOT . '/classes/subdimension.php');
+		require_once(DIRROOT . '/lib/weblib.php');
 		
 		libxml_use_internal_errors(true);
 		$xml = simplexml_load_string($xmldatas);
@@ -695,15 +699,27 @@ class api_controller {
 		
 		$format = 'xml';
 		$datas = array();
+		$assessmentstore = array();
+		$toolstore = array();
+		$dimensionstore = array();
+		$subdimensionstore = array();
 		foreach($xml as $subdimensionassessments){
-			$subdimensionid = (string)$subdimensionassessments['subdimensionid'];
+			$subdimensionid = (string)$subdimensionassessments['subid'];
 			foreach ($subdimensionassessments as $item) {
 				$assessmentid = (string)$item;
 				$grade = '';
-				$maxgrade = 100;
-				if ($assessment = assessment::fetch(array('ass_id' => $assessmentid))) {
-					$maxgrade = $assessment->ass_mxg;
-					if ($tool = plantilla::fetch(array('id' => $assessment->ass_pla))) {
+				$s = 100;
+				if (!isset($assessmentstore[$assessmentid])) {
+					$assessmentstore[$assessmentid] = assessment::fetch(array('ass_id' => $assessmentid));
+				}
+				if (!empty($assessmentstore[$assessmentid])) {
+					$assessment = $assessmentstore[$assessmentid];
+					$assessmenttool = $assessment->ass_pla;
+					if (!isset($toolstore[$assessmenttool])) {
+						$toolstore[$assessmenttool] = plantilla::fetch(array('id' => $assessmenttool));
+					}
+					if (!empty($toolstore[$assessmenttool])) {
+						$tool = $toolstore[$assessmenttool];
 						$type = $tool->pla_tip;
 						$toolid = $assessment->ass_pla;
 						
@@ -740,20 +756,59 @@ class api_controller {
 									if ($mixtype == 'diferencial' && $subdimensionid === $mixtool->pla_cod) {
 										$grade = $mixobject->get_grade();				
 									} else {
-										$grade = self::get_grade_subdimension_helper($mixtool, $mixobject, $subdimensionid);
+										$toolid = $mixtool->id;
+										if(!isset($dimensionstore[$toolid])) {
+											$dimensionstore[$toolid] = dimension::fetch_all(array('dim_pla' => $tool->id));
+										}
+										if (!empty($dimensionstore[$toolid])){
+											foreach($dimensionstore[$toolid] as $dimension){
+												$dimensionid = $dimension->id;
+												if(!isset($subdimensionstore[$dimensionid])) {
+													$subdimensionstore[$dimensionid] = subdimension::fetch_all(array('sub_dim' => $dimension->id));
+												}
+												if (!empty($subdimensionstore[$dimensionid])){
+													foreach($subdimensionstore[$dimensionid] as $subdimension){
+														$id = encrypt_tool_element($subdimension->id);
+														if ($id == $subdimensionid) {
+															$grade = $mixobject->get_grade_subdimension($subdimension, $dimension);
+														}
+													}
+												}
+											}
+										}
+										//$grade = self::get_grade_subdimension_helper($mixtool, $mixobject, $subdimensionid);
 									}
 								}
 							}
 						} else if ($type == 'diferencial' || $type == 'argumentario') {
 							$grade = $object->get_grade();			
 						} else {
-							$grade = self::get_grade_subdimension_helper($tool, $object, $subdimensionid);
+							$toolid = $tool->id;
+							if(!isset($dimensionstore[$toolid])) {
+								$dimensionstore[$toolid] = dimension::fetch_all(array('dim_pla' => $tool->id));
+							}
+							if (!empty($dimensionstore[$toolid])){
+								foreach($dimensionstore[$toolid] as $dimension){
+									$dimensionid = $dimension->id;
+									if(!isset($subdimensionstore[$dimensionid])) {
+										$subdimensionstore[$dimensionid] = subdimension::fetch_all(array('sub_dim' => $dimension->id));
+									}
+									if (!empty($subdimensionstore[$dimensionid])){
+										foreach($subdimensionstore[$dimensionid] as $subdimension){
+											$id = encrypt_tool_element($subdimension->id);
+											if ($id == $subdimensionid) {
+												$grade = $object->get_grade_subdimension($subdimension, $dimension);
+											}
+										}
+									}
+								}
+							}
+							//$grade = self::get_grade_subdimension_helper($tool, $object, $subdimensionid);
 						}
 					}
 				}
 				$data = new stdClass();
 				$data->grade = $grade;
-				$data->maxgrade = $maxgrade;
 				$datas[$subdimensionid][$assessmentid] = $data;
 			}
 		}
@@ -857,26 +912,13 @@ class api_controller {
 		require_once(DIRROOT . '/classes/lms.php');
 		$request = Request::createFromGlobals();
 		$token = $request->query->get('token');
-		$ipaddress = $request->getClientIp();
-		$rawdomain = (string)gethostbyaddr($ipaddress); // It can return more than one hostname.
-		$explodedomain = explode(',', $rawdomain);
-		$domain = $explodedomain[0];
 		
 		$validtoken = false;
 		if ($lms = lms::fetch_all(array('lms_enb' => '1'))) {
 			foreach ($lms as $item) {
 				$lmstkn = self::process_token($item->lms_tkn);
 				if ($lmstkn == $token) {
-					$lmsurl = $item->lms_url;
-					$host = (string)parse_url($lmsurl, PHP_URL_HOST);
-					if (!filter_var($host, FILTER_VALIDATE_IP)) {
-						$host .= '.';
-					}
-					$ip = gethostbyname($host);
-					$host = (string)gethostbyaddr($ip);
-					if (strtolower($domain) == strtolower($host)) {
-						return true;
-					}
+					return true;
 				}
 			}
 		}

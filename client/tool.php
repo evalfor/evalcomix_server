@@ -1251,7 +1251,7 @@ body {color:#333;background-color: #fff;font-family: "arial";font-size: 0.72em; 
 			';
 		}
 		
-		function view_tool_mixed($root = '', $grade = '', $title = '', $toolmix = null){
+		function view_tool_mixed($root = '', $grade = '', $title = '', $toolmix = null, $globalcomment = ''){
 			require('lang/'. $this->language . '/evalcomix.php');
 			$action = '';
 			$this->view_assessment_header();
@@ -1289,13 +1289,14 @@ body {color:#333;background-color: #fff;font-family: "arial";font-size: 0.72em; 
 							<form name="form'. $i .'" method="post" action="'.$action.'">
 				';
 				
-				$global_comment = null;
+				$gb = null;
 				if($i == $countListTool){
-					$global_comment = '';
+					$gb = $globalcomment;
 					$tool->comment[$i] = (isset($toolmix->pla_des)) ? $toolmix->pla_des : '';
 				}
-				$tool->print_tool($global_comment);
-				
+
+				$tool->print_tool($gb);
+
 				echo "					   		 		
 							</form>
 							

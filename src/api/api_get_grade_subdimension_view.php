@@ -5,13 +5,10 @@ echo '<?xml version="1.0" encoding="utf-8"?>
 ';
 
 foreach ($datas as $subdimensionid => $data) {
-	echo '<subdimensiongrade subdimensionid="'.$subdimensionid.'">';
+	echo '<subgrade subid="'.$subdimensionid.'">';
 	foreach ($data as $assessmentid => $value) {
-		echo '<assessment id="'.$assessmentid.'">';
-		echo '<grade>' . $value->grade . '</grade>';
-		echo '<maxgrade>' . $value->maxgrade . '</maxgrade>';
-		echo '</assessment>';
+		echo '<assmt id="'.$assessmentid.'">' . $value->grade . '</assmt>';
 	}
-	echo '</subdimensiongrade>';
+	echo '</subgrade>';
 }
 echo '</subdimensiongrades>';

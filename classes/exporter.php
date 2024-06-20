@@ -62,7 +62,7 @@ class exporter {
 	*	'5' ==> ($modality == ['peer' | 'teacher'] && isset($student_id) && isset($assessor_id)) --> XML with assessor's grade
 	*    @return int case or false
 	*/	
-	private function get_case(){
+	/*private function get_case(){
 		if (!isset($this->tool_id) and !isset($this->modality)){
 			return false;
 		}
@@ -83,7 +83,7 @@ class exporter {
 			$case = 5;
 		}
 		return $case;
-	}
+	}*/
 		
 	function get_tool_datas(){
 		require_once('assessment.php');

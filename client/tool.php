@@ -947,9 +947,8 @@ body {color:#333;background-color: #fff;font-family: "arial";font-size: 0.72em; 
 			echo '
 
 				<div class="boton" style="margin-right: 1em;">
-					<input type="button" name="imprimir" value="'.$string['TPrint'].'" onclick="javascript:
-					var ficha = document.getElementById(\'evalid\');
-					var ventimp=window.open(\'\',\'popimpr\');ventimp.document.write(ficha.innerHTML);ventimp.document.close();ventimp.print();ventimp.close();">
+					<input type="button" name="imprimir" value="'.$string['TPrint'].'"
+                    onclick="javascript:window.print()">
 				</div>
 				<div class="clear"></div>';
 		
@@ -980,11 +979,7 @@ body {color:#333;background-color: #fff;font-family: "arial";font-size: 0.72em; 
 					<br><hr>
 					<div class="botones">
 						<div class="boton" style="margin-right: 1em;">
-<!--							<input type="button" name="imprimir" value="Imprimir" onclick="window.focus();window.print().window.close();"> -->
-								
-								<input type="button" name="imprimir" value="'.$string['TPrint'].'" onclick="javascript:
-								var ficha = document.getElementById(\'evalid\');
-								var ventimp=window.open(\'\',\'popimpr\');ventimp.document.write(ficha.innerHTML);ventimp.document.close();ventimp.print();ventimp.close();">
+							<input type="button" name="imprimir" value="'.$string['TPrint'].'" onclick="javascript:window.print()">
 								
 					</div>
 					<div class="clear"></div>
@@ -1048,9 +1043,8 @@ body {color:#333;background-color: #fff;font-family: "arial";font-size: 0.72em; 
 			
 							<form id="mainform" name="mainform" method="post" action="'.$action.'">
 								<div class="boton" style="margin-right: 1em;">
-								<input type="button" name="imprimir" value="'.$string['TPrint'].'" onclick="javascript:
-								var ficha = document.getElementById(\'evalid\');
-								var ventimp=window.open(\'\',\'popimpr\');ventimp.document.write(ficha.innerHTML);ventimp.document.close();ventimp.print();ventimp.close();">
+								<input type="button" name="imprimir" value="'.$string['TPrint'].'"
+								onclick="javascript:window.print()">
 								</div>
 			';
 			//echo '<input type="submit" name="submit" value="'.$string['TSave'].'" $disabledbutton>';
@@ -1105,9 +1099,7 @@ body {color:#333;background-color: #fff;font-family: "arial";font-size: 0.72em; 
 			<hr>
 			<div class="botones">
 				<div class="boton" style="margin-right: 1em;">
-					<input type="button" name="imprimir" value="'.$string['TPrint'].'" onclick="javascript:
-					var ficha = document.getElementById(\'evalid\');
-					var ventimp=window.open(\'\',\'popimpr\');ventimp.document.write(ficha.innerHTML);ventimp.document.close();ventimp.print();ventimp.close();">
+					<input type="button" name="imprimir" value="'.$string['TPrint'].'" onclick="javascript:window.print()">
 			</div>
 			</div>';
 			echo '
@@ -1191,9 +1183,8 @@ body {color:#333;background-color: #fff;font-family: "arial";font-size: 0.72em; 
 								<!-- <input type="hidden" id="cod" name="cod" value="'.$idsingle.'"> -->
 								<input type="hidden" id="cod_form'. $i .'" name="cod_form'. $i .'" value="'.$idsingle.'">
 								<div class="boton" style="margin-right: 1em;">
-								<input type="button" name="imprimir" value="'.$string['TPrint'].'" onclick="javascript:
-								var ficha = document.getElementById(\'evalid\');
-								var ventimp=window.open(\'\',\'popimpr\');ventimp.document.write(ficha.innerHTML);ventimp.document.close();ventimp.print();ventimp.close();">
+								<input type="button" name="imprimir" value="'.$string['TPrint'].'"
+								onclick="javascript:window.print()">
 								</div>
 								<!-- <input type="submit" name="submit" value="'.$string['TSave'].'"> -->
 				';
@@ -1223,9 +1214,8 @@ body {color:#333;background-color: #fff;font-family: "arial";font-size: 0.72em; 
 								<input type='button' name='".$string['TSave']."' value='".$string['TSave']."' onclick='sendPostAssess(\"totalgrade\",\"uno=1\",\"form".$i."\",\"".$action."\");alert(\"".$string['alertsave']."\");'>
 								<input type='button' onclick=\"javascript:limpiar_mainform(form".$i.")\" value='Reset'>
 								<div class='boton' style='margin-right: 1em;'>
-								<input type='button' name='imprimir' value='".$string['TPrint']."' onclick=\"javascript:
-								var ficha = document.getElementById('evalid');
-								var ventimp=window.open('','popimpr');ventimp.document.write(ficha.innerHTML);ventimp.document.close();ventimp.print();ventimp.close();\">
+								<input type='button' name='imprimir' value='".$string['TPrint']."' 
+								onclick=\"javascript:window.print()\">
 								</div>
 								   		 		
 							</form>
@@ -1272,10 +1262,7 @@ body {color:#333;background-color: #fff;font-family: "arial";font-size: 0.72em; 
 					<body>
 						<div class="clear"></div>
 						<div class="boton" style="margin-right: 1em;">
-							<!-- <input type="button" name="imprimir" value="'.$string['TPrint'].'" onclick="window.print();"> -->
-							<input type="button" name="imprimir" value="Imprimir" onclick="javascript:
-								var ficha = document.getElementById(\'evalid\');
-								var ventimp=window.open(\'\',\'popimpr\');ventimp.document.write(ficha.innerHTML);ventimp.document.close();ventimp.print();ventimp.close();">
+							<input type="button" name="imprimir" value="'.$string['TPrint'].'" onclick="window.print();">
 						</div>
 						<div class="eval" id="evalid">
 						<h2>'.$title.'</h2>
@@ -1310,9 +1297,7 @@ body {color:#333;background-color: #fff;font-family: "arial";font-size: 0.72em; 
 			echo '<div class="botones">
 						<div class="boton" style="margin-right: 1em;">
 							<!-- <input type="button" name="imprimir" value="'.$string['TPrint'].'" onclick="window.print();"> -->
-							<input type="button" name="imprimir" value="Imprimir" onclick="javascript:
-								var ficha = document.getElementById(\'evalid\');
-								var ventimp=window.open(\'\',\'popimpr\');ventimp.document.write(ficha.innerHTML);ventimp.document.close();ventimp.print();ventimp.close();">
+							<input type="button" name="imprimir" value="Imprimir" onclick="javascript:window.print()">
 						</div>
 					</div>';
 			

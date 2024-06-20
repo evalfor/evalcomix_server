@@ -123,8 +123,8 @@ require_once('evalcomix_object.php');
      *
      * @param bool $deleted
      */
-    function notify_changed($deleted) {
-    }
+    /*function notify_changed($deleted) {
+    }*/
 	
 	static function duplicate($params)
 	{

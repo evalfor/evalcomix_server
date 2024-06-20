@@ -92,28 +92,28 @@
 		//Array -- Almacena los IDs de la BD relativos a los valores de las dimensiones
 		private $valoresId;
 		
-		function get_tool($id){}
+		//function get_tool($id){}
 		function get_titulo(){return $this->titulo;}
 		function get_dimension(){return $this->dimension[$this->id];}
-		function get_numdim(){return $this->numdim[$this->id];}
+		//function get_numdim(){return $this->numdim[$this->id];}
 		function get_subdimension(){return $this->subdimension[$this->id];}
-		function get_numsubdim(){return $this->numsubdim[$this->id];}
+		//function get_numsubdim(){return $this->numsubdim[$this->id];}
 		function get_atributo(){return $this->atributo[$this->id];}
-		function get_numatr(){return $this->numatr[$this->id];}
+		//function get_numatr(){return $this->numatr[$this->id];}
 		function get_valores(){return $this->valores[$this->id];}
-		function get_numvalores(){return $this->numvalores[$this->id];}
+		//function get_numvalores(){return $this->numvalores[$this->id];}
 		function get_valtotal(){return (isset($this->valtotal[$this->id])) ? $this->valtotal[$this->id] : null;}
-		function get_numtotal($id=0){return $this->numtotal[$this->id];}
-		function get_valtotalpor(){return $this->valtotalpor[$this->id];}
-		function get_valorestotal($id=0){if(isset($this->valorestotal[$this->id]))return $this->valorestotal[$this->id];}
+		//function get_numtotal($id=0){return $this->numtotal[$this->id];}
+		//function get_valtotalpor(){return $this->valtotalpor[$this->id];}
+		//function get_valorestotal($id=0){if(isset($this->valorestotal[$this->id]))return $this->valorestotal[$this->id];}
 		function get_valglobal(){return $this->valglobal[$this->id];}
-		function get_valglobalpor(){return $this->valglobalpor[$this->id];}
+		/*function get_valglobalpor(){return $this->valglobalpor[$this->id];}
 		function get_dimpor(){return $this->dimpor[$this->id];}
 		function get_subdimpor(){return $this->subdimpor[$this->id];}
-		function get_atribpor(){return $this->atribpor[$this->id];}
+		function get_atribpor(){return $this->atribpor[$this->id];}*/
 		function get_commentAtr($id = 0){return $this->commentAtr[$this->id];}
 		function get_porcentage(){return $this->porcentage;}
-		function get_dimensionsId(){return $this->dimensionsId[$this->id];}
+		/*function get_dimensionsId(){return $this->dimensionsId[$this->id];}
 		function get_subdimensionsId(){return $this->subdimensionsId[$this->id];}
 		function get_atributosId(){return $this->atributosId[$this->id];}
 		function get_valoresId(){return $this->valoresId[$this->id];}
@@ -146,7 +146,7 @@
 		function set_atributosId($atributosId, $id = ''){$this->atributosId[$this->id] = $atributosId;}
 		function set_valoresId($valoresId, $id = ''){$this->valoresId[$this->id] = $valoresId;}
 		function set_atributopos($atributo){$this->atributopos[$this->id] = $atributo;}
-		function set_atributosposId($atributo, $id){$this->atributosposId[$this->id] = $atributo;}
+		function set_atributosposId($atributo, $id){$this->atributosposId[$this->id] = $atributo;}*/
 
 		
 		function __construct($lang='es_utf8', $titulo = '', $dimension = array(), $numdim = 1, $subdimension = array(),
@@ -215,7 +215,7 @@
 			$this->subdimensionsId[$this->id][0][0] = 'aux';
 		}
 		
-		function addAtributo($dim, $subdim, $atrib, $key){
+		/*function addAtributo($dim, $subdim, $atrib, $key){
 			require($this->filediccionario);
 			$id = $this->id;
 			$this->numatr[$id][$dim][$subdim]++;
@@ -243,8 +243,6 @@
 			$this->valores[$id][$dim][$key]['nombre'] = $string['titlevalue'].$this->numvalores[$id][$dim];
 		}
 		
-		
-		
 		function eliminaDimension($dim){			
 		}
 		
@@ -263,7 +261,6 @@
 			}
 			return 1;
 		}
-		
 		
 		function eliminaValores($dim, $grado){
 			$id = $this->id;
@@ -336,7 +333,7 @@
 			flush();
 		}
 		
-	function upBlock($params){
+		function upBlock($params){
 			require($this->filediccionario);
 			require_once('array.class.php');
 			$id = $this->id;
@@ -617,7 +614,7 @@
 		@return $array sin el elemento
 		Elimina de @array el elemento $i
 		*/
-		function arrayElimina($array, $i){
+		/*function arrayElimina($array, $i){
 			$arrayAux = array();
 			if(is_array($array)){
 				foreach($array as $key => $value){
@@ -626,7 +623,7 @@
 				}
 			}
 			return $arrayAux;
-		}
+		}*/
 		
 		/*
 		@param $array - array o tabla hash
@@ -636,7 +633,7 @@
 		@return $array con el nuevo elemento
 		Añade $elem a @array a continuación de $i.
 		*/
-		function arrayAdd($array, $i, $elem, $index){
+		/*function arrayAdd($array, $i, $elem, $index){
 			$arrayAux = array();
 			$flag = false;
 			if(is_array($array)){
@@ -654,7 +651,7 @@
 				}
 			}
 			return $arrayAux;
-		}
+		}*/
 		
 		/**Exporta el instrumento en formato XML
 			@param $mixed
@@ -983,7 +980,7 @@
 			echo '
 							</table>
 			';
-			if(isset($this->valorestotal[$id])){
+			/*if(isset($this->valorestotal[$id])){
 				echo '
 					<table class="tabla" border=1 cellpadding=5px >
 								<tr><td class="global" colspan="1">'.strtoupper($string['totalvalue']).'</td>
@@ -999,7 +996,7 @@
 					echo '<td><input type="radio" name="radio'.$dim.'_'.$subdim.'_'.$atrib.'" /></td>
 					';
 				}					
-			}
+			}*/
 
 			echo '
 								</tr>
@@ -1337,6 +1334,7 @@
 					}
 					
 					foreach($this->subdimension[$id][$dim] as $subdim => $elemsubdim){
+						$params_subdimension['sub_cod'] = encrypt_tool_element();
 						$params_subdimension['sub_dim'] = $dimensionid;
 						$params_subdimension['sub_nom'] = $this->subdimension[$id][$dim][$subdim]['nombre'];
 						$params_subdimension['sub_por'] = $this->subdimpor[$id][$dim][$subdim];

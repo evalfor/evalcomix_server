@@ -32,22 +32,22 @@ $response = null;
 $isapi = strpos($uri, '/api/');
 
 if ($isapi === false) {
-	$status = true;
-	try {
-		if ($status = install_controller::check_action()) {
-			if (install_controller::check_upgrade_required()) {
-				$status = false;
-			}
-		}
-	} catch (Exception $e) {
-		$status = false;
-	}			
-	if ($status === false) {
-		$response = new RedirectResponse(WWWROOT, 302);
-		$response->send();
-	}
 	$uriparams = explode('/', $uri);
 	if ($uri == '/') {
+		$status = true;
+		try {
+			if ($status = install_controller::check_action()) {
+				if (install_controller::check_upgrade_required()) {
+					$status = false;
+				}
+			}
+		} catch (Exception $e) {
+			$status = false;
+		}			
+		if ($status === false) {
+			$response = new RedirectResponse(WWWROOT, 302);
+			$response->send();
+		}
 		$response = install_controller::display_landpage_action();	
 	} else if ($uri == '/login') {
 		$response = user_controller::login_action();
@@ -160,7 +160,7 @@ if ($isapi === false) {
 					}
 				}break;
 				case 4: {
-					if ($uriparams[1] == 'client') {
+					/*if ($uriparams[1] == 'client') {
 						if ($uriparams[2] == 'tool' && $uriparams[4] == 'edit') {
 							if ($method == 'GET') {
 								if (!api_controller::check_token()) {
@@ -184,7 +184,8 @@ if ($isapi === false) {
 								}
 							} 
 						}
-					} else if ($uriparams[1] == 'tool' && $uriparams[3] == 'duplicate') {
+					} else */
+					if ($uriparams[1] == 'tool' && $uriparams[3] == 'duplicate') {
 						if ($method == 'POST') {
 							$response = api_controller::duplicate_tool($uriparams[2], $uriparams[4]);
 						} 
@@ -211,7 +212,11 @@ if (empty($response)) {
 } else if ($response === 401) {
 	header($_SERVER["SERVER_PROTOCOL"]." 401 Unauthorized");
 	exit;
+} else if ($response === 400) {
+	header($_SERVER["SERVER_PROTOCOL"]." 400 Bad request");
+	exit;
 }
+
 $response->headers->set('Access-Control-Allow-Origin', '*');
 $response->headers->set('Access-Control-Allow-Headers', 'X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method');
 $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');

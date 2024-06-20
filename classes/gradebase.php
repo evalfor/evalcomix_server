@@ -95,7 +95,7 @@
 
 		//@param $dimension: dimension object
 		//@return dimension grade
-		function get_grade_dimension($dimension){	
+		/*function get_grade_dimension($dimension){	
 			//Subdimensions-objects--------------------
 			$subdimensions = subdimension::fetch_all(array('sub_dim' => $dimension->id));
 
@@ -144,7 +144,7 @@
 			}
 
 			return ceil($result);
-		}
+		}*/
 
 
 		//@param $subdimension: sudimension object
@@ -200,9 +200,9 @@
 			return ceil($result);
 		}
 
-		function get_attribute_grade($attribute, $dimension)
+		/*function get_attribute_grade($attribute, $dimension)
 		{	
-		}
+		}*/
 
 		//@return tool final value
 		function get_final_value()
@@ -226,7 +226,7 @@
 		}
 
 		//@return dimension global value
-		function get_global_value($dimension)
+		/*function get_global_value($dimension)
 		{
 			$dimensionId = $dimension->dim_cod;
 			$globalValue = dimeva::fetch(array('die_eva' => $this->assessment->ass_cod, 'die_dim' => $dimensionId));
@@ -234,7 +234,7 @@
 			
 			
 			return $mark;
-		}
+		}*/
 
 		//@param $grades -- unidimensional vector of grades
 		//@return hash table where the Keys = $grades and the Values = numeric conversion of $grades 
@@ -246,11 +246,11 @@
 			$max = $num_grade - 1;
 			$min = 0;
 	
-			if(is_numeric($grades[0]) && is_numeric($grades[$num_grade - 1]) && $grades[0] > $grades	[$num_grade - 1]){
+			/*if(is_numeric($grades[0]) && is_numeric($grades[$num_grade - 1]) && $grades[0] > $grades[$num_grade - 1]){
 				$max = 0;
 				$min = $num_grade - 1;
 			}
-			elseif($grades[0] < $grades[$num_grade - 1]){
+			else*/ if($grades[0] < $grades[$num_grade - 1]){
 				$max = $num_grade - 1;
 				$min = 0;
 			}
@@ -266,12 +266,12 @@
 					$accumulator += $distance;
 				}
 			}
-			else{
+			/*else{
 				for($i = $min; $i > $max; $i--){
 					$numeric_grade[$grades[$i]] = $accumulator; //echo "i = $i; numeric_grade[$grades[$i]]	=".	$numeric_grade[$grades[$i]] .'<br>';
 					$accumulator += $distance;
 				}
-			}
+			}*/
 			
 			return $numeric_grade; 
 		}
@@ -279,7 +279,7 @@
 		/*
 		It returns 1 if all dimensions has got the same scale, 0 in other case
 		*/
-		function same_scale_for_dimensions()
+		/*function same_scale_for_dimensions()
 		{		
 			for($k = 0; $k < $countDimensions; $k++)
 			{
@@ -298,13 +298,13 @@
 			}
 			
 			return 1;	
-		}
+		}*/
 	
 		/*SCALE_IS_NUMERIC--------------------------------------------
-  	It checks if grades are numeric.
-	  If they are, it returns 1. In other case, it returns 0.
-	------------------------------------------------------------*/
-		function scale_is_numeric($scale)
+		It checks if grades are numeric.
+		If they are, it returns 1. In other case, it returns 0.
+		------------------------------------------------------------*/
+		/*function scale_is_numeric($scale)
 		{
 			$num_grade = sizeof($scale);
 			for($i = 0; $i < $num_grade; $i++)
@@ -316,13 +316,13 @@
 			}
 	
 			return 1;
-		}
+		}*/
 
 		function max_grade(){
 			return $this->maxGrade;
 		}
 
-		function same_ponderation($ponderations)
+		/*function same_ponderation($ponderations)
 		{
 			$count = count($ponderations);
 			for($i = 0; $i < $count; $i++){
@@ -331,13 +331,13 @@
 						return 0;
 			}
 			return 1;
-		}
+		}*/
 
 		/*GET_AVERAGE-------------------------------------------------
-	  It receives an array with numeric grades.
-	  It returns the average.
+		It receives an array with numeric grades.
+		It returns the average.
 		------------------------------------------------------------*/
-		function get_average($marks)
+		/*function get_average($marks)
 		{ 
 			$count = sizeof($marks);
 			if($this->scale_is_numeric($marks) && $count)
@@ -355,6 +355,6 @@
 			}
 			
 			return -1;
-		}
+		}*/
 
 	}

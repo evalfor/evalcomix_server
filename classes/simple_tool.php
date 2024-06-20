@@ -25,6 +25,7 @@ class simple_tool{
 	public $name_subdimension;
 	public $subdimension_code;
 	public $percentage_subdimension;
+	public $subdimension_id;
 	
 	public $num_atr_dim;
 	public $attributes;
@@ -349,7 +350,7 @@ class simple_tool{
 			foreach($dimval as $div){
 				$this->values_dim[$i][$v] = $div->div_val;
 				$this->values_dimension_id[$i][$v] = $div->id;
-				if($ranval = ranval::fetch_all(array('rav_dim' => $dimension->id, 'rav_val' => $div->div_val), array('rav_pos'))){
+				if($this->type == 'rubrica' && $ranval = ranval::fetch_all(array('rav_dim' => $dimension->id, 'rav_val' => $div->div_val), array('rav_pos'))){
 					$this->num_rango[$i][$v-1] = count($ranval);
 					$r = 0;
 					foreach($ranval as $rav){
@@ -364,20 +365,58 @@ class simple_tool{
 			$subdimensions = subdimension::fetch_all(array('sub_dim' => $dimension->id), array('sub_pos'));
 			$this->num_subdimension[$i] = count($subdimensions);
 			$j = 0;
+			$subkeys = array_keys($subdimensions);
+			
+			$order = 'atr_pos';
+			if($this->type == 'diferencial'){
+				$order = 'atr_pos, id';
+			}
+			$sqlatr = 'SELECT *
+FROM atributo
+WHERE atr_sub IN ('.implode(',', $subkeys).')
+ORDER BY '. $order;//echo $sqlatr . '<br>';
+			$attributes = array();
+			$atrraw = array();
+			if ($rst_atr = db::query($sqlatr)) {
+				foreach ($rst_atr as $item) {
+					$subid = $item['atr_sub'];
+					$atrid = $item['id'];
+					$attributes[$subid][$atrid] = (object)$item;
+					$atrraw[$atrid] = (object)$item;
+				}
+			}
+			
+			$attid = array_keys($atrraw);
+			$atribdes = array();
+			if ($this->type == 'rubrica') {
+				$sqlatribdes = 'SELECT * FROM atribdes WHERE atd_atr IN ('.implode(',', $attid).')';//echo "$sqlatribdes<br>";
+				$rst_atribdes = db::query($sqlatribdes);
+				foreach ($rst_atribdes as $item) {
+					$atd_atr = $item['atd_atr'];
+					$atd_val = $item['atd_val'];
+					$atribdes[$atd_atr][$atd_val] = $item;
+				}
+			}
+			
 			foreach($subdimensions as $subdimension){
+				$subdimid = $subdimension->id;
 				$this->name_subdimension[$i][$j] = $subdimension->sub_nom;
 				$this->subdimension_code[$i][$j] = $subdimension->id;
+				$this->subdimension_id[$i][$j] = (!empty($subdimension->sub_cod)) ? $subdimension->sub_cod : 
+					encrypt_tool_element($subdimension->id);
 				$this->percentage_subdimension[$i][$j] = $subdimension->sub_por;
 				
-				$order = array('atr_pos');
+				/*$order = array('atr_pos');
 				if($this->type == 'diferencial'){
 					$order = array('atr_pos', 'id');
-				}
+				}*/
 				
-				$attributes = atributo::fetch_all(array('atr_sub' => $subdimension->id), $order);
-				$this->num_atr_dim[$i][$j] = count($attributes);
+				//$attributes = atributo::fetch_all(array('atr_sub' => $subdimension->id), $order);
+				
+				$this->num_atr_dim[$i][$j] = count($attributes[$subdimid]);
 				$k = 0;
-				foreach($attributes as $attribute){
+				foreach($attributes[$subdimid] as $attribute){
+					$atrid = $attribute->id;
 					$this->attributes[$i][$j][$k] = $attribute->atr_des;
 					$this->attributes_percentage[$i][$j][$k] = $attribute->atr_por;
 					$this->attributes_code[$i][$j][$k] = $attribute->id;
@@ -385,10 +424,15 @@ class simple_tool{
 			
 					$l = 0;
 					foreach($dimval as $div){
-						if($atribdes = atribdes::fetch(array('atd_val' => $div->div_val, 'atd_atr' => $attribute->id))){
+						$div_val = $div->div_val;
+						if (!empty($atribdes[$atrid][$div_val])) {
+							$this->description_rubric[$i][$j][$k][$l] = $atribdes[$atrid][$div_val]['atd_des'];
+							$this->description_rubric_id[$i][$j][$k][$l] = $atribdes[$atrid][$div_val]['id'];
+						}
+						/*if($atribdes = atribdes::fetch(array('atd_val' => $div->div_val, 'atd_atr' => $attribute->id))){
 							$this->description_rubric[$i][$j][$k][$l] = $atribdes->atd_des;
 							$this->description_rubric_id[$i][$j][$k][$l] = $atribdes->id;
-						}
+						}*/
 						++$l;
 					}
 					++$k;
@@ -404,7 +448,7 @@ class simple_tool{
 	* @param array $scale array of values alphanumeric
 	* @return array with numeric scale
 	*/
-	public static function get_numeric_scale($scale){
+	/*public static function get_numeric_scale($scale){
 		if(!is_array($scale)){
 			return false;
 		}
@@ -438,5 +482,5 @@ class simple_tool{
 			}
 		}		
 		return $result;
-	}
+	}*/
 }

@@ -77,12 +77,12 @@
 			}
 			
 			//work-out--global-value------------------
-			if($dimension->dim_glo){
+			/*if($dimension->dim_glo){
 				$globalValuePorcentage = 100 - array_sum($subdimensionPorcentages);
 				$globalValue = $this->get_global_value($dimension);
 				$weightedValue = $globalValue * ($globalValuePorcentage / 100);
 				$result += $weightedValue;
-			}
+			}*/
 			
 			return ceil($result);
 		}
@@ -158,6 +158,4 @@
 
 			return ceil($result);
 		}
-
-
 	}

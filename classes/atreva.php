@@ -53,13 +53,13 @@ require_once('evalcomix_object.php');
 	*/
 	public function __construct($params = null){
 		if (!empty($params) and (is_array($params) or is_object($params))) {
-			atreva::check_params($this, $params);
+			//atreva::check_params($this, $params);
 			evalcomix_object::set_properties($this, $params);
 		}
 	}
 	
-	private static function check_params($atreva, $params) {
-	}
+	/*private static function check_params($atreva, $params) {
+	}*/
 	
 	/**
      * Updates this object in the Database, based on its object variables. ID must be set.
@@ -109,8 +109,8 @@ require_once('evalcomix_object.php');
      *
      * @param bool $deleted
      */
-    function notify_changed($deleted) {
-    }
+    /*function notify_changed($deleted) {
+    }*/
 	
 	static function duplicate($params)
 	{

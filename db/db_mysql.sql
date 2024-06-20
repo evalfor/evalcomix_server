@@ -35,6 +35,7 @@ CREATE TABLE dimen(
 
 CREATE TABLE subdimension(
    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+   sub_cod VARCHAR(256),
    sub_nom VARCHAR(700),
    sub_dim INTEGER,
    sub_por INTEGER,

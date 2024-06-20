@@ -39,6 +39,7 @@ class user_controller {
 				
 				if (!empty($currentpassword) && !empty($newpassword1) && !empty($newpassword2)) {
 					if ($user = users::fetch(array('username' => $username))) { 
+						unset($user->usr_enb);
 						$encryptedpassword = users::encrypt_password($currentpassword);
 						if ($user->usr_pss == $encryptedpassword && $newpassword1 === $newpassword2) {
 							$newencryptedpassword = users::encrypt_password($newpassword1);
@@ -71,6 +72,7 @@ class user_controller {
 		require_once(DIRROOT . '/classes/users.php');
 		
 		if ($user = users::fetch(array('id' => $userid))) {
+			unset($user->usr_enb);
 			if (is_string($newpassword)) {
 				$user->usr_pss = users::encrypt_password($newpassword);
 				$user->update();

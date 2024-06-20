@@ -195,7 +195,7 @@
 				return NO_CALIFICATED;
 			}
 			
-			return $result;
+			return ceil($result);
 		}
 
 		function get_attribute_grade($attribute, $dimension)

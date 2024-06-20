@@ -1,5 +1,4 @@
 <?php 
-	include_once('dbpdo.php');
 	include_once('database.php');
 	
 	/**

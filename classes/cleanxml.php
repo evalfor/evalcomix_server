@@ -1,5 +1,5 @@
 <?php
-	include_once('class.inputfilter.php');
+	//include_once('class.inputfilter.php');
 	
 	function cleaner($texto){
 		//$texto=strip_tags($texto);
@@ -39,7 +39,7 @@
 		$type_tool = get_type($xml);
 		if($type_tool == 'MixTool')
 		{ 
-			$ifilter = new InputFilter();
+			//$ifilter = new InputFilter();
 			$xml['name'] = cleaner((string)$xml['name']);
 			foreach($xml as $valor)
 			{ 
@@ -48,7 +48,7 @@
 			return $xml;
 		}
 		elseif($type_tool == 'SemanticDifferential'){
-			$ifilter = new InputFilter();
+			//$ifilter = new InputFilter();
 			$xml['name'] = cleaner((string)$xml['name']);
 			foreach($xml->Attribute as $attribute)
 			{
@@ -83,7 +83,7 @@
 				break;
 		}	
 		
-		$ifilter = new InputFilter();
+		//$ifilter = new InputFilter();
 		
 		$xml['name'] = cleaner((string)$xml['name']);
 		//echo $xml['name']; 

@@ -87,15 +87,13 @@ class users extends evalcomix_object {
 	*/
 	public function __construct($params = null){
 		if (!empty($params) and (is_array($params) or is_object($params))) {
-			users::check_params($this, $params);
+			//users::check_params($this, $params);
 			evalcomix_object::set_properties($this, $params);
 		}
 	}
 	
-	private static function check_params($users, $params) {
-		
-	}
-	
+	/*private static function check_params($users, $params) {
+	}*/	
 	
 	/**
      * Finds and returns a instance based on params.
@@ -125,18 +123,18 @@ class users extends evalcomix_object {
      *
      * @param bool $deleted
      */
-    function notify_changed($deleted) {
-    }
+    /*function notify_changed($deleted) {
+    }*/
 
-    public static function search($search, $columns, $pagination = array(), $sortfields = array()){
+    /*public static function search($search, $columns, $pagination = array(), $sortfields = array()){
       return evalcomix_object::search_helper('users', 'users', $search, $columns, $pagination, $sortfields);
-    }
+    }*/
     
     /**
     * @params array -> ['capability'] string capability name
     * @return array of users object with the capability in the system
     */
-    public static function getUsersWithCapability(array $params) {
+    /*public static function getUsersWithCapability(array $params) {
 		extract($params);
 		$result = array();
 		
@@ -153,7 +151,7 @@ class users extends evalcomix_object {
             $result[$instance->id] = $instance;
 		}
 		return $result;
-    }
+    }*/
     
     public static function encrypt_password($password = '') {
 		$result = '';

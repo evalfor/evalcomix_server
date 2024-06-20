@@ -24,31 +24,31 @@ class toolmix{
 		$this->comment = (isset($params['comment'])) ? $params['comment'] : '';
 	}
 
-	function get_toolpor(){return $this->toolpor;}
-	function get_tool($id){return $this->listTool[$id];}
+	//function get_toolpor(){return $this->toolpor;}
+	//function get_tool($id){return $this->listTool[$id];}
 	function get_tools(){return $this->listTool;}
-	function get_numtool(){return count($this->listTool);}
+	//function get_numtool(){return count($this->listTool);}
 	function get_titulo($id = 0){return $this->titulo;}
 	function get_dimension($id = 0){return $this->listTool[$id]->get_dimension();}
-	function get_numdim($id = 0){return $this->listTool[$id]->get_numdim();}
+	//function get_numdim($id = 0){return $this->listTool[$id]->get_numdim();}
 	function get_subdimension($id = 0){return $this->listTool[$id]->get_subdimension();}
-	function get_numsubdim($id = 0){return $this->listTool[$id]->get_numsubdim();}
+	//function get_numsubdim($id = 0){return $this->listTool[$id]->get_numsubdim();}
 	function get_atributo($id = 0){return $this->listTool[$id]->get_atributo();}
-	function get_numatr($id = 0){return $this->listTool[$id]->get_numatr();}
+	//function get_numatr($id = 0){return $this->listTool[$id]->get_numatr();}
 	function get_valores($id = 0){return $this->listTool[$id]->get_valores();}
-	function get_numvalores($id = 0){return $this->listTool[$id]->get_numvalores();}
+	//function get_numvalores($id = 0){return $this->listTool[$id]->get_numvalores();}
 	function get_valtotal($id = 0){return $this->listTool[$id]->get_valtotal();}
-	function get_numtotal($id = 0){return $this->listTool[$id]->get_numtotal();}
+	/*function get_numtotal($id = 0){return $this->listTool[$id]->get_numtotal();}
 	function get_valtotalpor($id = 0){return $this->listTool[$id]->get_valtotalpor();}
-	function get_valorestotal($id = 0){return $this->listTool[$id]->get_valorestotal();}
+	function get_valorestotal($id = 0){return $this->listTool[$id]->get_valorestotal();}*/
 	function get_valglobal($id = 0){return $this->listTool[$id]->get_valglobal();}
-	function get_valglobalpor($id = 0){return $this->listTool[$id]->get_valglobalpor();}
+	/*function get_valglobalpor($id = 0){return $this->listTool[$id]->get_valglobalpor();}
 	function get_dimpor($id = 0){return $this->listTool[$id]->get_dimpor();}
 	function get_subdimpor($id = 0){return $this->listTool[$id]->get_subdimpor();}
 	function get_atribpor($id = 0){return $this->listTool[$id]->get_atribpor();}
-	function get_numrango($id = 0){return $this->listTool[$id]->get_numrango();;}
+	function get_numrango($id = 0){return $this->listTool[$id]->get_numrango();;}*/
 	function get_rango($id = 0){return $this->listTool[$id]->get_rango();}
-	function get_dimensionsId(){return array();}
+	/*function get_dimensionsId(){return array();}
 	function get_subdimensionsId(){return array();}
 	function get_atributosId(){return array();}
 	function get_valoresId(){return array();}
@@ -78,10 +78,10 @@ class toolmix{
 	function set_subdimensionsId($subdimensionsId, $id = ''){}
 	function set_atributosId($atributosId, $id = ''){}
 	function set_valoresId($valoresId, $id = ''){}
-	function set_valorestotalesId($valoresId, $id = ''){}
+	function set_valorestotalesId($valoresId, $id = ''){}*/
 	function set_plantillasId($plantillas, $id = ''){$this->plantillasId = $plantillas;}
 		
-	function set_toolpor($porcentages){$this->toolpor = $porcentages;}
+	//function set_toolpor($porcentages){$this->toolpor = $porcentages;}
 	function set_tools($listTool){
 		$this->listTool = $listTool;
 		foreach($listTool as $id => $tool){
@@ -90,14 +90,14 @@ class toolmix{
 		}
 		$this->index++;
 	}
-	function set_view($view, $id=''){
+	/*function set_view($view, $id=''){
 		$this->view = $view;
 		foreach($this->listTool as $key => $tool){
 			$this->listTool[$key]->set_view($view, $id);
 		}
-	}
+	}*/
 	
-	function addDimension($dim, $key, $id){
+	/*function addDimension($dim, $key, $id){
 		$this->listTool[$id]->addDimension($dim, $key, $id);
 	}
 	
@@ -142,7 +142,7 @@ class toolmix{
 		
 	function eliminaRango($dim, $grado, $key, $id){
 		return $this->listTool[$id]->eliminaRango($dim, $grado, $key, $id);
-	}
+	}*/
 	/*function upAtributo($dim, $subdim, $atrib,$id){
 		return $this->listTool[$id]->upAtributo($dim, $subdim, $atrib);	
 	}
@@ -151,7 +151,7 @@ class toolmix{
 		return $this->listTool[$id]->downAtributo($dim, $subdim, $atrib);
 	}*/
 	
-	function upBlock($params){
+	/*function upBlock($params){
 		require($this->filediccionario);
 		require_once('array.class.php');
 		
@@ -275,10 +275,10 @@ class toolmix{
 			}break;
 			case 'mixta':{
 				$tool = new toolmix($language, $titulo);
-			}break;
+			}break;*/
 			/*case 'argumentario':{
 				$tool = new toolargument($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo, $numatr, $dimpor, $subdimpor, $atribpor, $commentAtr, $id);
-			}break;*/
+			}break;*//*
 		}
 		if(isset($index) && $index != ''){
 			$this->listTool = $this->arrayAdd($this->listTool, $index, $tool, $this->index);
@@ -385,7 +385,7 @@ class toolmix{
 	
 	function display_subdimension($dim, $subdim, $data, $id){
 		$this->listTool[$id]->display_subdimension($dim, $subdim, $data);
-	}
+	}*/
 	
 	/*
 	@param $array 
@@ -393,7 +393,7 @@ class toolmix{
 	@return $array sin el elemento
 	Elimina de @array el elemento $i
 	*/
-	function arrayElimina($array, $i){
+	/*function arrayElimina($array, $i){
 		$arrayAux = array();
 		if(is_array($array)){
 			foreach($array as $key => $value){
@@ -402,7 +402,7 @@ class toolmix{
 			}
 		}
 		return $arrayAux;
-	}
+	}*/
 	
 	/*
 	@param $array - array o tabla hash
@@ -412,7 +412,7 @@ class toolmix{
 	@return $array con el nuevo elemento
 	Añade $elem a @array a continuación de $i.
 	*/
-	function arrayAdd($array, $i, $elem, $index){
+	/*function arrayAdd($array, $i, $elem, $index){
 		$arrayAux = array();
 		$flag = false;
 		if(is_array($array)){
@@ -430,7 +430,7 @@ class toolmix{
 			}
 		}
 		return $arrayAux;
-	}
+	}*/
 	
 	function export($params = array())
 	{
@@ -472,7 +472,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/mixtool http://avanza
 		return $xml;
 	}
 	
-	function display_body_view($data){
+	/*function display_body_view($data){
 		require($this->filediccionario);
 
 		if(isset($data['titulo']))
@@ -513,7 +513,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/mixtool http://avanza
 			
 		</div>
 		';
-	}
+	}*/
 	
 	function print_tool($root = ''){
 		require_once($this->filediccionario);

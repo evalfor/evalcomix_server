@@ -155,7 +155,7 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 			//SUBDIMENSIONS-----------------
 			for($l = 0; $l < $simple_tool->num_subdimension[$i]; $l++)
 			{
-				$xml .=  '<Subdimension id="'.encrypt_tool_element($simple_tool->subdimension_code[$i][$l]).'" name="' . htmlspecialchars($simple_tool->name_subdimension[$i][$l]) . '" attributes="' . $simple_tool->num_atr_dim[$i][$l] . '" percentage="' .$simple_tool->percentage_subdimension[$i][$l] . '">
+				$xml .=  '<Subdimension id="'.$simple_tool->subdimension_id[$i][$l].'" name="' . htmlspecialchars($simple_tool->name_subdimension[$i][$l]) . '" attributes="' . $simple_tool->num_atr_dim[$i][$l] . '" percentage="' .$simple_tool->percentage_subdimension[$i][$l] . '">
 				';
 				//ATTRIBUTES--------------------
 				for($k = 0; $k < $simple_tool->num_atr_dim[$i][$l]; $k++)
@@ -240,7 +240,7 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 			//SUBDIMENSIONS-----------------
 			for($l = 0; $l < $simple_tool->num_subdimension[$i]; $l++)
 			{
-				$xml .= '<Subdimension id="'.encrypt_tool_element($simple_tool->subdimension_code[$i][$l]).'" name="' . htmlspecialchars($simple_tool->name_subdimension[$i][$l]) . '" attributes="' . $simple_tool->num_atr_dim[$i][$l] . '" percentage="' . $simple_tool->percentage_subdimension[$i][$l] . '">
+				$xml .= '<Subdimension id="'.$simple_tool->subdimension_id[$i][$l].'" name="' . htmlspecialchars($simple_tool->name_subdimension[$i][$l]) . '" attributes="' . $simple_tool->num_atr_dim[$i][$l] . '" percentage="' . $simple_tool->percentage_subdimension[$i][$l] . '">
 	';
 				//ATTRIBUTES--------------------
 				for($k = 0; $k < $simple_tool->num_atr_dim[$i][$l]; $k++)
@@ -373,7 +373,7 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 			
 			//SUBDIMENSIONS-----------------
 			for($l = 0; $l < $simple_tool->num_subdimension[$i]; $l++){
-				$xml .= '<Subdimension id="'.encrypt_tool_element($simple_tool->subdimension_code[$i][$l]).'" name="' . htmlspecialchars($simple_tool->name_subdimension[$i][$l]) . '" attributes="' . $simple_tool->num_atr_dim[$i][$l] . '" percentage="' . $simple_tool->percentage_subdimension[$i][$l] . '">
+				$xml .= '<Subdimension id="'.$simple_tool->subdimension_id[$i][$l].'" name="' . htmlspecialchars($simple_tool->name_subdimension[$i][$l]) . '" attributes="' . $simple_tool->num_atr_dim[$i][$l] . '" percentage="' . $simple_tool->percentage_subdimension[$i][$l] . '">
 				';
 				//ATTRIBUTES--------------------
 				for($k = 0; $k < $simple_tool->num_atr_dim[$i][$l]; $k++)
@@ -504,7 +504,7 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 			//SUBDIMENSIONS-----------------
 			for($l = 0; $l < $simple_tool->num_subdimension[$i]; $l++)
 		  {
-				$xml .=  '<Subdimension id="'.encrypt_tool_element($simple_tool->subdimension_code[$i][$l]).'" name="' . htmlspecialchars($simple_tool->name_subdimension[$i][$l]) . '" attributes="' . $simple_tool->num_atr_dim[$i][$l] . '" percentage="' . $simple_tool->percentage_subdimension[$i][$l] . '">
+				$xml .=  '<Subdimension id="'.$simple_tool->subdimension_id[$i][$l].'" name="' . htmlspecialchars($simple_tool->name_subdimension[$i][$l]) . '" attributes="' . $simple_tool->num_atr_dim[$i][$l] . '" percentage="' . $simple_tool->percentage_subdimension[$i][$l] . '">
 	';
 				//ATTRIBUTES--------------------
 				for($k = 0; $k < $simple_tool->num_atr_dim[$i][$l]; $k++)
@@ -746,7 +746,7 @@ name="' . htmlspecialchars($this->tool->title) . '" instruments="' . count($simp
 			//SUBDIMENSIONS-----------------
 			for($l = 0; $l < $simple_tool->num_subdimension[$i]; $l++)
 			{
-				$xml .=  '<Subdimension id="'.encrypt_tool_element($simple_tool->subdimension_code[$i][$l]).'" name="' . htmlspecialchars($simple_tool->name_subdimension[$i][$l]) . '" attributes="' . $simple_tool->num_atr_dim[$i][$l] . '" percentage="' .$simple_tool->percentage_subdimension[$i][$l] . '">
+				$xml .=  '<Subdimension id="'.$simple_tool->subdimension_id[$i][$l].'" name="' . htmlspecialchars($simple_tool->name_subdimension[$i][$l]) . '" attributes="' . $simple_tool->num_atr_dim[$i][$l] . '" percentage="' .$simple_tool->percentage_subdimension[$i][$l] . '">
 				';
 				//ATTRIBUTES--------------------
 				for($k = 0; $k < $simple_tool->num_atr_dim[$i][$l]; $k++)

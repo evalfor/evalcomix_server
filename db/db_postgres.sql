@@ -39,6 +39,7 @@ CREATE TABLE dimen(
 
 CREATE TABLE subdimension(
 	id SERIAL PRIMARY KEY,
+	sub_cod VARCHAR,
 	sub_nom VARCHAR,
 	sub_dim INTEGER,
 	sub_por INTEGER,

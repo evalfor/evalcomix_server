@@ -64,28 +64,28 @@
 		
 		public $comment;
 		
-		function get_tool($id){}
+		//function get_tool($id){}
 		function get_titulo(){return $this->titulo;}
 		function get_dimension(){return $this->dimension[$this->id];}
-		function get_numdim(){return $this->numdim[$this->id];}
+		//function get_numdim(){return $this->numdim[$this->id];}
 		function get_subdimension(){return $this->subdimension[$this->id];}
-		function get_numsubdim(){return $this->numsubdim[$this->id];}
+		//function get_numsubdim(){return $this->numsubdim[$this->id];}
 		function get_atributo(){return $this->atributo[$this->id];}
-		function get_numatr(){return $this->numatr[$this->id];}
+		/*function get_numatr(){return $this->numatr[$this->id];}
 		function get_dimpor(){return $this->dimpor[$this->id];}
 		function get_subdimpor(){return $this->subdimpor[$this->id];}
-		function get_atribpor(){return $this->atribpor[$this->id];}
+		function get_atribpor(){return $this->atribpor[$this->id];}*/
 		function get_commentAtr($id = 0){return $this->commentAtr[$this->id];}
 		function get_porcentage(){return $this->porcentage;}
 
 		function get_valores($id = 0){return array();}
-		function get_numvalores($id){return array();}
+		//function get_numvalores($id){return array();}
 		function get_valtotal($id){return array();}
-		function get_numtotal($id){return array();}
+		/*function get_numtotal($id){return array();}
 		function get_valtotalpor($id){return array();}
-		function get_valorestotal($id){return array();}
+		function get_valorestotal($id){return array();}*/
 		function get_valglobal($id){return array();}
-		function get_valglobalpor($id){return array();}
+		/*function get_valglobalpor($id){return array();}
 		function get_dimensionsId(){return $this->dimensionsId[$this->id];}
 		function get_subdimensionsId(){return $this->subdimensionsId[$this->id];}
 		function get_atributosId(){return $this->atributosId[$this->id];}
@@ -117,7 +117,7 @@
 		function set_subdimensionsId($subdimensionsId, $id = ''){$this->subdimensionsId[$this->id] = $subdimensionsId;}
 		function set_atributosId($atributosId, $id = ''){$this->atributosId[$this->id] = $atributosId;}
 		function set_valoresId($valoresId){}
-		function set_valorestotalesId($valoresId){}
+		function set_valorestotalesId($valoresId){}*/
 		
 		function __construct($lang='es_utf8', $titulo = '', $dimension = array(), $numdim = 1, $subdimension = array(),
 				$numsubdim = 1, $atributo = array(), $numatr = 1, $dimpor = array(), $subdimpor = array(),
@@ -155,7 +155,7 @@
 			$this->comment = (isset($params['comment'])) ? $params['comment'] : '';
 		}
 		
-		function addDimension($dim, $key){
+		/*function addDimension($dim, $key){
 			require($this->filediccionario);
 			$dimen;
 			$this->numdim[$this->id] += 1;
@@ -651,7 +651,7 @@
 					<br></div>
 			';
 			flush();
-		}
+		}*/
 		
 		/*
 		@param $array 
@@ -659,7 +659,7 @@
 		@return $array sin el elemento
 		Elimina de @array el elemento $i
 		*/
-		function arrayElimina($array, $i){
+		/*function arrayElimina($array, $i){
 			$arrayAux = array();
 			if(is_array($array)){
 				foreach($array as $key => $value){
@@ -668,7 +668,7 @@
 				}
 			}
 			return $arrayAux;
-		}
+		}*/
 		
 		/*
 		@param $array - array o tabla hash
@@ -678,7 +678,7 @@
 		@return $array con el nuevo elemento
 		Añade $elem a @array a continuación de $i.
 		*/
-		function arrayAdd($array, $i, $elem, $index){
+		/*function arrayAdd($array, $i, $elem, $index){
 			$arrayAux = array();
 			$flag = false;
 			if(is_array($array)){
@@ -696,7 +696,7 @@
 				}
 			}
 			return $arrayAux;
-		}
+		}*/
 		
 		function save($cod = ''){
 			$id = $this->id;
@@ -788,7 +788,8 @@
 					if($subdimensions_aux = subdimension::fetch_all(array('sub_dim' => $keydim))){//print_r($dimensions);
 						$numsubdim = count($subdimensions_aux);
 						foreach($subdimensions_aux as $keysubdim => $subdimension_aux){
-							$codSubdim = encrypt_tool_element($keysubdim);
+							$codSubdim = (!empty($subdimension_aux->sub_cod)) ? $subdimension_aux->sub_cod : 
+								encrypt_tool_element($keysubdim);
 							$subdimensionsCod[$codSubdim] = $keysubdim;
 							$subdimensions[$keysubdim] = $subdimension_aux;
 							
@@ -813,7 +814,7 @@
 					$dim_glo = '0';
 					$dim_com = '0';
 					$dim_gpr = '0';
-					if(isset($this->valglobal[$id][$dim]) && ($this->valglobal[$id][$dim] == 'true' || $this->valglobal[$id][$dim] == 't')){
+					/*if(isset($this->valglobal[$id][$dim]) && ($this->valglobal[$id][$dim] == 'true' || $this->valglobal[$id][$dim] == 't')){
 						$dim_glo = '1';
 						if(isset($this->valglobalpor[$id][$dim])){
 							$dim_gpr = $this->valglobalpor[$id][$dim];
@@ -822,7 +823,7 @@
 						if(isset($this->commentDim[$id][$dim]) && $this->commentDim[$id][$dim] == 'visible'){
 							$dim_com = '1';
 						}
-					}
+					}*/
 					$idDim = $this->dimensionsId[$id][$dim];
 					if(isset($dimensionsCod[$idDim])){						
 						$update = false;
@@ -896,16 +897,19 @@
 						}
 						else{
 							$dimensionId = $this->dimensionsId[$id][$dim]; 
-							$dim_plane = $dimensionsCod[$dimensionId]; 
+							$dim_plane = $dimensionsCod[$dimensionId];
+							$codSubdim = encrypt_tool_element();
+							$params_subdimension['sub_cod'] = $codSubdim;
 							$params_subdimension['sub_dim'] = $dim_plane;
 							$params_subdimension['sub_nom'] = $this->subdimension[$id][$dim][$subdim]['nombre'];
 							$params_subdimension['sub_por'] = $this->subdimpor[$id][$dim][$subdim];
 							$params_subdimension['sub_pos'] = $sub_pos;
 							$subdimension = new subdimension($params_subdimension);
 							$subdimensionid = $subdimension->insert();
-							$sid = $subdimensionid; 
 							$codSubdim = encrypt_tool_element($subdimensionid);
-							$subdimensionsCod[$codSubdim] = $sid;						
+							$subdimension->sub_cod = $codSubdim;
+							$subdimension->update();
+							$subdimensionsCod[$codSubdim] = $subdimensionid;						
 							$this->subdimensionsId[$id][$dim][$subdim] = $codSubdim;						
 						}
 						
@@ -1014,13 +1018,14 @@
 					
 					$sub_pos = 0;
 					foreach($this->subdimension[$id][$dim] as $subdim => $elemsubdim){
+						$codSubdim = encrypt_tool_element();
+						$params_subdimension['sub_cod'] = $codSubdim;
 						$params_subdimension['sub_dim'] = $dimensionid;
 						$params_subdimension['sub_nom'] = $this->subdimension[$id][$dim][$subdim]['nombre'];
 						$params_subdimension['sub_por'] = $this->subdimpor[$id][$dim][$subdim];
 						$params_subdimension['sub_pos'] = $sub_pos;
 						$subdimension = new subdimension($params_subdimension);
 						$subdimensionid = $subdimension->insert();
-						$codSubdim = encrypt_tool_element($subdimensionid);
 						$this->subdimensionsId[$id][$dim][$subdim] = $codSubdim;
 						
 						$atr_pos = 0;
@@ -1158,7 +1163,7 @@
 			return $xml;
 		}
 		
-		function display_body_view($data, $mix = '', $porcentage=''){		
+		/*function display_body_view($data, $mix = '', $porcentage=''){		
 			if($porcentage != '')
 				$this->porcentage = $porcentage;
 			if(isset($data['titulo'.$this->id]))
@@ -1312,7 +1317,7 @@
 			';
 			
 			flush();
-		}
+		}*/
 		
 		function print_tool($root = ''){
 			$id = $this->id;
@@ -1394,13 +1399,13 @@
 					<tr>
 						<td colspan='".($colspan - $colspandim + 1) ."'></td>
 				";
-				if(isset($this->commentDim[$id][$dim]) && $this->commentDim[$id][$dim] == 'visible'){
+				/*if(isset($this->commentDim[$id][$dim]) && $this->commentDim[$id][$dim] == 'visible'){
 					echo "
 						<td colspan='".$colspandim."'>
 							<textarea rows='3' style='height:4em;width:100%' id='observaciones".$dim."' name='observaciones".$dim."' style='width:100%'></textarea>
 						</td>
 					";
-				}
+				}*/
 				echo "
 					</tr>
 				";

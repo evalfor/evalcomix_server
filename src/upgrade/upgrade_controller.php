@@ -154,6 +154,20 @@ class upgrade_controller {
 				upgrade_evalcomix_savepoint(2021092400);
 			}
 			
+			if ($currentversion < 2023052900) {
+				$subdimensiontable = new evalcomix_table(array('name' => 'subdimension'));
+				
+				if (!$subdimensiontable->field_exist('sub_cod')) {
+					$subdimensiontable->add_field(array('name' => 'sub_cod', 'type' => EVALCOMIX_TYPE_CHAR, 'precision' => '256',
+						'notnull' => null, 'sequence' => null, 'default' => null));
+				}
+				
+				$result['subdimension'] = 'Subdimension ' . get_string('modifiedsuccessfully');
+				
+				// evalcomix savepoint reached
+				upgrade_evalcomix_savepoint(2023052900);
+			}
+			
 			if (empty($result)) {
 				upgrade_evalcomix_savepoint($version);
 				return new RedirectResponse(WWWROOT . '/index.php', 302);

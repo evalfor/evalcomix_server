@@ -3,7 +3,7 @@ if (file_exists('../configuration/conf.php')) {
 	require_once('../configuration/conf.php');
 }
 require_once(DIRROOT . '/classes/db.php');
-require_once(DIRROOT . '/classes/dbpdo.php');
+//require_once(DIRROOT . '/classes/dbpdo.php');
 require_once(DIRROOT . '/classes/dblib/evalcomix_table.php');
 require_once(DIRROOT . '/classes/dblib/evalcomix_constant.php');
 

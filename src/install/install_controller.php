@@ -32,7 +32,6 @@ class install_controller {
 	
 	public static function check_action(){
 		if (self::configfile_exists_action()) {
-			$checkconfigfile = self::check_configfile_action();
 			if (self::check_configfile_action() === true) {
 				require_once(__DIR__ . '/../../configuration/conf.php');
 				if (self::db_validate_action(TYPEDB, HOSTDB, USERDB, PASSDB, NAMEDB)) {
@@ -100,7 +99,7 @@ class install_controller {
 		global $version;
 		$oldversion = 0;
 
-		$sql = 'SELECT * FROM config WHERE name = "version"';
+		$sql = "SELECT * FROM config WHERE name = 'version'";
 		try{
 			if($result = DB::query($sql)){
 				$row = $result->fetch();
@@ -110,7 +109,6 @@ class install_controller {
 		catch(Exception $e){
 			$oldversion = 0;
 		}
-		
 		if ((int)$oldversion >= (int)$version) {
 			return 0;
 		}

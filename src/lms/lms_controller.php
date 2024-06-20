@@ -56,9 +56,9 @@ class lms_controller {
 							if (!$newlms = lms::fetch(array('lms_url' => $url))) {
 								if (validateUrlSyntax($url, 's+H?S?F-E-u?P?a?I?p?f?q-r-') === true) {
 									$params = array();
-									$params['lms_nam'] = $name;
+									$params['lms_nam'] = trim($name);
 									$params['lms_des'] = $description;
-									$params['lms_url'] = $url;
+									$params['lms_url'] = trim($url);
 									$params['lms_tkn'] = $token;
 									$params['lms_enb'] = (string)$enabled;
 									$newlms = new lms($params);
@@ -126,9 +126,9 @@ class lms_controller {
 				
 				$item = new stdClass();
 				$item->id = $id;
-				$item->name = $name;
+				$item->name = trim($name);
 				$item->description = $description;
-				$item->url = $url;
+				$item->url = trim($url);
 				$item->token = $token;
 				$item->enabled = $enabled;
 				
@@ -166,9 +166,9 @@ class lms_controller {
 									$url = substr($url, 0, -1);
 								}
 								
-								$lms->lms_nam = $name;
+								$lms->lms_nam = trim($name);
 								$lms->lms_des = $description;
-								$lms->lms_url = $url;
+								$lms->lms_url = trim($url);
 								$lms->lms_tkn = $token;
 								$lms->lms_enb = (string)$enabled;
 								$lms->update();
@@ -179,11 +179,11 @@ class lms_controller {
 						} else {
 							$statusmessage['message'] = 'Error: LMS ID does not exist';
 						}
-					} else {
+					} /*else {
 						if ($lms = lms::fetch(array('id' => $id))) {
 							
 						}
-					}
+					}*/
 				} else {
 					$statusmessage['message'] = get_string('errorrequiredfields');
 				}

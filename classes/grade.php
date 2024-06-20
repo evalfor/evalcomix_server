@@ -34,7 +34,7 @@
 			return $this->object->max_grade();
 		}
 
-		function get_average($marks){
+		/*function get_average($marks){
 			$count = sizeof($marks);
 			$calificated = 0;
 
@@ -52,6 +52,6 @@
 						
 			return -1;
 
-		}
+		}*/
 
 	}

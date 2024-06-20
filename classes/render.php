@@ -65,19 +65,14 @@ class render {
 		<link href="'.$path.'/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 		
 		<script src="'.$path.'/js/jquery.min.js"></script>
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
-		<!-- Latest compiled and minified JavaScript -->
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-		<!-- (Optional) Latest compiled and minified JavaScript translation files -->
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
+		<link href="'.$path.'/styles/bootstrap/css/bootstrap502.min.css" rel="stylesheet">
+		<script src="'.$path.'/js/popper.min.js"></script>
+		<script src="'.$path.'/js/bootstrap.min.js"></script>
+		<script src="'.$path.'/js/bootstrap.bundle.min.js"></script>
+		<link rel="stylesheet" href="'.$path.'/styles/bootstrap-select-1.13.14.min.css">
+		<script src="'.$path.'/js/bootstrap-select.min.js"></script>
 		<link rel="stylesheet" href="'.$path.'/styles/general.css">
 		<link rel="stylesheet" href="'.$path.'/styles/gototop.css">
-		<link href="//db.onlinewebfonts.com/c/0801c08e5412f54e4b4e9ad146d83a12?family=Ink+Free" rel="stylesheet" type="text/css"/>
 		'.$links.'
 		<script src="'.$path.'/js/ajax.js"></script>
 		'.$scripts.'
@@ -89,7 +84,7 @@ class render {
 	';
 		
 		return $output;
-	}	
+	}
 
 	public static function show_body_open($params = array()){
 		extract($params);
@@ -200,19 +195,7 @@ class render {
 		</a> 
 		<script src="'.$path.'/js/scrolltotop.js"></script>
 		<script src="'.$path.'/js/jquery.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 		<script src="'.$path.'/js/jquery.accordion.js" type="text/javascript" charset="utf-8"></script>
-		<script>
-			(function(i,s,o,g,r,a,m){i[\'GoogleAnalyticsObject\']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-			})(window,document,\'script\',\'https://www.google-analytics.com/analytics.js\',\'ga\');
-
-			ga(\'create\', \'UA-78566346-2\', \'auto\');
-			ga(\'send\', \'pageview\');
-
-			</script>
 		<script type="text/javascript" charset="utf-8">
 		$(function(){
 			$(\'.subblock\').accordion({keepOpen:false, startingOpen: \'#open\'})
@@ -475,7 +458,7 @@ class render {
 		return $output;
 	}
 	
-	public static function show_button($params = array()) {
+	/*public static function show_button($params = array()) {
 		$value = '';
 		if (isset($params['value'])) {
 			$value = $params['value'];
@@ -497,7 +480,7 @@ class render {
 		</div>';
 		
 		return $output;
-	}
+	}*/
 
 	public static function show_footer() {
 		$output = '
@@ -558,7 +541,7 @@ class render {
 		return $output;	
 	}
 	
-	public static function textarea($params = array()){
+	/*public static function textarea($params = array()){
 		$output = '';
 		
 		$name = '';
@@ -644,7 +627,7 @@ class render {
 		";
 		
 		return $output;
-	}
+	}*/
 	
 	public static function show_page_header($params){
 		$output = '<div class="page-header">';
@@ -682,7 +665,7 @@ class render {
 		return $output;
 	}
 	
-	public static function show_form_buttons($params = array()){
+	/*public static function show_form_buttons($params = array()){
 		$cancel_url = WWWROOT. 'cpanel/index.php';
 		$output = '';
 		$output .= '
@@ -697,7 +680,7 @@ class render {
 		';
 		
 		return $output;
-	}
+	}*/
 	
 	public static function show_script($params) {
 		$output = '';

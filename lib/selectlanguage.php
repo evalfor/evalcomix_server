@@ -20,10 +20,10 @@ if(!isset($lang) && isset($_SESSION['lang'])){
 }
 $language = '';
 switch($lang){
-	case LANGUAGE_ES_ES:{
+	/*case LANGUAGE_ES_ES:{
 		require_once($dirroot . '/lang/'.LANGUAGE_ES.'/dictionary.php');
 		$language = LANGUAGE_ES;
-	}break;
+	}break;*/
 	case LANGUAGE_ES:{
 		require_once($dirroot . '/lang/'.LANGUAGE_ES.'/dictionary.php');
 		$language = LANGUAGE_ES;
@@ -32,10 +32,10 @@ switch($lang){
 		require_once($dirroot . '/lang/'.LANGUAGE_EN.'/dictionary.php');
 		$language = LANGUAGE_EN;
 	}break;
-	case LANGUAGE_CA:{
+	/*case LANGUAGE_CA:{
 		require_once($dirroot . '/lang/'.LANGUAGE_ES.'/dictionary.php');
 		$language = LANGUAGE_CA;
-	}break;
+	}break;*/
 	case LANGUAGE_EU:{
 		require_once($dirroot . '/lang/'.LANGUAGE_ES.'/dictionary.php');
 		$language = LANGUAGE_EU;

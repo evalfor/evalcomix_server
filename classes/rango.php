@@ -33,9 +33,8 @@ require_once('evalcomix_object.php');
 		}
 	}
 	
-	private static function check_params($rango, $params) {
-	}
-	
+	/*private static function check_params($rango, $params) {
+	}*/	
 	
 	/**
      * Finds and returns a rango instance based on params.
@@ -65,6 +64,6 @@ require_once('evalcomix_object.php');
      *
      * @param bool $deleted
      */
-    function notify_changed($deleted) {
-    }
+    /*function notify_changed($deleted) {
+    }*/
  }

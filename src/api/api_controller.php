@@ -91,6 +91,9 @@ class api_controller {
 	}
 	
 	public static function client_view_assessment($id) {
+		if (!self::check_request()) {
+			return 401;
+		}
 		$request = Request::createFromGlobals();
 		$title = $request->query->get('title');
 		
@@ -291,8 +294,11 @@ class api_controller {
 	}
 	
 	public static function import_tool($xmldatas = '', $newid = null) {
+		if (!self::check_request()) {
+			return 401;
+		}
 		if (empty($xmldatas) or empty($newid)) {
-			return null;
+			return 400;
 		}
 		require_once(DIRROOT . '/classes/cleanxml.php');
 		require_once(DIRROOT . '/classes/plantilla.php');
@@ -301,8 +307,13 @@ class api_controller {
 		$success = false;
 		$message = '';
 		
+		libxml_use_internal_errors(true);
 		$xml = simplexml_load_string($xmldatas);
-		$xml = cleanxml($xml);
+		if ($xml) {
+			$xml = cleanxml($xml);
+		} else {
+			return 400;
+		}
 
 		$tool = new tool('es_utf8','','','','','','','','','','','','','','','','','','','','');
 		$tool->import($xml);
@@ -322,6 +333,9 @@ class api_controller {
 	}
 	
 	public static function tool_modified($xmldatas) {
+		if (!self::check_request()) {
+			return 401;
+		}
 		if (empty($xmldatas)) {
 			return null;
 		}
@@ -362,6 +376,9 @@ class api_controller {
 	}
 	
 	public static function get_assessments($xmldatas = '') {
+		if (!self::check_request()) {
+			return 401;
+		}
 		if (empty($xmldatas)) {
 			return null;
 		}
@@ -402,7 +419,7 @@ class api_controller {
 		}
 		
 		if (empty($xmldatas)) {
-			return null;
+			return 400;
 		}
 		
 		require_once(DIRROOT . '/classes/cleanxml.php');
@@ -414,7 +431,7 @@ class api_controller {
 		if ($xml) {
 			$xml = cleanxml($xml);
 		} else {
-			return null;
+			return 400;
 		}
 		
 		$format = 'xml';
@@ -619,6 +636,9 @@ class api_controller {
 	}
 	
 	public static function get_assessment($assessmentid = null) {
+		if (!self::check_request()) {
+			return 401;
+		}
 		if (empty($assessmentid)) {
 			return null;
 		}
@@ -646,6 +666,9 @@ class api_controller {
 	}
 	
 	public static function delete_assessment($assessmentid = null) {
+		if (!self::check_request()) {
+			return 401;
+		}
 		if (empty($assessmentid)) {
 			return null;
 		}
@@ -768,7 +791,9 @@ class api_controller {
 												}
 												if (!empty($subdimensionstore[$dimensionid])){
 													foreach($subdimensionstore[$dimensionid] as $subdimension){
-														$id = encrypt_tool_element($subdimension->id);
+														$id = (!empty($subdimension->sub_cod)) ? 
+															$subdimension->sub_cod : 
+															encrypt_tool_element($subdimension->id);
 														if ($id == $subdimensionid) {
 															$grade = $mixobject->get_grade_subdimension($subdimension, $dimension);
 														}
@@ -795,7 +820,8 @@ class api_controller {
 									}
 									if (!empty($subdimensionstore[$dimensionid])){
 										foreach($subdimensionstore[$dimensionid] as $subdimension){
-											$id = encrypt_tool_element($subdimension->id);
+											$id = (!empty($subdimension->sub_cod)) ? $subdimension->sub_cod : 
+												encrypt_tool_element($subdimension->id);
 											if ($id == $subdimensionid) {
 												$grade = $object->get_grade_subdimension($subdimension, $dimension);
 											}
@@ -817,7 +843,7 @@ class api_controller {
 		return new Response($output);
 	}
 	
-	private static function get_grade_subdimension_helper($tool, $object, $subdimensionCod){
+	/*private static function get_grade_subdimension_helper($tool, $object, $subdimensionCod){
 		require_once(DIRROOT . '/classes/dimension.php');
 		require_once(DIRROOT . '/classes/subdimension.php');
 		require_once(DIRROOT . '/lib/weblib.php');
@@ -828,7 +854,7 @@ class api_controller {
 				if ($subdimensions = subdimension::fetch_all(array('sub_dim' => $dimension->id))){
 
 					foreach($subdimensions as $subdimension){
-						$id = encrypt_tool_element($subdimension->id);
+						$id = (!empty($subdimension->sub_cod)) ? $subdimension->sub_cod : encrypt_tool_element($subdimension->id);
 						if ($id == $subdimensionCod) {
 							return $object->get_grade_subdimension($subdimension, $dimension);
 						}
@@ -836,7 +862,8 @@ class api_controller {
 				}
 			}
 		}
-	}
+		return NO_CALIFICATED;
+	}*/
 	
 	public static function get_commented_assessments($xmldatas = '') {
 		if (!self::check_request()) {
@@ -913,7 +940,7 @@ class api_controller {
 		$request = Request::createFromGlobals();
 		$token = $request->query->get('token');
 		
-		$validtoken = false;
+		//$validtoken = false;
 		if ($lms = lms::fetch_all(array('lms_enb' => '1'))) {
 			foreach ($lms as $item) {
 				$lmstkn = self::process_token($item->lms_tkn);
@@ -926,7 +953,7 @@ class api_controller {
 		return false;
 	}
 
-	public static function check_token() {
+	/*public static function check_token() {
 		require_once(DIRROOT . '/classes/lms.php');
 		$request = Request::createFromGlobals();
 		$token = $request->query->get('token');
@@ -940,7 +967,7 @@ class api_controller {
 			}
 		}
 		return false;
-	}
+	}*/
 	
 	private static function process_token($token) {
 		date_default_timezone_set('Europe/Madrid');

@@ -21,8 +21,13 @@ require_once('evalcomix_object.php');
      * Array of optional table fields, must start with 'id'.
      * @var array $required_fields
      */
-    public $optional_fields = array('sub_nom', 'sub_por', 'sub_pos');
+    public $optional_fields = array('sub_cod', 'sub_nom', 'sub_por', 'sub_pos');
 	
+	/**
+	* name subdimension
+	* @var string $sub_cod
+	*/
+	public $sub_cod;
 	
 	/**
 	* name subdimension
@@ -93,6 +98,6 @@ require_once('evalcomix_object.php');
      *
      * @param bool $deleted
      */
-    function notify_changed($deleted) {
-    }
+    /*function notify_changed($deleted) {
+    }*/
  }

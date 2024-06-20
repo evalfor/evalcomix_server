@@ -51,15 +51,13 @@ class lms extends evalcomix_object {
 	*/
 	public function __construct($params = null){
 		if (!empty($params) and (is_array($params) or is_object($params))) {
-			lms::check_params($this, $params);
+			//lms::check_params($this, $params);
 			evalcomix_object::set_properties($this, $params);
 		}
 	}
 	
-	private static function check_params($lms, $params) {
-		
-	}
-	
+	/*private static function check_params($lms, $params) {
+	}*/	
 	
 	/**
      * Finds and returns a instance based on params.
@@ -89,8 +87,8 @@ class lms extends evalcomix_object {
      *
      * @param bool $deleted
      */
-    function notify_changed($deleted) {
-    }
+    /*function notify_changed($deleted) {
+    }*/
 
     public static function search($search, $columns, $pagination = array(), $sortfields = array()){
       return evalcomix_object::search_helper('lms', 'lms', $search, $columns, $pagination, $sortfields);

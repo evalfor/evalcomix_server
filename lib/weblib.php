@@ -421,11 +421,12 @@ It Checks if the param is a valid language
 $param string $str 
 Calculate the hash of $str	
 */
-	function encrypt_tool_element($str){
+	function encrypt_tool_element($str = ''){
 		if (file_exists('../configuration/conf.php')) {
 			require_once('../configuration/conf.php');
 		} else {
 			require_once(__DIR__.'/../configuration/conf.php');
 		}
-		return md5(sha1(WWWROOT.$str));
+		$seed = (!empty($str)) ? WWWROOT.$str : microtime();
+		return md5(sha1($seed));
 	}

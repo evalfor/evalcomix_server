@@ -696,7 +696,7 @@ class api_controller {
 		if (empty($xmldatas)) {
 			return null;
 		}
-		
+		set_time_limit(60);
 		require_once(DIRROOT . '/classes/cleanxml.php');
 		require_once(DIRROOT . '/classes/plantilla.php');
 		require_once(DIRROOT . '/classes/assessment.php');

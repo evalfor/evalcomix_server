@@ -15,6 +15,12 @@ require_once(DIRROOT . '/lib/clilib.php');      // cli only functions
 require_once(DIRROOT . '/classes/users.php');
 require_once(DIRROOT . '/src/user/user_controller.php');
 
+if (isset($_SERVER['REMOTE_ADDR'])) {
+    if (CLI_SCRIPT) {
+        echo('Command line scripts can not be executed from the web interface');
+        exit(1);
+    }
+}
 // Define the input options.
 $longparams = array(
         'help' => false,

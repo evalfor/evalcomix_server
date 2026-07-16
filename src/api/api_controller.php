@@ -625,6 +625,7 @@ class api_controller {
 				$params['hashtools'] = $hashtools;
 				if ($assid = assessment::duplicate($params)) {
 					$success = true;
+                    $message .= 'Assessment ' . $oldid . ' duplicated successfully |';
 				} else {
 					$message .= 'Assessment ' . $oldid . ' cannot be duplicate |';
 				}
@@ -683,6 +684,44 @@ class api_controller {
 		} else {
 			return null;
 		}
+		
+		$output = render::render_template('src/api/api_check_view.php', array('result' => $success, 'message' => $message));		
+		return new Response($output);
+	}
+    
+    public static function delete_assessments($xmldatas = '') {
+		if (!self::check_request()) {
+			return 401;
+		}
+		if (empty($xmldatas)) {
+			return null;
+		}
+		require_once(DIRROOT . '/classes/cleanxml.php');
+        libxml_use_internal_errors(true);
+		$xml = simplexml_load_string($xmldatas);
+		if ($xml) {
+			$xml = cleanxml($xml);
+		} else {
+			return null;
+		}
+        
+		require_once(DIRROOT . '/classes/assessment.php');
+		$success = false;
+		$message = '';
+        foreach($xml as $assid){	
+            if (!isset($assid)) {
+                continue;
+            }
+            $assessmentid = (string)$assid;
+            $assessment = assessment::fetch(array('ass_id' => $assessmentid));
+            if ($assessment) {
+                $assessment->delete();
+                $success = true;
+                $message .= 'Assessment ' . $assessmentid . ' deleted successfully |';
+            } else {
+                $message .= 'Assessment ' . $assessmentid . ' cannot be deleted |';
+            }
+        }
 		
 		$output = render::render_template('src/api/api_check_view.php', array('result' => $success, 'message' => $message));		
 		return new Response($output);

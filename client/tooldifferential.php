@@ -92,64 +92,64 @@
 		//Array -- Almacena los IDs de la BD relativos a los valores de las dimensiones
 		private $valoresId;
 		
-		//function get_tool($id){}
-		function get_titulo(){return $this->titulo;}
-		function get_dimension(){return $this->dimension[$this->id];}
-		//function get_numdim(){return $this->numdim[$this->id];}
-		function get_subdimension(){return $this->subdimension[$this->id];}
-		//function get_numsubdim(){return $this->numsubdim[$this->id];}
-		function get_atributo(){return $this->atributo[$this->id];}
-		//function get_numatr(){return $this->numatr[$this->id];}
-		function get_valores(){return $this->valores[$this->id];}
-		//function get_numvalores(){return $this->numvalores[$this->id];}
-		function get_valtotal(){return (isset($this->valtotal[$this->id])) ? $this->valtotal[$this->id] : null;}
-		//function get_numtotal($id=0){return $this->numtotal[$this->id];}
-		//function get_valtotalpor(){return $this->valtotalpor[$this->id];}
-		//function get_valorestotal($id=0){if(isset($this->valorestotal[$this->id]))return $this->valorestotal[$this->id];}
-		function get_valglobal(){return $this->valglobal[$this->id];}
-		/*function get_valglobalpor(){return $this->valglobalpor[$this->id];}
-		function get_dimpor(){return $this->dimpor[$this->id];}
-		function get_subdimpor(){return $this->subdimpor[$this->id];}
-		function get_atribpor(){return $this->atribpor[$this->id];}*/
-		function get_commentAtr($id = 0){return $this->commentAtr[$this->id];}
-		function get_porcentage(){return $this->porcentage;}
-		/*function get_dimensionsId(){return $this->dimensionsId[$this->id];}
-		function get_subdimensionsId(){return $this->subdimensionsId[$this->id];}
-		function get_atributosId(){return $this->atributosId[$this->id];}
-		function get_valoresId(){return $this->valoresId[$this->id];}
-		function get_valorestotalesId(){return null;}
-		function get_atributopos(){return $this->atributopos[$this->id];}
-		function get_atributosposId(){return $this->atributosposId[$this->id];}
+		//public function get_tool($id){}
+		public function get_titulo(){return $this->titulo;}
+		public function get_dimension(){return $this->dimension[$this->id];}
+		//public function get_numdim(){return $this->numdim[$this->id];}
+		public function get_subdimension(){return $this->subdimension[$this->id];}
+		//public function get_numsubdim(){return $this->numsubdim[$this->id];}
+		public function get_atributo(){return $this->atributo[$this->id];}
+		//public function get_numatr(){return $this->numatr[$this->id];}
+		public function get_valores(){return $this->valores[$this->id];}
+		//public function get_numvalores(){return $this->numvalores[$this->id];}
+		public function get_valtotal(){return (isset($this->valtotal[$this->id])) ? $this->valtotal[$this->id] : null;}
+		//public function get_numtotal($id=0){return $this->numtotal[$this->id];}
+		//public function get_valtotalpor(){return $this->valtotalpor[$this->id];}
+		//public function get_valorestotal($id=0){if(isset($this->valorestotal[$this->id]))return $this->valorestotal[$this->id];}
+		public function get_valglobal(){return $this->valglobal[$this->id];}
+		/*public function get_valglobalpor(){return $this->valglobalpor[$this->id];}
+		public function get_dimpor(){return $this->dimpor[$this->id];}
+		public function get_subdimpor(){return $this->subdimpor[$this->id];}
+		public function get_atribpor(){return $this->atribpor[$this->id];}*/
+		public function get_commentAtr($id = 0){return $this->commentAtr[$this->id];}
+		public function get_porcentage(){return $this->porcentage;}
+		/*public function get_dimensionsId(){return $this->dimensionsId[$this->id];}
+		public function get_subdimensionsId(){return $this->subdimensionsId[$this->id];}
+		public function get_atributosId(){return $this->atributosId[$this->id];}
+		public function get_valoresId(){return $this->valoresId[$this->id];}
+		public function get_valorestotalesId(){return null;}
+		public function get_atributopos(){return $this->atributopos[$this->id];}
+		public function get_atributosposId(){return $this->atributosposId[$this->id];}
 		
-		function set_titulo($titulo){$this->titulo = $titulo;}
-		function set_dimension($dimension){$this->dimension[$this->id] = $dimension;}
-		function set_numdim($numdim){$this->numdim[$this->id] = $numdim;}
-		function set_subdimension($subdimension){$this->subdimension[$this->id] = $subdimension;}
-		function set_numsubdim($numsubdim){$this->numsubdim[$this->id] = $numsubdim;}
-		function set_atributo($atributo){$this->atributo[$this->id] = $atributo;}
-		function set_numatr($numatr){$this->numatr[$this->id] = $numatr;}
-		function set_valores($valores){$this->valores[$this->id] = $valores;}
-		function set_numvalores($numvalores){$this->numvalores[$this->id] = $numvalores;}
-		function set_valtotal($valtotal){$this->valtotal[$this->id] = $valtotal;}
-		function set_numtotal($numtotal){$this->numtotal[$this->id] = $numtotal;}
-		function set_valtotalpor($valtotalpor){$this->valtotalpor[$this->id] = $valtotalpor;}
-		function set_valorestotal($valorestotal){$this->valorestotal[$this->id] = $valorestotal;}
-		function set_valglobal($valglobal){$this->valglobal[$this->id] = $valglobal;}
-		function set_valglobalpor($valglobalpor, $id=0){$this->valglobalpor[$this->id] = $valglobalpor;}
-		function set_dimpor($dimpor, $id=0){$this->dimpor[$this->id] = $dimpor;}
-		function set_subdimpor($subdimpor){$this->subdimpor[$this->id] = $subdimpor;}
-		function set_atribpor($atribpor){$this->atribpor[$this->id] = $atribpor;}
-		function set_view($view, $id=''){$this->view = $view;}
-		function set_commentAtr($comment){$this->commentAtr[$this->id] = $comment;}
-		function set_dimensionsId($dimensionsId, $id = ''){$this->dimensionsId[$this->id] = $dimensionsId;}
-		function set_subdimensionsId($subdimensionsId, $id = ''){$this->subdimensionsId[$this->id] = $subdimensionsId;}
-		function set_atributosId($atributosId, $id = ''){$this->atributosId[$this->id] = $atributosId;}
-		function set_valoresId($valoresId, $id = ''){$this->valoresId[$this->id] = $valoresId;}
-		function set_atributopos($atributo){$this->atributopos[$this->id] = $atributo;}
-		function set_atributosposId($atributo, $id){$this->atributosposId[$this->id] = $atributo;}*/
+		public function set_titulo($titulo){$this->titulo = $titulo;}
+		public function set_dimension($dimension){$this->dimension[$this->id] = $dimension;}
+		public function set_numdim($numdim){$this->numdim[$this->id] = $numdim;}
+		public function set_subdimension($subdimension){$this->subdimension[$this->id] = $subdimension;}
+		public function set_numsubdim($numsubdim){$this->numsubdim[$this->id] = $numsubdim;}
+		public function set_atributo($atributo){$this->atributo[$this->id] = $atributo;}
+		public function set_numatr($numatr){$this->numatr[$this->id] = $numatr;}
+		public function set_valores($valores){$this->valores[$this->id] = $valores;}
+		public function set_numvalores($numvalores){$this->numvalores[$this->id] = $numvalores;}
+		public function set_valtotal($valtotal){$this->valtotal[$this->id] = $valtotal;}
+		public function set_numtotal($numtotal){$this->numtotal[$this->id] = $numtotal;}
+		public function set_valtotalpor($valtotalpor){$this->valtotalpor[$this->id] = $valtotalpor;}
+		public function set_valorestotal($valorestotal){$this->valorestotal[$this->id] = $valorestotal;}
+		public function set_valglobal($valglobal){$this->valglobal[$this->id] = $valglobal;}
+		public function set_valglobalpor($valglobalpor, $id=0){$this->valglobalpor[$this->id] = $valglobalpor;}
+		public function set_dimpor($dimpor, $id=0){$this->dimpor[$this->id] = $dimpor;}
+		public function set_subdimpor($subdimpor){$this->subdimpor[$this->id] = $subdimpor;}
+		public function set_atribpor($atribpor){$this->atribpor[$this->id] = $atribpor;}
+		public function set_view($view, $id=''){$this->view = $view;}
+		public function set_commentAtr($comment){$this->commentAtr[$this->id] = $comment;}
+		public function set_dimensionsId($dimensionsId, $id = ''){$this->dimensionsId[$this->id] = $dimensionsId;}
+		public function set_subdimensionsId($subdimensionsId, $id = ''){$this->subdimensionsId[$this->id] = $subdimensionsId;}
+		public function set_atributosId($atributosId, $id = ''){$this->atributosId[$this->id] = $atributosId;}
+		public function set_valoresId($valoresId, $id = ''){$this->valoresId[$this->id] = $valoresId;}
+		public function set_atributopos($atributo){$this->atributopos[$this->id] = $atributo;}
+		public function set_atributosposId($atributo, $id){$this->atributosposId[$this->id] = $atributo;}*/
 
 		
-		function __construct($lang='es_utf8', $titulo = '', $dimension = array(), $numdim = 1, $subdimension = array(),
+		public function __construct($lang='es_utf8', $titulo = '', $dimension = array(), $numdim = 1, $subdimension = array(),
 				$numsubdim = 1, $atributo = array(), $numatr = 1, $valores = array(), $numvalores = 2, $valtotal = array(),
 				$numtotal = 0, $valorestotal = array(), $valglobal = false, $valglobalpor = array(), $dimpor = array(),
 				$subdimpor = array(), $atribpor = array(), $commentAtr = array(), $id=0, $observation='', $porcentage=0,
@@ -215,7 +215,7 @@
 			$this->subdimensionsId[$this->id][0][0] = 'aux';
 		}
 		
-		/*function addAtributo($dim, $subdim, $atrib, $key){
+		/*public function addAtributo($dim, $subdim, $atrib, $key){
 			require($this->filediccionario);
 			$id = $this->id;
 			$this->numatr[$id][$dim][$subdim]++;
@@ -236,20 +236,20 @@
 		}
 		
 		
-		function addValores($dim, $key){
+		public function addValores($dim, $key){
 			require($this->filediccionario);
 			$id = $this->id;
 			$this->numvalores[$id][$dim]++;
 			$this->valores[$id][$dim][$key]['nombre'] = $string['titlevalue'].$this->numvalores[$id][$dim];
 		}
 		
-		function eliminaDimension($dim){			
+		public function eliminaDimension($dim){			
 		}
 		
-		function eliminaSubdimension($dim, $subdim){
+		public function eliminaSubdimension($dim, $subdim){
 		}
 		
-		function eliminaAtributo($dim, $subdim, $atrib){
+		public function eliminaAtributo($dim, $subdim, $atrib){
 			$id = $this->id;
 			if(isset($this->atributo[$id][$dim][$subdim][$atrib])){
 				if($this->numatr[$id][$dim][$subdim] > 1){
@@ -262,7 +262,7 @@
 			return 1;
 		}
 		
-		function eliminaValores($dim, $grado){
+		public function eliminaValores($dim, $grado){
 			$id = $this->id;
 			if($this->numvalores[$id][$dim] > 2){
 				$this->numvalores[$id][$dim]--;
@@ -270,7 +270,7 @@
 			}
 		}
 		
-		function display_header(){
+		public function display_header(){
 			echo '
 			<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 			<html>
@@ -659,7 +659,7 @@
 				1 --> Sí forma parte de un instrumento mixto o sí se desea cabecera xsd
 			@param $id 
 		*/
-		function export($params = array())
+		public function export($params = array())
 		{
 			$id = $this->id;
 			$mixed = 0;
@@ -751,7 +751,7 @@
 			return $xml;
 		}
 		
-		function display_body_view($data, $mix='', $porcentage=''){
+		public function display_body_view($data, $mix='', $porcentage=''){
 			$id = $this->id;
 			if($porcentage != '')
 				$this->porcentage = $porcentage;
@@ -764,10 +764,10 @@
 			}
 		}
 		
-		function display_dimension_view($dim, $data, $id=0, $mix=''){
+		public function display_dimension_view($dim, $data, $id=0, $mix=''){
 		}		
 		
-		function display_subdimension_view($dim, $subdim, $data, $id=0, $mix=''){
+		public function display_subdimension_view($dim, $subdim, $data, $id=0, $mix=''){
 			$id = $this->id;
 			if(isset($data['titulo'.$this->id]))
 				$this->titulo = stripslashes($data['titulo'.$this->id]);
@@ -865,13 +865,13 @@
 			flush();
 		}
 		
-		function print_tool($global_comment = 'global_comment'){
+		public function print_tool($global_comment = 'global_comment'){
 			$id = $this->id;
 			require($this->filediccionario);
 			$colspan = max($this->numvalores[$id]);
 			
 			echo '
-								<table class="tabla" border=1 cellpadding=5px >
+								<table class="tabla table-bordered" border=1 cellpadding=5px >
 								
 								<!--TITULO-INSTRUMENTO------------>
 			';
@@ -1009,7 +1009,7 @@
 			}
 		}
 		
-		function save($cod = ''){
+		public function save($cod = ''){
 			$id = $this->id;
 			if($cod == ''){
 				throw new InvalidArgumentException('Missing scale cod');

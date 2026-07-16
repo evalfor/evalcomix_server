@@ -65,61 +65,61 @@
 		public $comment;
 		
 		//function get_tool($id){}
-		function get_titulo(){return $this->titulo;}
-		function get_dimension(){return $this->dimension[$this->id];}
-		//function get_numdim(){return $this->numdim[$this->id];}
-		function get_subdimension(){return $this->subdimension[$this->id];}
-		//function get_numsubdim(){return $this->numsubdim[$this->id];}
-		function get_atributo(){return $this->atributo[$this->id];}
-		/*function get_numatr(){return $this->numatr[$this->id];}
-		function get_dimpor(){return $this->dimpor[$this->id];}
-		function get_subdimpor(){return $this->subdimpor[$this->id];}
-		function get_atribpor(){return $this->atribpor[$this->id];}*/
-		function get_commentAtr($id = 0){return $this->commentAtr[$this->id];}
-		function get_porcentage(){return $this->porcentage;}
+		public function get_titulo(){return $this->titulo;}
+		public function get_dimension(){return $this->dimension[$this->id];}
+		//public function get_numdim(){return $this->numdim[$this->id];}
+		public function get_subdimension(){return $this->subdimension[$this->id];}
+		//public function get_numsubdim(){return $this->numsubdim[$this->id];}
+		public function get_atributo(){return $this->atributo[$this->id];}
+		/*public function get_numatr(){return $this->numatr[$this->id];}
+		public function get_dimpor(){return $this->dimpor[$this->id];}
+		public function get_subdimpor(){return $this->subdimpor[$this->id];}
+		public function get_atribpor(){return $this->atribpor[$this->id];}*/
+		public function get_commentAtr($id = 0){return $this->commentAtr[$this->id];}
+		public function get_porcentage(){return $this->porcentage;}
 
-		function get_valores($id = 0){return array();}
-		//function get_numvalores($id){return array();}
-		function get_valtotal($id){return array();}
-		/*function get_numtotal($id){return array();}
-		function get_valtotalpor($id){return array();}
-		function get_valorestotal($id){return array();}*/
-		function get_valglobal($id){return array();}
-		/*function get_valglobalpor($id){return array();}
-		function get_dimensionsId(){return $this->dimensionsId[$this->id];}
-		function get_subdimensionsId(){return $this->subdimensionsId[$this->id];}
-		function get_atributosId(){return $this->atributosId[$this->id];}
-		function get_valoresId($id = 0){return array();}
-		function get_valorestotalesId($id = 0){return array();}
+		public function get_valores($id = 0){return array();}
+		//public function get_numvalores($id){return array();}
+		public function get_valtotal($id){return array();}
+		/*public function get_numtotal($id){return array();}
+		public function get_valtotalpor($id){return array();}
+		public function get_valorestotal($id){return array();}*/
+		public function get_valglobal($id){return array();}
+		/*public function get_valglobalpor($id){return array();}
+		public function get_dimensionsId(){return $this->dimensionsId[$this->id];}
+		public function get_subdimensionsId(){return $this->subdimensionsId[$this->id];}
+		public function get_atributosId(){return $this->atributosId[$this->id];}
+		public function get_valoresId($id = 0){return array();}
+		public function get_valorestotalesId($id = 0){return array();}
 		
-		function set_titulo($titulo){$this->titulo = $titulo;}
-		function set_dimension($dimension){$this->dimension[$this->id] = $dimension;}
-		function set_numdim($numdim){$this->numdim[$this->id] = $numdim;}
-		function set_subdimension($subdimension){$this->subdimension[$this->id] = $subdimension;}
-		function set_numsubdim($numsubdim){$this->numsubdim[$this->id] = $numsubdim;}
-		function set_atributo($atributo){$this->atributo[$this->id] = $atributo;}
-		function set_numatr($numatr){$this->numatr[$this->id] = $numatr;}
-		function set_dimpor($dimpor, $id=0){$this->dimpor[$this->id] = $dimpor;}
-		function set_subdimpor($subdimpor){$this->subdimpor[$this->id] = $subdimpor;}
-		function set_atribpor($atribpor){$this->atribpor[$this->id] = $atribpor;}
-		function set_view($view, $id=''){$this->view = $view;}
-		function set_commentAtr($comment){$this->commentAtr[$this->id] = $comment;}
+		public function set_titulo($titulo){$this->titulo = $titulo;}
+		public function set_dimension($dimension){$this->dimension[$this->id] = $dimension;}
+		public function set_numdim($numdim){$this->numdim[$this->id] = $numdim;}
+		public function set_subdimension($subdimension){$this->subdimension[$this->id] = $subdimension;}
+		public function set_numsubdim($numsubdim){$this->numsubdim[$this->id] = $numsubdim;}
+		public function set_atributo($atributo){$this->atributo[$this->id] = $atributo;}
+		public function set_numatr($numatr){$this->numatr[$this->id] = $numatr;}
+		public function set_dimpor($dimpor, $id=0){$this->dimpor[$this->id] = $dimpor;}
+		public function set_subdimpor($subdimpor){$this->subdimpor[$this->id] = $subdimpor;}
+		public function set_atribpor($atribpor){$this->atribpor[$this->id] = $atribpor;}
+		public function set_view($view, $id=''){$this->view = $view;}
+		public function set_commentAtr($comment){$this->commentAtr[$this->id] = $comment;}
 		
-		function set_valores($valores){}
-		function set_numvalores($numvalores){}
-		function set_valtotal($valtotal){}
-		function set_numtotal($numtotal){}
-		function set_valtotalpor($valtotalpor){}
-		function set_valorestotal($valorestotal){}
-		function set_valglobal($valglobal){}
-		function set_valglobalpor($valglobalpor, $id=0){}
-		function set_dimensionsId($dimensionsId, $id = ''){$this->dimensionsId[$this->id] = $dimensionsId;}
-		function set_subdimensionsId($subdimensionsId, $id = ''){$this->subdimensionsId[$this->id] = $subdimensionsId;}
-		function set_atributosId($atributosId, $id = ''){$this->atributosId[$this->id] = $atributosId;}
-		function set_valoresId($valoresId){}
-		function set_valorestotalesId($valoresId){}*/
+		public function set_valores($valores){}
+		public function set_numvalores($numvalores){}
+		public function set_valtotal($valtotal){}
+		public function set_numtotal($numtotal){}
+		public function set_valtotalpor($valtotalpor){}
+		public function set_valorestotal($valorestotal){}
+		public function set_valglobal($valglobal){}
+		public function set_valglobalpor($valglobalpor, $id=0){}
+		public function set_dimensionsId($dimensionsId, $id = ''){$this->dimensionsId[$this->id] = $dimensionsId;}
+		public function set_subdimensionsId($subdimensionsId, $id = ''){$this->subdimensionsId[$this->id] = $subdimensionsId;}
+		public function set_atributosId($atributosId, $id = ''){$this->atributosId[$this->id] = $atributosId;}
+		public function set_valoresId($valoresId){}
+		public function set_valorestotalesId($valoresId){}*/
 		
-		function __construct($lang='es_utf8', $titulo = '', $dimension = array(), $numdim = 1, $subdimension = array(),
+		public function __construct($lang='es_utf8', $titulo = '', $dimension = array(), $numdim = 1, $subdimension = array(),
 				$numsubdim = 1, $atributo = array(), $numatr = 1, $dimpor = array(), $subdimpor = array(),
 				$atribpor = array(), $commentAtr = array(), $id = 0, $observation = '', $porcentage=0,
 				$valuecommentAtr = '', $params = array()){
@@ -155,7 +155,7 @@
 			$this->comment = (isset($params['comment'])) ? $params['comment'] : '';
 		}
 		
-		/*function addDimension($dim, $key){
+		/*public function addDimension($dim, $key){
 			require($this->filediccionario);
 			$dimen;
 			$this->numdim[$this->id] += 1;
@@ -183,7 +183,7 @@
 		}
 		
 		
-		function addSubdimension($dim, $subdim, $key){
+		public function addSubdimension($dim, $subdim, $key){
 			require($this->filediccionario);
 			$subdimen;
 			$this->numsubdim[$this->id][$dim] += 1;
@@ -205,7 +205,7 @@
 		}
 		
 		
-		function addAtributo($dim, $subdim, $atrib, $key){
+		public function addAtributo($dim, $subdim, $atrib, $key){
 			require($this->filediccionario);
 			$this->numatr[$this->id][$dim][$subdim]++;
 	
@@ -221,7 +221,7 @@
 			}
 		}
 		
-		function eliminaDimension($dim, $id = 0){			
+		public function eliminaDimension($dim, $id = 0){			
 			if($this->numdim[$this->id] > 1){
 				if($this->numsubdim[$this->id][$dim] > 0)
 					$this->numsubdim[$this->id][$dim]--;
@@ -239,7 +239,7 @@
 			return 1;
 		}
 		
-		function eliminaSubdimension($dim, $subdim){ 
+		public function eliminaSubdimension($dim, $subdim){ 
 			if($this->numsubdim[$this->id][$dim] > 1){
 				$this->numsubdim[$this->id][$dim]--;
 				$this->subdimension[$this->id][$dim] = $this->arrayElimina($this->subdimension[$this->id][$dim], $subdim);
@@ -256,7 +256,7 @@
 			return 1;
 		}
 		
-		function eliminaAtributo($dim, $subdim, $atrib, $id){
+		public function eliminaAtributo($dim, $subdim, $atrib, $id){
 			if(isset($this->atributo[$this->id][$dim][$subdim][$atrib])){
 				if($this->numatr[$this->id][$dim][$subdim] > 1){
 					$this->numatr[$this->id][$dim][$subdim]--;
@@ -271,7 +271,7 @@
 			}
 			return 1;
 		}
-		function upBlock($params){
+		public function upBlock($params){
 			require($this->filediccionario);
 			require_once('array.class.php');
 			$id = $this->id;
@@ -309,7 +309,7 @@
 			}
 		}
 		
-		function downBlock($params){
+		public function downBlock($params){
 			require($this->filediccionario);
 			require_once('array.class.php');
 			$id = $this->id;
@@ -346,7 +346,7 @@
 				}
 			}
 		}		
-		function display_header(){
+		public function display_header(){
 			echo '
 			<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 			<html>
@@ -409,7 +409,7 @@
 			flush();
 		}
 		
-		function display_body($data, $mix = '', $porcentage='') {
+		public function display_body($data, $mix = '', $porcentage='') {
 			if ($porcentage != '') {
 				$this->porcentage = $porcentage;
 			}
@@ -480,13 +480,13 @@
 			flush();
 		}
 		
-		function display_footer(){
+		public function display_footer(){
 			echo '
 				</body>
 			</html>';
 		}
 
-		function display_dimension($dim, $data, $id=0, $mix=''){
+		public function display_dimension($dim, $data, $id=0, $mix=''){
 			$id = $this->id;
 			if(isset($data['dimension'.$id.'_'.$dim])) 
 				$this->dimension[$this->id][$dim]['nombre'] = stripslashes($data['dimension'.$id.'_'.$dim]);
@@ -545,7 +545,7 @@
 					';
 			flush();
 		}		
-		function display_subdimension($dim, $subdim, $data, $id='0', $mix=''){
+		public function display_subdimension($dim, $subdim, $data, $id='0', $mix=''){
 			$id = $this->id;
 			require($this->filediccionario);
 			if(isset($data['subdimension'.$id.'_'.$dim.'_'.$subdim])) 
@@ -659,7 +659,7 @@
 		@return $array sin el elemento
 		Elimina de @array el elemento $i
 		*/
-		/*function arrayElimina($array, $i){
+		/*public function arrayElimina($array, $i){
 			$arrayAux = array();
 			if(is_array($array)){
 				foreach($array as $key => $value){
@@ -678,7 +678,7 @@
 		@return $array con el nuevo elemento
 		Añade $elem a @array a continuación de $i.
 		*/
-		/*function arrayAdd($array, $i, $elem, $index){
+		/*public function arrayAdd($array, $i, $elem, $index){
 			$arrayAux = array();
 			$flag = false;
 			if(is_array($array)){
@@ -698,7 +698,7 @@
 			return $arrayAux;
 		}*/
 		
-		function save($cod = ''){
+		public function save($cod = ''){
 			$id = $this->id;
 			if($cod == ''){
 				throw new InvalidArgumentException('Missing scale cod');
@@ -1060,7 +1060,7 @@
 			0 --> No forma parte de un instrumento mixto
 			1 --> Sí forma parte de un instrumento mixto
 		*/
-		function export($params = array()){
+		public function export($params = array()){
 			$id = $this->id;
 			
 			$mixed = 0;
@@ -1163,7 +1163,7 @@
 			return $xml;
 		}
 		
-		/*function display_body_view($data, $mix = '', $porcentage=''){		
+		/*public function display_body_view($data, $mix = '', $porcentage=''){		
 			if($porcentage != '')
 				$this->porcentage = $porcentage;
 			if(isset($data['titulo'.$this->id]))
@@ -1226,7 +1226,7 @@
 		}
 		
 		
-		function display_dimension_view($dim, $data, $id=0, $mix=''){
+		public function display_dimension_view($dim, $data, $id=0, $mix=''){
 			$id = $this->id;
 			if(isset($data['dimension'.$id.'_'.$dim])) 
 				$this->dimension[$this->id][$dim]['nombre'] = stripslashes($data['dimension'.$id.'_'.$dim]);
@@ -1264,7 +1264,7 @@
 			
 			flush();
 		}		
-		function display_subdimension_view($dim, $subdim, $data, $id='0', $mix=''){
+		public function display_subdimension_view($dim, $subdim, $data, $id='0', $mix=''){
 			$id = $this->id;
 			require($this->filediccionario);
 			if(isset($data['subdimension'.$id.'_'.$dim.'_'.$subdim])) 
@@ -1319,13 +1319,13 @@
 			flush();
 		}*/
 		
-		function print_tool($root = ''){
+		public function print_tool($root = ''){
 			$id = $this->id;
 			require($this->filediccionario);
 			$colspan = 0;
 			
 			echo '
-								<table class="tabla" border=1 cellpadding=5px >
+								<table class="tabla table-bordered" border=1 cellpadding=5px >
 								
 								<!--TITULO-INSTRUMENTO------------>
 								<tr>
@@ -1361,7 +1361,7 @@
 				foreach($this->subdimension[$this->id][$dim] as $subdim => $elemsubdim){
 					echo '
 								<!--TITULO-SUBDIMENSIÓN------------>
-								<tr><td class="subdim" colspan="2">'.htmlspecialchars($this->subdimension[$this->id][$dim][$subdim]['nombre']).'</td></tr>
+								<tr class="subdimension"><td class="subdim" colspan="2">'.htmlspecialchars($this->subdimension[$this->id][$dim][$subdim]['nombre']).'</td></tr>
 					';
 						
 					if(isset($this->atributo[$this->id][$dim][$subdim])){
@@ -1418,7 +1418,7 @@
 			
 			$width = (empty($this->comment[$id])) ? 100 : 60;
 			$comment = (empty($this->comment[$id])) ? ($string['comments']).':' : htmlspecialchars($this->comment[$id]);
-			echo '<br><br><br>
+			echo '<br>
 							<table class="tabla" border=1 cellpadding="5px">
 								<tr>
 									<td>'.$comment.'</td>

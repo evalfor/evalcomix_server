@@ -74,6 +74,11 @@ if ($isapi === false) {
 			$postdatas = file_get_contents( 'php://input' );
 			$response = api_controller::get_assessments($postdatas);
 		}
+	} else if ($uri == '/api/assessments') {
+		if ($method == 'POST') {
+			$postdatas = file_get_contents( 'php://input' );
+			$response = api_controller::delete_assessments($postdatas);
+		}
 	} else if ($uri == '/api/check') {
 		if ($method == 'GET') {
 			$response = api_controller::check_action();

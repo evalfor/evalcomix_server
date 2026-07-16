@@ -64,13 +64,13 @@ class render {
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="'.$path.'/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 		
-		<script src="'.$path.'/js/jquery.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<link href="'.$path.'/styles/bootstrap/css/bootstrap502.min.css" rel="stylesheet">
 		<script src="'.$path.'/js/popper.min.js"></script>
 		<script src="'.$path.'/js/bootstrap.min.js"></script>
 		<script src="'.$path.'/js/bootstrap.bundle.min.js"></script>
-		<link rel="stylesheet" href="'.$path.'/styles/bootstrap-select-1.13.14.min.css">
-		<script src="'.$path.'/js/bootstrap-select.min.js"></script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
 		<link rel="stylesheet" href="'.$path.'/styles/general.css">
 		<link rel="stylesheet" href="'.$path.'/styles/gototop.css">
 		'.$links.'

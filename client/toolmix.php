@@ -11,7 +11,7 @@ class toolmix{
 	private $plantillasId;
 	private $comment;
 	
-	function __construct($lang='es_utf8', $titulo = '', $observation = '', $params = array()){
+	public function __construct($lang='es_utf8', $titulo = '', $observation = '', $params = array()){
 		$this->filediccionario = 'lang/'.$lang.'/evalcomix.php';
 		$this->titulo = $titulo;
 		$this->index = 0;
@@ -24,65 +24,65 @@ class toolmix{
 		$this->comment = (isset($params['comment'])) ? $params['comment'] : '';
 	}
 
-	//function get_toolpor(){return $this->toolpor;}
-	//function get_tool($id){return $this->listTool[$id];}
-	function get_tools(){return $this->listTool;}
-	//function get_numtool(){return count($this->listTool);}
-	function get_titulo($id = 0){return $this->titulo;}
-	function get_dimension($id = 0){return $this->listTool[$id]->get_dimension();}
-	//function get_numdim($id = 0){return $this->listTool[$id]->get_numdim();}
-	function get_subdimension($id = 0){return $this->listTool[$id]->get_subdimension();}
-	//function get_numsubdim($id = 0){return $this->listTool[$id]->get_numsubdim();}
-	function get_atributo($id = 0){return $this->listTool[$id]->get_atributo();}
-	//function get_numatr($id = 0){return $this->listTool[$id]->get_numatr();}
-	function get_valores($id = 0){return $this->listTool[$id]->get_valores();}
-	//function get_numvalores($id = 0){return $this->listTool[$id]->get_numvalores();}
-	function get_valtotal($id = 0){return $this->listTool[$id]->get_valtotal();}
-	/*function get_numtotal($id = 0){return $this->listTool[$id]->get_numtotal();}
-	function get_valtotalpor($id = 0){return $this->listTool[$id]->get_valtotalpor();}
-	function get_valorestotal($id = 0){return $this->listTool[$id]->get_valorestotal();}*/
-	function get_valglobal($id = 0){return $this->listTool[$id]->get_valglobal();}
-	/*function get_valglobalpor($id = 0){return $this->listTool[$id]->get_valglobalpor();}
-	function get_dimpor($id = 0){return $this->listTool[$id]->get_dimpor();}
-	function get_subdimpor($id = 0){return $this->listTool[$id]->get_subdimpor();}
-	function get_atribpor($id = 0){return $this->listTool[$id]->get_atribpor();}
-	function get_numrango($id = 0){return $this->listTool[$id]->get_numrango();;}*/
-	function get_rango($id = 0){return $this->listTool[$id]->get_rango();}
-	/*function get_dimensionsId(){return array();}
-	function get_subdimensionsId(){return array();}
-	function get_atributosId(){return array();}
-	function get_valoresId(){return array();}
-	function get_valorestotalesId(){return array();}
-	function get_plantillasId($id = 0){return $this->plantillasId;}
+	//public function get_toolpor(){return $this->toolpor;}
+	//public function get_tool($id){return $this->listTool[$id];}
+	public function get_tools(){return $this->listTool;}
+	//public function get_numtool(){return count($this->listTool);}
+	public function get_titulo($id = 0){return $this->titulo;}
+	public function get_dimension($id = 0){return $this->listTool[$id]->get_dimension();}
+	//public function get_numdim($id = 0){return $this->listTool[$id]->get_numdim();}
+	public function get_subdimension($id = 0){return $this->listTool[$id]->get_subdimension();}
+	//public function get_numsubdim($id = 0){return $this->listTool[$id]->get_numsubdim();}
+	public function get_atributo($id = 0){return $this->listTool[$id]->get_atributo();}
+	//public function get_numatr($id = 0){return $this->listTool[$id]->get_numatr();}
+	public function get_valores($id = 0){return $this->listTool[$id]->get_valores();}
+	//public function get_numvalores($id = 0){return $this->listTool[$id]->get_numvalores();}
+	public function get_valtotal($id = 0){return $this->listTool[$id]->get_valtotal();}
+	/*public function get_numtotal($id = 0){return $this->listTool[$id]->get_numtotal();}
+	public function get_valtotalpor($id = 0){return $this->listTool[$id]->get_valtotalpor();}
+	public function get_valorestotal($id = 0){return $this->listTool[$id]->get_valorestotal();}*/
+	public function get_valglobal($id = 0){return $this->listTool[$id]->get_valglobal();}
+	/*public function get_valglobalpor($id = 0){return $this->listTool[$id]->get_valglobalpor();}
+	public function get_dimpor($id = 0){return $this->listTool[$id]->get_dimpor();}
+	public function get_subdimpor($id = 0){return $this->listTool[$id]->get_subdimpor();}
+	public function get_atribpor($id = 0){return $this->listTool[$id]->get_atribpor();}
+	public function get_numrango($id = 0){return $this->listTool[$id]->get_numrango();;}*/
+	public function get_rango($id = 0){return $this->listTool[$id]->get_rango();}
+	/*public function get_dimensionsId(){return array();}
+	public function get_subdimensionsId(){return array();}
+	public function get_atributosId(){return array();}
+	public function get_valoresId(){return array();}
+	public function get_valorestotalesId(){return array();}
+	public function get_plantillasId($id = 0){return $this->plantillasId;}
 	
-	function set_titulo($titulo, $id = 0){$this->listTool[$id]->set_titulo($titulo);}
-	function set_dimension($dimension, $id = 0){$this->listTool[$id]->set_dimension($dimension);}
-	function set_numdim($numdim, $id = 0){$this->listTool[$id]->set_numdim($numdim);}
-	function set_subdimension($subdimension, $id = 0){$this->listTool[$id]->set_subdimension($subdimension);}
-	function set_numsubdim($numsubdim, $id = 0){$this->listTool[$id]->set_numsubdim($numsubdim);}
-	function set_atributo($atributo, $id = 0){$this->listTool[$id]->set_atributo($atributo);}
-	function set_numatr($numatr, $id = 0){$this->listTool[$id]->set_numatr($numatr);}
-	function set_valores($valores, $id = 0){$this->listTool[$id]->set_valores($valores);}
-	function set_numvalores($numvalores, $id = 0){$this->listTool[$id]->set_numvalores($numvalores);}
-	function set_valtotal($valtotal, $id = 0){$this->listTool[$id]->set_valtotal($valtotal);}
-	function set_numtotal($numtotal, $id = 0){$this->listTool[$id]->set_numtotal($numtotal);}
-	function set_valtotalpor($valtotalpor, $id = 0){$this->listTool[$id]->set_valtotalpor($valtotalpor, $id);}
-	function set_valorestotal($valorestotal, $id = 0){$this->listTool[$id]->set_valorestotal($valorestotal);}
-	function set_valglobal($valglobal, $id = 0){$this->listTool[$id]->set_valglobal($valglobal);}
-	function set_valglobalpor($valglobalpor, $id = 0){$this->listTool[$id]->set_valglobalpor($valglobalpor);}
-	function set_dimpor($dimpor, $id){$this->listTool[$id]->set_dimpor($dimpor, $id);}
-	function set_subdimpor($subdimpor, $id=0){$this->listTool[$id]->set_subdimpor($subdimpor);}
-	function set_atribpor($atribpor, $id){$this->listTool[$id]->set_atribpor($atribpor, $id);}
-	function set_rango($rango, $id = 0){$this->listTool[$id]->set_rango($rango);}
-	function set_dimensionsId($dimensionsId, $id = ''){}
-	function set_subdimensionsId($subdimensionsId, $id = ''){}
-	function set_atributosId($atributosId, $id = ''){}
-	function set_valoresId($valoresId, $id = ''){}
-	function set_valorestotalesId($valoresId, $id = ''){}*/
-	function set_plantillasId($plantillas, $id = ''){$this->plantillasId = $plantillas;}
+	public function set_titulo($titulo, $id = 0){$this->listTool[$id]->set_titulo($titulo);}
+	public function set_dimension($dimension, $id = 0){$this->listTool[$id]->set_dimension($dimension);}
+	public function set_numdim($numdim, $id = 0){$this->listTool[$id]->set_numdim($numdim);}
+	public function set_subdimension($subdimension, $id = 0){$this->listTool[$id]->set_subdimension($subdimension);}
+	public function set_numsubdim($numsubdim, $id = 0){$this->listTool[$id]->set_numsubdim($numsubdim);}
+	public function set_atributo($atributo, $id = 0){$this->listTool[$id]->set_atributo($atributo);}
+	public function set_numatr($numatr, $id = 0){$this->listTool[$id]->set_numatr($numatr);}
+	public function set_valores($valores, $id = 0){$this->listTool[$id]->set_valores($valores);}
+	public function set_numvalores($numvalores, $id = 0){$this->listTool[$id]->set_numvalores($numvalores);}
+	public function set_valtotal($valtotal, $id = 0){$this->listTool[$id]->set_valtotal($valtotal);}
+	public function set_numtotal($numtotal, $id = 0){$this->listTool[$id]->set_numtotal($numtotal);}
+	public function set_valtotalpor($valtotalpor, $id = 0){$this->listTool[$id]->set_valtotalpor($valtotalpor, $id);}
+	public function set_valorestotal($valorestotal, $id = 0){$this->listTool[$id]->set_valorestotal($valorestotal);}
+	public function set_valglobal($valglobal, $id = 0){$this->listTool[$id]->set_valglobal($valglobal);}
+	public function set_valglobalpor($valglobalpor, $id = 0){$this->listTool[$id]->set_valglobalpor($valglobalpor);}
+	public function set_dimpor($dimpor, $id){$this->listTool[$id]->set_dimpor($dimpor, $id);}
+	public function set_subdimpor($subdimpor, $id=0){$this->listTool[$id]->set_subdimpor($subdimpor);}
+	public function set_atribpor($atribpor, $id){$this->listTool[$id]->set_atribpor($atribpor, $id);}
+	public function set_rango($rango, $id = 0){$this->listTool[$id]->set_rango($rango);}
+	public function set_dimensionsId($dimensionsId, $id = ''){}
+	public function set_subdimensionsId($subdimensionsId, $id = ''){}
+	public function set_atributosId($atributosId, $id = ''){}
+	public function set_valoresId($valoresId, $id = ''){}
+	public function set_valorestotalesId($valoresId, $id = ''){}*/
+	public function set_plantillasId($plantillas, $id = ''){$this->plantillasId = $plantillas;}
 		
-	//function set_toolpor($porcentages){$this->toolpor = $porcentages;}
-	function set_tools($listTool){
+	//public function set_toolpor($porcentages){$this->toolpor = $porcentages;}
+	public function set_tools($listTool){
 		$this->listTool = $listTool;
 		foreach($listTool as $id => $tool){
 			$this->toolpor[$id] = $tool->get_porcentage();
@@ -90,68 +90,68 @@ class toolmix{
 		}
 		$this->index++;
 	}
-	/*function set_view($view, $id=''){
+	/*public function set_view($view, $id=''){
 		$this->view = $view;
 		foreach($this->listTool as $key => $tool){
 			$this->listTool[$key]->set_view($view, $id);
 		}
 	}*/
 	
-	/*function addDimension($dim, $key, $id){
+	/*public function addDimension($dim, $key, $id){
 		$this->listTool[$id]->addDimension($dim, $key, $id);
 	}
 	
-	function eliminaDimension($dim, $id){
+	public function eliminaDimension($dim, $id){
 		return $this->listTool[$id]->eliminaDimension($dim, $id);
 	}
 	
-	function addSubdimension($dim, $subdim, $key, $id){
+	public function addSubdimension($dim, $subdim, $key, $id){
 		return $this->listTool[$id]->addSubdimension($dim, $subdim, $key, $id);
 	}
 	
-	function eliminaSubdimension($dim, $subdim, $id=0){
+	public function eliminaSubdimension($dim, $subdim, $id=0){
 		return $this->listTool[$id]->eliminaSubdimension($dim, $subdim, $id);
 	}
 	
-	function addValores($dim, $key, $id){
+	public function addValores($dim, $key, $id){
 		return $this->listTool[$id]->addValores($dim, $key, $id);
 	}
 	
-	function eliminaValores($dim, $grado, $id=0){
+	public function eliminaValores($dim, $grado, $id=0){
 		return $this->listTool[$id]->eliminaValores($dim, $grado, $id);
 	}
-	function addAtributo($dim, $subdim, $atrib, $key, $id = 0){
+	public function addAtributo($dim, $subdim, $atrib, $key, $id = 0){
 		return $this->listTool[$id]->addAtributo($dim, $subdim, $atrib, $key, $id);
 	}
 	
-	function eliminaAtributo($dim, $subdim, $atrib, $id){
+	public function eliminaAtributo($dim, $subdim, $atrib, $id){
 		return $this->listTool[$id]->eliminaAtributo($dim, $subdim, $atrib, $id);
 	}
 	
-	function addValoresTotal($key, $id){
+	public function addValoresTotal($key, $id){
 		return $this->listTool[$id]->addValoresTotal($key, $id);
 	}
 		
-	function eliminaValoresTotal($grado, $id){
+	public function eliminaValoresTotal($grado, $id){
 		return $this->listTool[$id]->eliminaValoresTotal($grado, $id);
 	}
 	
-	function addRango($dim, $grado, $key, $id){
+	public function addRango($dim, $grado, $key, $id){
 		return $this->listTool[$id]->addRango($dim, $grado, $key, $id);
 	}
 		
-	function eliminaRango($dim, $grado, $key, $id){
+	public function eliminaRango($dim, $grado, $key, $id){
 		return $this->listTool[$id]->eliminaRango($dim, $grado, $key, $id);
 	}*/
-	/*function upAtributo($dim, $subdim, $atrib,$id){
+	/*public function upAtributo($dim, $subdim, $atrib,$id){
 		return $this->listTool[$id]->upAtributo($dim, $subdim, $atrib);	
 	}
 	
-	function downAtributo($dim, $subdim, $atrib,$id){
+	public function downAtributo($dim, $subdim, $atrib,$id){
 		return $this->listTool[$id]->downAtributo($dim, $subdim, $atrib);
 	}*/
 	
-	/*function upBlock($params){
+	/*public function upBlock($params){
 		require($this->filediccionario);
 		require_once('array.class.php');
 		
@@ -177,7 +177,7 @@ class toolmix{
 		$this->listTool = $blockData;
 	}
 	
-	function downBlock($params){
+	public function downBlock($params){
 		require($this->filediccionario);
 		require_once('array.class.php');
 		
@@ -206,7 +206,7 @@ class toolmix{
 	}
 	
 	
-	function add($type, $index=null){
+	public function add($type, $index=null){
 		require($this->filediccionario);
 		$id = $this->index;
 		
@@ -291,11 +291,11 @@ class toolmix{
 		
 	}
 	
-	function remove($index){
+	public function remove($index){
 		$this->listTool = $this->arrayElimina($this->listTool, $index);
 	}
 	
-	function display_body($data){
+	public function display_body($data){
 		require($this->filediccionario);
 		if($this->view == 'view'){
 				echo '<input type="button" style="width:10em" value="'.$string['view'].'" onclick=\'javascript:location.href="generator.php?op=design"\'><br>';
@@ -379,11 +379,11 @@ class toolmix{
 		';
 	}
 	
-	function display_dimension($dim, $data, $id){
+	public function display_dimension($dim, $data, $id){
 		$this->listTool[$id]->display_dimension($dim, $data);
 	}
 	
-	function display_subdimension($dim, $subdim, $data, $id){
+	public function display_subdimension($dim, $subdim, $data, $id){
 		$this->listTool[$id]->display_subdimension($dim, $subdim, $data);
 	}*/
 	
@@ -393,7 +393,7 @@ class toolmix{
 	@return $array sin el elemento
 	Elimina de @array el elemento $i
 	*/
-	/*function arrayElimina($array, $i){
+	/*public function arrayElimina($array, $i){
 		$arrayAux = array();
 		if(is_array($array)){
 			foreach($array as $key => $value){
@@ -412,7 +412,7 @@ class toolmix{
 	@return $array con el nuevo elemento
 	Añade $elem a @array a continuación de $i.
 	*/
-	/*function arrayAdd($array, $i, $elem, $index){
+	/*public function arrayAdd($array, $i, $elem, $index){
 		$arrayAux = array();
 		$flag = false;
 		if(is_array($array)){
@@ -432,7 +432,7 @@ class toolmix{
 		return $arrayAux;
 	}*/
 	
-	function export($params = array())
+	public function export($params = array())
 	{
 		$mixed = 0;
 		if(isset($params['mixed'])){
@@ -472,7 +472,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/mixtool http://avanza
 		return $xml;
 	}
 	
-	/*function display_body_view($data){
+	/*public function display_body_view($data){
 		require($this->filediccionario);
 
 		if(isset($data['titulo']))
@@ -515,7 +515,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/mixtool http://avanza
 		';
 	}*/
 	
-	function print_tool($root = ''){
+	public function print_tool($root = ''){
 		require_once($this->filediccionario);
 		foreach($this->listTool as $tool){
 			$tool->print_tool();
@@ -523,7 +523,7 @@ xsi:schemaLocation="http://avanza.uca.es/assessmentservice/mixtool http://avanza
 		}
 	}
 	
-	function save($cod = ''){
+	public function save($cod = ''){
 		if($cod == ''){
 			throw new InvalidArgumentException('Missing scale cod');
 		}

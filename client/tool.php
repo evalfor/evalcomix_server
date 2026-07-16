@@ -12,9 +12,9 @@ class tool{
 	var $language;
 	var $type;
 	
-	function __construct($language, $type, $titulo, $dimension, $numdim, $subdimension, $numsubdim, $atributo, $numatr, $valores,
-			$numvalores, $valtotal, $numtotal, $valorestotal, $valglobal, $valglobalpor, $dimpor, $subdimpor, $atribpor,
-			$commentAtr, $commentDim){
+	public function __construct($language, $type, $titulo, $dimension, $numdim, $subdimension, $numsubdim,
+            $atributo, $numatr, $valores, $numvalores, $valtotal, $numtotal, $valorestotal, $valglobal,
+            $valglobalpor, $dimpor, $subdimpor, $atribpor, $commentAtr, $commentDim){
 		switch($type){
 			case 'lista':{
 				$this->object = new toollist($language, $titulo, $dimension, $numdim, $subdimension, $numsubdim,
@@ -53,7 +53,7 @@ class tool{
 		$this->type = $type;
 	}
 	
-	function display_header($data = ''){
+	public function display_header($data = ''){
 		require('lang/'. $this->language . '/evalcomix.php');
 		echo '
 			<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -241,37 +241,37 @@ class tool{
 			flush();	
 		}
 	
-	function save($id = ''){ return $this->object->save($id);}
+	public function save($id = ''){ return $this->object->save($id);}
 	
-	function export(){return $this->object->export();}
+	public function export(){return $this->object->export();}
 	
-	function display_tool($data, $id){
+	public function display_tool($data, $id){
 		return $this->object->display_tool($data, $id);
 	}
 	
-	function display_body($data){
+	public function display_body($data){
 		require('lang/'.$this->language.'/evalcomix.php');
 		$html = $this->object->display_body($data);
 		
 		return $html;		
 	}
 	
-	function display_dimension($dim, $data, $id){
+	public function display_dimension($dim, $data, $id){
 		return $this->object->display_dimension($dim, $data, $id);
 	}
 	
-	function display_subdimension($dim, $subdim, $data, $id){
+	public function display_subdimension($dim, $subdim, $data, $id){
 		return $this->object->display_subdimension($dim, $subdim, $data, $id);
 	}
 	
-	function display_footer(){
+	public function display_footer(){
 		echo '		</form>
 				</body>
 			</html>';
 			flush();
 	}
 	
-	function display_dialog(){
+	public function display_dialog(){
 		require('lang/'. $this->language . '/evalcomix.php');
 		require('cabecera_select_tool.php');
 		echo '
@@ -287,144 +287,144 @@ class tool{
 		require('pie_select_tool.php');
 	}
 	
-	function addDimension($dim, $key, $id = 0){
+	public function addDimension($dim, $key, $id = 0){
 		$this->object->addDimension($dim, $key, $id);
 	}
-	function addSubdimension($dim, $subdim, $key, $id=0){
+	public function addSubdimension($dim, $subdim, $key, $id=0){
 		return $this->object->addSubdimension($dim, $subdim, $key, $id);
 	}
 	
-	function upBlock($params){
+	public function upBlock($params){
 		return $this->object->upBlock($params);
 	}
-	function downBlock($params){
+	public function downBlock($params){
 		return $this->object->downBlock($params);
 	}
 	
-	function addAtributo($dim, $subdim, $atrib, $key, $id=0){
+	public function addAtributo($dim, $subdim, $atrib, $key, $id=0){
 		return $this->object->addAtributo($dim, $subdim, $atrib, $key, $id);
 	}
 	
-	function addValores($dim, $key, $id=0){
+	public function addValores($dim, $key, $id=0){
 		return $this->object->addValores($dim, $key, $id);
 	}
 		
-	function addValoresTotal($key, $id=0){
+	public function addValoresTotal($key, $id=0){
 		return $this->object->addValoresTotal($key, $id);
 	}
 	
-	function eliminaValoresTotal($grado, $id=0){
+	public function eliminaValoresTotal($grado, $id=0){
 		return $this->object->eliminaValoresTotal($grado, $id);
 	}
 	
-	function eliminaDimension($dim, $id=0){			
+	public function eliminaDimension($dim, $id=0){			
 		return $this->object->eliminaDimension($dim, $id);
 	}
 	
-	function eliminaSubdimension($dim, $subdim, $id=0){
+	public function eliminaSubdimension($dim, $subdim, $id=0){
 		return $this->object->eliminaSubdimension($dim, $subdim, $id);
 	}
 	
-	function eliminaAtributo($dim, $subdim, $atrib, $id=0){
+	public function eliminaAtributo($dim, $subdim, $atrib, $id=0){
 		return $this->object->eliminaAtributo($dim, $subdim, $atrib, $id);
 	}
 	
 		
-	function eliminaValores($dim, $grado, $id=0){
+	public function eliminaValores($dim, $grado, $id=0){
 		return $this->object->eliminaValores($dim, $grado, $id);
 	}
 	
-	function addRango($dim, $grado, $key, $id=0){
+	public function addRango($dim, $grado, $key, $id=0){
 		return $this->object->addRango($dim, $grado, $key, $id);
 	}
 		
-	function eliminaRango($dim, $grado, $key, $id=0){
+	public function eliminaRango($dim, $grado, $key, $id=0){
 		return $this->object->eliminaRango($dim, $grado, $key, $id);
 	}
 	
-	function add($type, $index = null){
+	public function add($type, $index = null){
 		return $this->object->add($type, $index);
 	}
 	
-	function remove($index){
+	public function remove($index){
 		return $this->object->remove($index);
 	}
 	
-	function get_numtool(){return $this->object->get_numtool();}
-	function get_toolpor(){return $this->object->get_toolpor();}
-	function get_tools(){return $this->object->get_tools();}
-	function get_tool($id){return $this->object->get_tool($id);}
-	function get_titulo($id){return $this->object->get_titulo($id);}
-	function get_dimension($id){return $this->object->get_dimension($id);}
-	function get_numdim($id){return $this->object->get_numdim($id);}
-	function get_subdimension($id){return $this->object->get_subdimension($id);}
-	function get_numsubdim($id){return $this->object->get_numsubdim($id);}
-	function get_atributo($id){return $this->object->get_atributo($id);}
-	function get_numatr($id){return $this->object->get_numatr($id);}
-	function get_valores($id){return $this->object->get_valores($id);}
-	function get_numvalores($id){return $this->object->get_numvalores($id);}
-	function get_valtotal($id){return $this->object->get_valtotal($id);}
-	function get_numtotal($id = null){return $this->object->get_numtotal($id);}
-	function get_valtotalpor($id){return $this->object->get_valtotalpor($id);}
-	function get_valorestotal($id){return $this->object->get_valorestotal($id);}
-	function get_valglobal($id){return $this->object->get_valglobal($id);}
-	function get_valglobalpor($id){return $this->object->get_valglobalpor($id);}
-	function get_dimpor($id){return $this->object->get_dimpor($id);}
-	function get_subdimpor($id){return $this->object->get_subdimpor($id);}
-	function get_atribpor($id){return $this->object->get_atribpor($id);}
-	function get_numrango($id){return $this->object->get_numrango($id);}
-	function get_rango($id){return $this->object->get_rango($id);}
-	function get_description($id){return $this->object->get_description($id);}
-	function get_commentAtr($id){return $this->object->get_commentAtr($id);}
-	function get_porcentage(){return $this->object->get_porcentage();}
-	function get_dimensionsId(){return $this->object->get_dimensionsId();}
-	function get_subdimensionsId(){return $this->object->get_subdimensionsId();}
-	function get_atributosId(){return $this->object->get_atributosId();}
-	function get_valoresId(){return $this->object->get_valoresId();}
-	function get_valorestotalesId(){return $this->object->get_valorestotalesId();}
-	function get_valoreslistaId(){return $this->object->get_valoreslistaId();}
-	function get_rangoId(){return $this->object->get_rangoId();}
-	function get_descriptionsId(){return $this->object->get_descriptionsId();}
-	function get_atributopos(){return $this->object->get_atributopos();}
-	function get_atributosposId(){return $this->object->get_atributosposId();}
-	function get_plantillasId(){return $this->object->get_plantillasId();}
-	function get_valoreslista(){return $this->object->get_valoreslista();}
+	public function get_numtool(){return $this->object->get_numtool();}
+	public function get_toolpor(){return $this->object->get_toolpor();}
+	public function get_tools(){return $this->object->get_tools();}
+	public function get_tool($id){return $this->object->get_tool($id);}
+	public function get_titulo($id){return $this->object->get_titulo($id);}
+	public function get_dimension($id){return $this->object->get_dimension($id);}
+	public function get_numdim($id){return $this->object->get_numdim($id);}
+	public function get_subdimension($id){return $this->object->get_subdimension($id);}
+	public function get_numsubdim($id){return $this->object->get_numsubdim($id);}
+	public function get_atributo($id){return $this->object->get_atributo($id);}
+	public function get_numatr($id){return $this->object->get_numatr($id);}
+	public function get_valores($id){return $this->object->get_valores($id);}
+	public function get_numvalores($id){return $this->object->get_numvalores($id);}
+	public function get_valtotal($id){return $this->object->get_valtotal($id);}
+	public function get_numtotal($id = null){return $this->object->get_numtotal($id);}
+	public function get_valtotalpor($id){return $this->object->get_valtotalpor($id);}
+	public function get_valorestotal($id){return $this->object->get_valorestotal($id);}
+	public function get_valglobal($id){return $this->object->get_valglobal($id);}
+	public function get_valglobalpor($id){return $this->object->get_valglobalpor($id);}
+	public function get_dimpor($id){return $this->object->get_dimpor($id);}
+	public function get_subdimpor($id){return $this->object->get_subdimpor($id);}
+	public function get_atribpor($id){return $this->object->get_atribpor($id);}
+	public function get_numrango($id){return $this->object->get_numrango($id);}
+	public function get_rango($id){return $this->object->get_rango($id);}
+	public function get_description($id){return $this->object->get_description($id);}
+	public function get_commentAtr($id){return $this->object->get_commentAtr($id);}
+	public function get_porcentage(){return $this->object->get_porcentage();}
+	public function get_dimensionsId(){return $this->object->get_dimensionsId();}
+	public function get_subdimensionsId(){return $this->object->get_subdimensionsId();}
+	public function get_atributosId(){return $this->object->get_atributosId();}
+	public function get_valoresId(){return $this->object->get_valoresId();}
+	public function get_valorestotalesId(){return $this->object->get_valorestotalesId();}
+	public function get_valoreslistaId(){return $this->object->get_valoreslistaId();}
+	public function get_rangoId(){return $this->object->get_rangoId();}
+	public function get_descriptionsId(){return $this->object->get_descriptionsId();}
+	public function get_atributopos(){return $this->object->get_atributopos();}
+	public function get_atributosposId(){return $this->object->get_atributosposId();}
+	public function get_plantillasId(){return $this->object->get_plantillasId();}
+	public function get_valoreslista(){return $this->object->get_valoreslista();}
 	
-	function set_titulo($titulo, $id){$this->object->set_titulo($titulo, $id);}
-	function set_dimension($dimension, $id){$this->object->set_dimension($dimension, $id);}
-	function set_numdim($numdim, $id){$this->object->set_numdim($numdim, $id);}
-	function set_subdimension($subdimension, $id){$this->object->set_subdimension($subdimension, $id);}
-	function set_numsubdim($numsubdim, $id){$this->object->set_numsubdim($numsubdim, $id);}
-	function set_atributo($atributo, $id){$this->object->set_atributo($atributo, $id);}
-	function set_numatr($numatr, $id){$this->object->set_numatr($numatr, $id);}
-	function set_valores($valores, $id){$this->object->set_valores($valores, $id);}
-	function set_numvalores($numvalores, $id){$this->object->set_numvalores($numvalores, $id);}
-	function set_valtotal($valtotal, $id){$this->object->set_valtotal($valtotal, $id);}
-	function set_numtotal($numtotal, $id){$this->object->set_numtotal($numtotal, $id);}
-	function set_valtotalpor($valtotalpor, $id){$this->object->set_valtotalpor($valtotalpor, $id);}
-	function set_valorestotal($valorestotal, $id){$this->object->set_valorestotal($valorestotal, $id);}
-	function set_valglobal($valglobal, $id){$this->object->set_valglobal($valglobal, $id);}
-	function set_valglobalpor($valglobalpor, $id){$this->object->set_valglobalpor($valglobalpor, $id);}
-	function set_dimpor($dimpor, $id){$this->object->set_dimpor($dimpor, $id);}
-	function set_subdimpor($subdimpor, $id){$this->object->set_subdimpor($subdimpor, $id);}
-	function set_atribpor($atribpor, $id){$this->object->set_atribpor($atribpor, $id);}
-	function set_rango($rango, $id){$this->object->set_rango($rango, $id);}
-	function set_toolpor($porcentage){$this->object->set_toolpor($porcentage);}
-	function set_view($view, $id){$this->object->set_view($view, $id);}
-	function set_commentAtr($comment){$this->object->set_commentAtr($comment);}
-	function set_dimensionsId($dimensionsId, $id){$this->object->set_dimensionsId($dimensionsId, $id);}
-	function set_subdimensionsId($subdimensionsId, $id){$this->object->set_subdimensionsId($subdimensionsId, $id);}
-	function set_atributosId($atributosId, $id){$this->object->set_atributosId($atributosId, $id);}
-	function set_valoresId($valoresId, $id){$this->object->set_valoresId($valoresId, $id);}
-	function set_valorestotalesId($valoresId, $id){$this->object->set_valorestotalesId($valoresId, $id);}
-	function set_valoreslistaId($valoresId, $id){$this->object->set_valoreslistaId($valoresId, $id);}
-	function set_rangoId($valoresId, $id){$this->object->set_rangoId($valoresId, $id);}
-	function set_descriptionsId($valoresId, $id){$this->object->set_descriptionsId($valoresId, $id);}
-	function set_atributopos($atributo, $id){$this->object->set_atributopos($atributo, $id);}
-	function set_atributosposId($atributo, $id){$this->object->set_atributosposId($atributo, $id);}
-	function set_plantillasId($plantillas, $id){$this->object->set_plantillasId($plantillas, $id);}
+	public function set_titulo($titulo, $id){$this->object->set_titulo($titulo, $id);}
+	public function set_dimension($dimension, $id){$this->object->set_dimension($dimension, $id);}
+	public function set_numdim($numdim, $id){$this->object->set_numdim($numdim, $id);}
+	public function set_subdimension($subdimension, $id){$this->object->set_subdimension($subdimension, $id);}
+	public function set_numsubdim($numsubdim, $id){$this->object->set_numsubdim($numsubdim, $id);}
+	public function set_atributo($atributo, $id){$this->object->set_atributo($atributo, $id);}
+	public function set_numatr($numatr, $id){$this->object->set_numatr($numatr, $id);}
+	public function set_valores($valores, $id){$this->object->set_valores($valores, $id);}
+	public function set_numvalores($numvalores, $id){$this->object->set_numvalores($numvalores, $id);}
+	public function set_valtotal($valtotal, $id){$this->object->set_valtotal($valtotal, $id);}
+	public function set_numtotal($numtotal, $id){$this->object->set_numtotal($numtotal, $id);}
+	public function set_valtotalpor($valtotalpor, $id){$this->object->set_valtotalpor($valtotalpor, $id);}
+	public function set_valorestotal($valorestotal, $id){$this->object->set_valorestotal($valorestotal, $id);}
+	public function set_valglobal($valglobal, $id){$this->object->set_valglobal($valglobal, $id);}
+	public function set_valglobalpor($valglobalpor, $id){$this->object->set_valglobalpor($valglobalpor, $id);}
+	public function set_dimpor($dimpor, $id){$this->object->set_dimpor($dimpor, $id);}
+	public function set_subdimpor($subdimpor, $id){$this->object->set_subdimpor($subdimpor, $id);}
+	public function set_atribpor($atribpor, $id){$this->object->set_atribpor($atribpor, $id);}
+	public function set_rango($rango, $id){$this->object->set_rango($rango, $id);}
+	public function set_toolpor($porcentage){$this->object->set_toolpor($porcentage);}
+	public function set_view($view, $id){$this->object->set_view($view, $id);}
+	public function set_commentAtr($comment){$this->object->set_commentAtr($comment);}
+	public function set_dimensionsId($dimensionsId, $id){$this->object->set_dimensionsId($dimensionsId, $id);}
+	public function set_subdimensionsId($subdimensionsId, $id){$this->object->set_subdimensionsId($subdimensionsId, $id);}
+	public function set_atributosId($atributosId, $id){$this->object->set_atributosId($atributosId, $id);}
+	public function set_valoresId($valoresId, $id){$this->object->set_valoresId($valoresId, $id);}
+	public function set_valorestotalesId($valoresId, $id){$this->object->set_valorestotalesId($valoresId, $id);}
+	public function set_valoreslistaId($valoresId, $id){$this->object->set_valoreslistaId($valoresId, $id);}
+	public function set_rangoId($valoresId, $id){$this->object->set_rangoId($valoresId, $id);}
+	public function set_descriptionsId($valoresId, $id){$this->object->set_descriptionsId($valoresId, $id);}
+	public function set_atributopos($atributo, $id){$this->object->set_atributopos($atributo, $id);}
+	public function set_atributosposId($atributo, $id){$this->object->set_atributosposId($atributo, $id);}
+	public function set_plantillasId($plantillas, $id){$this->object->set_plantillasId($plantillas, $id);}
 
-	function import($xml){
+	public function import($xml){
 		unset($this->object);
 		$type_evx3 = dom_import_simplexml($xml)->tagName;
 		$type = '';
@@ -490,7 +490,7 @@ class tool{
 		}
 	}
 	
-	function importSimpleTool($xml, $id = 0){
+	public function importSimpleTool($xml, $id = 0){
 		$language = $this->language;
 		$dimension; 
 		$numdim;
@@ -793,7 +793,7 @@ class tool{
 		//echo "<br><br>" .print_r($this->object);
 	}
 	
-	function display_view(){
+	public function display_view(){
 			$id = '';
 			echo '
 			<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -876,41 +876,53 @@ class tool{
 					<form id="mainform0" name="mainform'.$id.'" method="POST" action="generator.php">
 		';	
 	}
-	function display_body_view($data, $mix='', $porcentage=''){
+	public function display_body_view($data, $mix='', $porcentage=''){
 		return $this->object->display_body_view($data, $mix, $porcentage);
 	}
-	function display_dimension_view($dim, $data, $id=0, $mix=''){
+	public function display_dimension_view($dim, $data, $id=0, $mix=''){
 		return $this->object->display_dimension_view($dim, $data, $id, $mix);
 	}
-	function display_subdimension_view($dim, $subdim, $data, $id=0, $mix=''){
+	public function display_subdimension_view($dim, $subdim, $data, $id=0, $mix=''){
 		return $this->object->display_subdimension_view($dim, $data, $id, $mix);
 	}
-	function print_tool(){
+	public function print_tool(){
 		return $this->object->print_tool();
 	}
 	
-	function view_assessment_header(){
+	public function view_assessment_header($root = ''){
 		echo '
-		<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+		<!DOCTYPE html>
 				<html>
 
 					<head>
 						<title>EVALCOMIX</title>
 						<style>
-body {color:#333;background-color: #fff;font-family: "arial";font-size: 0.72em; 	margin:0; }  p{margin:0; }  form{margin:0; }  h1,h2,h3,h4,h5,h6{color: #146C84; } #linea{height: 5px;background-color: #f5751a; }  #titulo{font-size: 1em;color:#146C84;font-weight: bold;font-style:italic;margin-top: -2em;margin-left:5em;margin-bottom: 1em; }#cabecera{border-bottom: 1px solid #000; }  /*campos1------------------------------------*/ #ca1_env{float: right;margin-bottom: 1em; } /*-------------------------------------------*/  #crear{padding-left: 0.5em; }#dim{background-color: #146C84;color: #fff; }  .planmenu{text-decoration:none;border-right: 1px solid #fff;padding: 0.8em 1em 0.7em 0;color:#fff; }  /*.planmenu:hover{text-decoration:none;color: #fff;background-color: #00aaff;border-right: 1px solid #000000;padding-right: 1em; }*/  .tam{width: 85%; }  .fields{margin-bottom: 1em; }  .fields legend{color: #146C84;font-weight: bold; }  .tabla{width: 100%;background-color: #E5F0FD;font-family: "arial"; 	margin:0; 	padding:0; /*   font-size: 1em;*/ }  .tabla th{background-color: #146C84;color: #fff; }  .td{ 	font-size: 0.8em;font-weight: bold;text-align:center; }  .rub{width: 12em; }  .eval{margin:0; 	padding:0; }  .global{text-align:right;font-style: italic;font-weight: bold; }  .boton_est{text-decoration:none;color: #0000ff;font-weight:bold;padding: 0.3em 0.8em 0.3 0.8em;background-color: #a3a3a3;border-right: 1px solid #000;border-bottom: 1px solid #000;border-top: 1px solid #fff;border-left: 1px solid #fff; }  .botones{padding-bottom: 2em; }  .boton{float:right; }  .table_rubrica{width: 90%; }  ._rubrica textarea{width:100%; }  .arubric{padding: 5% 40% 5% 40%;background-color:#fff;text-decoration:none; }  .float{margin-left: 1em;float:left; }  .obligatorio{font-size: 0.7em;font-weight: bold; }  .bold{font-weight: bold; }  .subdim{font-style:italic;font-weight:bold; }  .rango{text-align:center; }  .search_menu{text-decoration:none;color:#146f8f;padding:0.1em 0.2em 0.1em 0.2em;background-color:#e3e3e3;border: 1px solid #a3a3a3;font-weight: bold; }  .clear{clear:both; }  .pordim{ 	font-weight: bold; 	witdh: 3em;	 }  .subdimpor{ 	font-style:italic;	font-weight:bold; 	text-align:center; 	font-size: 0.9em; }  .atribpor{ 	text-align:right; 	font-size:0.8em }  .showcomment, .showcomment:hover{ 	background-image: url("../images/editar.gif"); 	width: 19px; 	height: 16px; 	border:0; 	background-color:#fff; 	background-repeat: no-repeat; }  .showcomment{ 	border: 1px solid #434343;	 }  .showcomment:hover{ 	border: 2px solid #0076C1; }  
-.custom-radio{width:15px;height:15px;cursor: pointer;}
+body {color:#333;background-color: #fff;font-family: "arial";font-size: 0.72em; 	margin:0; }  p{margin:0; }  form{margin:0; }  .fields legend, #titulo, h1,h2,h3,h4,h5,h6{color: #00648C; } #linea{height: 5px;background-color: #f5751a; }  #titulo{font-size: 1em;font-weight: bold;font-style:italic;margin-top: -2em;margin-left:5em;margin-bottom: 1em; }#cabecera{border-bottom: 1px solid #000; }  /*campos1------------------------------------*/ #ca1_env{float: right;margin-bottom: 1em; } /*-------------------------------------------*/  #crear{padding-left: 0.5em; }.tabla th, #dim{background-color: #00648C;color: #fff; }  .planmenu{text-decoration:none;border-right: 1px solid #fff;padding: 0.8em 1em 0.7em 0;color:#fff; }  /*.planmenu:hover{text-decoration:none;color: #fff;background-color: #00aaff;border-right: 1px solid #000000;padding-right: 1em; }*/  .tam{width: 85%; }  .fields{margin-bottom: 1em; }  .fields legend{font-weight: bold; }  .tabla{width: 100%;background-color: #f0f0f0;font-family: "arial"; 	margin:0; 	padding:0; /*   font-size: 1em;*/ }  .td{ 	font-size: 0.8em;font-weight: bold;text-align:center; }  .rub{width: 12em; }  .eval{margin:0; 	padding:0; }  .global{text-align:right;font-style: italic;font-weight: bold; }  .boton_est{text-decoration:none;color: #0000ff;font-weight:bold;padding: 0.3em 0.8em 0.3 0.8em;background-color: #a3a3a3;border-right: 1px solid #000;border-bottom: 1px solid #000;border-top: 1px solid #fff;border-left: 1px solid #fff; }  .botones{padding-bottom: 2em; }  .boton{float:right; }  .table_rubrica{width: 90%; }  ._rubrica textarea{width:100%; }  .arubric{padding: 5% 40% 5% 40%;background-color:#fff;text-decoration:none; }  .float{margin-left: 1em;float:left; }  .obligatorio{font-size: 0.7em;font-weight: bold; }  .bold{font-weight: bold; }  .subdim{font-style:italic;font-weight:bold; color:#333}  .rango{text-align:center; }  .search_menu{text-decoration:none;color:#146f8f;padding:0.1em 0.2em 0.1em 0.2em;background-color:#e3e3e3;border: 1px solid #a3a3a3;font-weight: bold; }  .clear{clear:both; }  .pordim{ 	font-weight: bold; 	witdh: 3em;	 }  .subdimpor{ 	font-style:italic;	font-weight:bold; 	text-align:center; 	font-size: 0.9em; }  .atribpor{ 	text-align:right; 	font-size:0.8em }  .showcomment, .showcomment:hover{ 	background-image: url("../images/editar.gif"); 	width: 19px; 	height: 16px; 	border:0; 	background-color:#fff; 	background-repeat: no-repeat; }  .showcomment{ 	border: 1px solid #434343;	 }  .showcomment:hover{ 	border: 2px solid #0076C1; }  
+.custom-radio{width:15px;height:15px;cursor: pointer;}.subdimension, .subdimvalue {background-color:#99E2FF;background-color:#e67406;color:#fff;font-weigth:normal;font-size:0.85em} .dimglobalvalue{background-color:#C0C0C0}
 						</style>
+                        <meta name="viewport" content="width=device-width, initial-scale=1">
+                        <link rel="stylesheet" href="'.$root.'/styles/bootstrap.min.css">
+                       
+                       
+                         <script src="'.$root.'/js/bootstrap.bundle.min.js"></script>
+                        <script>
+                        document.addEventListener(\'DOMContentLoaded\', function () {
+                            document.querySelectorAll(\'[data-bs-toggle="tooltip"]\').forEach(el => {
+                                new bootstrap.Tooltip(el);
+                            });
+                        });
+                        </script>
 						';
 		
 	}
 	
-	function view_tool($root = '', $grade = '', $print='view', $title = ''){
+	public function view_tool($root = '', $grade = '', $print='view', $title = ''){
 			require('lang/'. $this->language . '/evalcomix.php');
 			$wprint = '';
 			if($print == 'print'){
 				$wprint = 'onload="window.print()"';
 			}
-			$this->view_assessment_header();
+			$this->view_assessment_header($root);
 			echo '
 						<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 						<script language="JavaScript" type="text/javascript">
@@ -939,6 +951,7 @@ body {color:#333;background-color: #fff;font-family: "arial";font-size: 0.72em; 
 					</head>
 
 					<body '. $wprint .'>
+                        
 						<div class="clear"></div>
 						<div class="eval" id="evalid">						
 						<h2>'.$title.'</h2>
@@ -986,329 +999,461 @@ body {color:#333;background-color: #fff;font-family: "arial";font-size: 0.72em; 
 							 
 					<div class="clear"></div>
 					<br>
+                    
 					</body>
 					
 				</html>
 			';
 		}
 		
-		function assessment_tool($root = '', $assessmentid = 0, $idTool = 0, $grade = '', $saved = '', $title = ''){
-			require('lang/'. $this->language . '/evalcomix.php');
-			$action = $root . '/assessment/saveassess.php?ass=' . $assessmentid . '&tool='.$idTool;
-			$this->view_assessment_header();
-			echo '	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-						<script type="text/javascript" src="'.$root.'/client/javascript/ajax.js"></script>
-						<script>
-							function limpiar_mainform(){
-								if(confirm(\'¿Confirma que desea borrar todas las calificaciones asignadas al instrumentos?\'))
-									for (i=0;i<document.mainform.elements.length;i++){
-										if(document.mainform.elements[i].type == "radio" && document.mainform.elements[i].checked == true)
-										  document.mainform.elements[i].checked=false;
-										else if(document.mainform.elements[i].type == "textarea") document.mainform.elements[i].value = "";
-								}
-							}
-							
-							function muestra_oculta(id){
-								if (document.getElementById){ //se obtiene el id
-									var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
-									if(el.style.display == "none"){
-										el.style.display = "block";
-										el.disabled = false;
-									}
-									else{
-										el.style.display = "none";
-										el.disabled = true;
-									}
-									//el.style.display = (el.style.display == "none") ? "block" : "none"; //damos un atributo display:none que oculta el div
-								}
-							}
-							window.onload = function(){
-								var valores=document.getElementsByName("comAtrib");
-								for(var i=0; i<valores.length; i++){
-									valores[i].style.display = "none";
-									
-								}
-							}
-						
-						</script>
-					</head>
+    public function assessment_tool($root = '', $assessmentid = 0, $idTool = 0, $grade = '', $saved = '', $title = ''){
+        require('lang/'. $this->language . '/evalcomix.php');
+        $action = $root . '/assessment/saveassess.php?ass=' . $assessmentid . '&tool='.$idTool;
+        $this->view_assessment_header($root);
+        echo '	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+                    <script type="text/javascript" src="'.$root.'/client/javascript/ajax.js"></script>
+                    <script>
+                        function limpiar_mainform(mainform){
+                            for (i=0;i<document.mainform.elements.length;i++){
+                                if(document.mainform.elements[i].type == "radio" && document.mainform.elements[i].checked == true)
+                                  document.mainform.elements[i].checked=false;
+                                else if(document.mainform.elements[i].type == "textarea") document.mainform.elements[i].value = "";
+                            }
+                        }
+                        
+                        function muestra_oculta(id){
+                            if (document.getElementById){ //se obtiene el id
+                                var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
+                                if(el.style.display == "none"){
+                                    el.style.display = "block";
+                                    el.disabled = false;
+                                }
+                                else{
+                                    el.style.display = "none";
+                                    el.disabled = true;
+                                }
+                                //el.style.display = (el.style.display == "none") ? "block" : "none"; //damos un atributo display:none que oculta el div
+                            }
+                        }
+                        window.onload = function(){
+                            var valores=document.getElementsByName("comAtrib");
+                            for(var i=0; i<valores.length; i++){
+                                valores[i].style.display = "none";
+                                
+                            }
+                        }
+                    
+                    </script>
+                </head>
 
-					<body>
-						<div class="clear"></div>
-			';
-			
-			echo '
-						<div class="eval" id="evalid">
-							<h2>'.$title.'</h2>
-			
-							<form id="mainform" name="mainform" method="post" action="'.$action.'">
-								<div class="boton" style="margin-right: 1em;">
-								<input type="button" name="imprimir" value="'.$string['TPrint'].'"
-								onclick="javascript:window.print()">
-								</div>
-			';
-			//echo '<input type="submit" name="submit" value="'.$string['TSave'].'" $disabledbutton>';
-			echo "<input type='button' name='".$string['TSave']."' value='".$string['TSave']."' onclick='sendPostAssess(\"totalgrade\",\"uno=1\",\"mainform\",\"".$action."\");alert(\"".$string['alertsave']."\");'>";
-			$type =	get_class($this->object);	
-			if($type == 'toolargument' && $grade != ''){
-				$grade_exploded = explode('/',$grade);
-				$score = $grade_exploded[0];
-				echo "
-						<div class='eval' id='evalid'>
-							<div style='text-align:right; font-size:1.5em;'>
-								<label for='grade'>".$string['grade'] .": </label>
-								<select id='grade' name='grade'>
-									<option value='-1'>".$string['nograde']."</option><br>
-				";
-		
-				for($i = 100; $i >= 0; --$i){
-					$selected = '';
-					if(is_numeric($score) && $score == $i){
-						$selected = 'selected';
-					}
-					echo "<option value='$i' $selected>$i</option><br>";
-				}
-				echo "
-								</select>
-							</div>";
-			}
-			
-			$this->object->print_tool();
-			
-			//echo "</div>";
-			
-			//echo "<input type='submit' name='".$string['TSave']."' value='".$string['TSave']."'>";
-			echo "<input type='button' name='".$string['TSave']."' value='".$string['TSave']."' onclick='sendPostAssess(\"totalgrade\",\"uno=1\",\"mainform\",\"".$action."\");alert(\"".$string['alertsave']."\");'>";
-			
-			echo "<input type='button' onclick=\"javascript:limpiar_mainform()\" value='Reset'>";
-								   
-			echo "<div style='text-align:right;font-size:1.7em'><span>".$string['grade'].": </span><span id='totalgrade'>" . $grade . "</span></div>";
-			//echo '<script type="text/javascript" language="javascript">if(document.getElementById("saved").value == "saved")alert("'.$string['alertsave'].'");</script>';
-			
-			//echo "</div>";
-			echo '			
-						</form>
-				</div>
-			';
-			
-			if($saved == 'saved'){
-				echo '<script type="text/javascript" language="javascript">alert("'.$string['alertsave'].'");</script>';
-			}
-			
-			echo '
-			<hr>
-			<div class="botones">
-				<div class="boton" style="margin-right: 1em;">
-					<input type="button" name="imprimir" value="'.$string['TPrint'].'" onclick="javascript:window.print()">
-			</div>
-			</div>';
-			echo '
-				<div class="clear"></div>
-											 
-					<div class="clear"></div>
-					
-					</body>
-					
-				</html>
-			';
-		}
-		
-		function assessment_tool_mixed($root = '', $assessmentid = 0, $idTool = '', $grade = '', $saved = '', $tools = array(), $title = '', $toolmix = null, $assessment = null){
-			require('lang/'. $this->language . '/evalcomix.php');
-			$action = $root . '/assessment/saveassess.php?ass=' . $assessmentid . '&tool='.$idTool;
-			$this->view_assessment_header();
-			echo '
-						<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-						<script type="text/javascript" src="'.$root.'/client/javascript/ajax.js"></script>
-						<script>
-							function limpiar_mainform(form){
-								if(confirm(\'¿Confirma que desea borrar todas las calificaciones asignadas al instrumentos?\'))
-									for (i=0;i<form.elements.length;i++){
-										if(form.elements[i].type == "radio" && form.elements[i].checked == true)
-										  form.elements[i].checked=false;
-										else if(form.elements[i].type == "textarea") form.elements[i].value = "";
-								}
-							}
-						</script>
-					</head>
+                <body>
+                    <div class="clear"></div>
+        ';
+        
+        echo '
+                    <div class="eval" id="evalid">
+                        <h2>'.$title.'</h2>
+        
+                        <form id="mainform" name="mainform" method="post" action="'.$action.'">
+                            <div class="boton" style="margin-right: 1em;">
+                            <input type="button" name="imprimir" value="'.$string['TPrint'].'"
+                            onclick="javascript:window.print()">
+                            </div>
+        ';
+        //echo '<input type="submit" name="submit" value="'.$string['TSave'].'" $disabledbutton>';
+        echo "<input type='button' name='".$string['TSave']."' value='".$string['TSave']."' onclick='sendPostAssess(\"totalgrade\",\"uno=1\",\"mainform\",\"".$action."\");alert(\"".$string['alertsave']."\");'>";
+        $type =	get_class($this->object);	
+        if($type == 'toolargument' && $grade != ''){
+            $grade_exploded = explode('/',$grade);
+            $score = $grade_exploded[0];
+            echo "
+                    <div class='eval' id='evalid'>
+                        <div style='text-align:right; font-size:1.5em;'>
+                            <label for='grade'>".$string['grade'] .": </label>
+                            <select id='grade' name='grade'>
+                                <option value='-1'>".$string['nograde']."</option><br>
+            ";
+    
+            for($i = 100; $i >= 0; --$i){
+                $selected = '';
+                if(is_numeric($score) && $score == $i){
+                    $selected = 'selected';
+                }
+                echo "<option value='$i' $selected>$i</option><br>";
+            }
+            echo "
+                            </select>
+                        </div>";
+        }
+        
+        $this->object->print_tool();
+        
+        //echo "</div>";
+        
+        //echo "<input type='submit' name='".$string['TSave']."' value='".$string['TSave']."'>";
+        echo "<input type='button' name='".$string['TSave']."' value='".$string['TSave']."' onclick='sendPostAssess(\"totalgrade\",\"uno=1\",\"mainform\",\"".$action."\");alert(\"".$string['alertsave']."\");'>";
+        
+        echo "<input type='button' data-bs-toggle='modal' data-bs-target='#modalmainform' 
+         value='Reset'>";
+             
+        echo $this->display_modal_reset('modalmainform', 'mainform');
+        
+        echo "<div style='text-align:right;font-size:1.7em'><span>".$string['grade'].": </span><span id='totalgrade'>" . $grade . "</span></div>";
+        //echo '<script type="text/javascript" language="javascript">if(document.getElementById("saved").value == "saved")alert("'.$string['alertsave'].'");</script>';
+        
+        //echo "</div>";
+        echo '			
+                    </form>
+            </div>
+        ';
+        
+        if($saved == 'saved'){
+            echo '<script type="text/javascript" language="javascript">alert("'.$string['alertsave'].'");</script>';
+        }
+        
+        echo '
+        <hr>
+        <div class="botones">
+            <div class="boton" style="margin-right: 1em;">
+                <input type="button" name="imprimir" value="'.$string['TPrint'].'" onclick="javascript:window.print()">
+        </div>
+        </div>';
+        echo '
+            <div class="clear"></div>
+                                         
+                <div class="clear"></div>
+                <script>
+                let saveTimer;
 
-					<body>
-						<div class="clear"></div>
-						<div class="eval" id="evalid">
-						<h2>'.$title.'</h2>
-			';
-			
-			$listTool = $this->object->get_tools();
-			$countListTool = count($listTool) - 1;
-			$i = 0;
-			foreach($listTool as $tool){
-				$type =	get_class($tool);	
-				$idsingle = '';
-				foreach($tools as $key => $item){
-					$object = $item->object;
-					if(get_class($object) == $type  && $object->get_titulo() == $tool->get_titulo() 
-							&& $object->get_dimension() == $tool->get_dimension() && $object->get_subdimension() == $tool->get_subdimension()
-							&& $object->get_valores() == $tool->get_valores() && $object->get_atributo() == $tool->get_atributo()
-							&& $object->get_commentAtr() == $tool->get_commentAtr()){
-						if($type != 'toollist'){
-							if($object->get_valglobal() == $tool->get_valglobal() && $object->get_valtotal() == $tool->get_valtotal()){
-								if($type == 'toolrubric'){
-									$getrango1 = $object->get_rango();
-									$getrango2 = $tool->get_rango();
-									list(, $objectrango) = current($getrango1);
-									list(, $toolrango) = current($getrango2);
-									if($objectrango == $toolrango){
-										$idsingle = $key;
-										break;
-									}
-								}
-								else{
-									$idsingle = $key;
-									break;
-								}
-							}
-						}
-						else{
-							$idsingle = $key;
-							break;
-						}
-					}
-				}
-				if($idsingle == ''){
-					break;
-				}
-				unset($tools[$idsingle]);
-				echo '
-							<form name="form'. $i .'" id="form'. $i .'" method="post" action="'.$action.'">
-								<!-- <input type="hidden" id="cod" name="cod" value="'.$idsingle.'"> -->
-								<input type="hidden" id="cod_form'. $i .'" name="cod_form'. $i .'" value="'.$idsingle.'">
-								<div class="boton" style="margin-right: 1em;">
-								<input type="button" name="imprimir" value="'.$string['TPrint'].'"
-								onclick="javascript:window.print()">
-								</div>
-								<!-- <input type="submit" name="submit" value="'.$string['TSave'].'"> -->
-				';
-				
-				echo "<input type='button' name='".$string['TSave']."' value='".$string['TSave']."' onclick='sendPostAssess(\"totalgrade\",\"uno=1\",\"form".$i."\",\"".$action."\");alert(\"".$string['alertsave']."\");'>";
-				$global_comment = null;
-				if($i == $countListTool) {
-					$global_comment = '';
-					$tool->comment[$i] = (isset($toolmix->pla_des)) ? $toolmix->pla_des : null;
-					if (isset($assessment->ass_com)){
-						$global_comment = $assessment->ass_com;
-					}
-				}
-				/*
-				$global_comment = null;
-				if($i == $countListTool){
-					$global_comment = '';
-					$tool->comment[$i] = (isset($toolmix->pla_des)) ? $toolmix->pla_des : '';
-				}
-				$tool->print_tool($global_comment);
-				*/
-				$tool->print_tool($global_comment);
-				
-				echo "
-								</div>
-								<!-- <input type='submit' name='".$string['TSave']."' value='".$string['TSave']."'> -->
-								<input type='button' name='".$string['TSave']."' value='".$string['TSave']."' onclick='sendPostAssess(\"totalgrade\",\"uno=1\",\"form".$i."\",\"".$action."\");alert(\"".$string['alertsave']."\");'>
-								<input type='button' onclick=\"javascript:limpiar_mainform(form".$i.")\" value='Reset'>
-								<div class='boton' style='margin-right: 1em;'>
-								<input type='button' name='imprimir' value='".$string['TPrint']."' 
-								onclick=\"javascript:window.print()\">
-								</div>
-								   		 		
-							</form>
-							
-							</div><br><br><hr>
-				";
-				++$i;
-			}
-			echo "<div style='text-align:right;font-size:1.7em'><span>".$string['grade'].": </span><span id='totalgrade'>" . $grade . "</span></div>";
-			
-			if($saved == 'saved'){
-				echo '<script type="text/javascript" language="javascript">alert("'.$string['alertsave'].'");</script>';
-			}
-			
-			echo '
-				<div class="clear"></div>
-											 
-					<div class="clear"></div>
-					
-					</body>
-					
-				</html>
-			';
-		}
-		
-		function view_tool_mixed($root = '', $grade = '', $title = '', $toolmix = null, $globalcomment = ''){
-			require('lang/'. $this->language . '/evalcomix.php');
-			$action = '';
-			$this->view_assessment_header();
-			echo '
-						<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-						<script>
-							function limpiar_mainform(form){
-								if(confirm(\'¿Confirma que desea borrar todas las calificaciones asignadas al instrumentos?\'))
-									for (i=0;i<form.elements.length;i++){
-										if(form.elements[i].type == "radio" && form.elements[i].checked == true)
-										  form.elements[i].checked=false;
-										else if(form.elements[i].type == "textarea") form.elements[i].value = "";
-								}
-							}
-						</script>
-					</head>
+                function saveAssessment() {
+                    sendPostAssess(
+                        "totalgrade",
+                        "uno=1",
+                        "mainform",
+                        "'.$root .'/assessment/saveassess.php?ass=' . $assessmentid . '&tool='.$idTool.'"
+                    );
+                }
 
-					<body>
-						<div class="clear"></div>
-						<div class="boton" style="margin-right: 1em;">
-							<input type="button" name="imprimir" value="'.$string['TPrint'].'" onclick="window.print();">
-						</div>
-						<div class="eval" id="evalid">
-						<h2>'.$title.'</h2>
-			';
-			
-			$listTool = $this->object->get_tools();
-			$countListTool = count($listTool) - 1;
-			$i = 0;
-			foreach($listTool as $tool){
-				echo '
-							<form name="form'. $i .'" method="post" action="'.$action.'">
-				';
-				
-				$gb = null;
-				if($i == $countListTool){
-					$gb = $globalcomment;
-					$tool->comment[$i] = (isset($toolmix->pla_des)) ? $toolmix->pla_des : '';
-				}
+                function scheduleSave() {
+                    clearTimeout(saveTimer);
+                    saveTimer = setTimeout(saveAssessment, 2000);
+                }
 
-				$tool->print_tool($gb);
+                document.addEventListener("DOMContentLoaded", () => {
 
-				echo "					   		 		
-							</form>
-							
-							</div><br><br><br><hr>
-				";
-				++$i;
-			}
-			
-			echo "<div style='text-align:right;font-size:1.7em'><span>".$string['grade'].": " . $grade . "</span></div>";
-			
-			echo '<div class="botones">
-						<div class="boton" style="margin-right: 1em;">
-							<!-- <input type="button" name="imprimir" value="'.$string['TPrint'].'" onclick="window.print();"> -->
-							<input type="button" name="imprimir" value="Imprimir" onclick="javascript:window.print()">
-						</div>
-					</div>';
-			
-			echo '
-				<div class="clear"></div>
-											 
-					<div class="clear"></div>
-					
-					</body>
-					
-				</html>
-			';
-		}
+                    document.querySelectorAll("#mainform input, #mainform textarea, #mainform select")
+                        .forEach(el => {
+
+                            el.addEventListener("change", scheduleSave);
+
+                            if (el.tagName === "TEXTAREA") {
+                                el.addEventListener("input", scheduleSave);
+                            }
+                        });
+
+                    // respaldo cada minuto
+                    setInterval(saveAssessment, 60000);
+                });
+
+                window.addEventListener("beforeunload", saveAssessment);
+                </script>
+                
+                </body>
+                
+            </html>
+        ';
+    }
+    
+    public function display_modal_reset($id, $formid) {
+        require('lang/'. $this->language . '/evalcomix.php');        
+        $html = '<div class="modal fade" id="'.$id.'" tabindex="-1" aria-labelledby="'.$id.'Label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="'.$id.'Label">'.$string['modalresettitle'].'</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="pb-5">
+                <p>'.$string['modalresetquestion'].'</p>
+            </div>
+            <div>
+                <input type="checkbox" id="'.$id.'modalalert" onclick="let e = document.getElementById(\''.$id.'savemodal\');
+                e.disabled = !e.disabled"> <label for="'.$id.'modalalert">'.$string['modalresetalert'].'</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="document.getElementById(\''.$id.'modalalert\').checked=false;document.getElementById(\''.$id.'savemodal\').disabled=true">'.$string['modalresetclose'].'</button>
+            <button type="button" id="'.$id.'savemodal" disabled class="btn btn-danger" onclick="javascript:limpiar_mainform('.$formid.');document.getElementById(\''.$id.'modalalert\').checked=false;this.disabled=true" data-bs-dismiss="modal">'.$string['modalresetconfirm'].'</button>
+        </div>
+        </div>
+  </div>
+</div>';
+        return $html;
+    }
+    
+    public function assessment_tool_mixed($root = '', $assessmentid = 0, $idTool = '', $grade = '', $saved = '',
+            $tools = array(), $title = '', $toolmix = null, $assessment = null){
+        require('lang/'. $this->language . '/evalcomix.php');
+        $action = $root . '/assessment/saveassess.php?ass=' . $assessmentid . '&tool='.$idTool;
+        $this->view_assessment_header($root);
+        echo '
+                    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+                    <script type="text/javascript" src="'.$root.'/client/javascript/ajax.js"></script>
+                    <script>
+                        function limpiar_mainform(form){
+                            for (i=0;i<form.elements.length;i++){
+                                if(form.elements[i].type == "radio" && form.elements[i].checked == true)
+                                  form.elements[i].checked=false;
+                                else if(form.elements[i].type == "textarea") form.elements[i].value = "";
+                            }
+                        }
+                    </script>
+                </head>
+
+                <body>
+                    <div class="clear"></div>
+                    <div class="eval" id="evalid">
+                    <h2>'.$title.'</h2>
+        ';
+        
+        $listTool = $this->object->get_tools();
+        $countListTool = count($listTool) - 1;
+        $i = 0;
+        foreach($listTool as $tool){
+            $type =	get_class($tool);	
+            $idsingle = '';
+            foreach($tools as $key => $item){
+                $object = $item->object;
+                if(get_class($object) == $type  && $object->get_titulo() == $tool->get_titulo() 
+                        && $object->get_dimension() == $tool->get_dimension() && $object->get_subdimension() == $tool->get_subdimension()
+                        && $object->get_valores() == $tool->get_valores() && $object->get_atributo() == $tool->get_atributo()
+                        && $object->get_commentAtr() == $tool->get_commentAtr()){
+                    if($type != 'toollist'){
+                        if($object->get_valglobal() == $tool->get_valglobal() && $object->get_valtotal() == $tool->get_valtotal()){
+                            if($type == 'toolrubric'){
+                                $getrango1 = $object->get_rango();
+                                $getrango2 = $tool->get_rango();
+                                list(, $objectrango) = current($getrango1);
+                                list(, $toolrango) = current($getrango2);
+                                if($objectrango == $toolrango){
+                                    $idsingle = $key;
+                                    break;
+                                }
+                            }
+                            else{
+                                $idsingle = $key;
+                                break;
+                            }
+                        }
+                    }
+                    else{
+                        $idsingle = $key;
+                        break;
+                    }
+                }
+            }
+            if($idsingle == ''){
+                break;
+            }
+            unset($tools[$idsingle]);
+            echo '
+                        <form name="form'. $i .'" id="form'. $i .'" method="post" action="'.$action.'">
+                            <!-- <input type="hidden" id="cod" name="cod" value="'.$idsingle.'"> -->
+                            <input type="hidden" id="cod_form'. $i .'" name="cod_form'. $i .'" value="'.$idsingle.'">
+                            <div class="boton" style="margin-right: 1em;">
+                            <input type="button" name="imprimir" value="'.$string['TPrint'].'"
+                            onclick="javascript:window.print()">
+                            </div>
+                            <!-- <input type="submit" name="submit" value="'.$string['TSave'].'"> -->
+            ';
+            
+            echo "<input type='button' name='".$string['TSave']."' value='".$string['TSave']."' onclick='sendPostAssess(\"totalgrade\",\"uno=1\",\"form".$i."\",\"".$action."\");alert(\"".$string['alertsave']."\");'>";
+            $global_comment = null;
+            if($i == $countListTool) {
+                $global_comment = '';
+                $tool->comment[$i] = (isset($toolmix->pla_des)) ? $toolmix->pla_des : null;
+                if (isset($assessment->ass_com)){
+                    $global_comment = $assessment->ass_com;
+                }
+            }
+            /*
+            $global_comment = null;
+            if($i == $countListTool){
+                $global_comment = '';
+                $tool->comment[$i] = (isset($toolmix->pla_des)) ? $toolmix->pla_des : '';
+            }
+            $tool->print_tool($global_comment);
+            */
+            $tool->print_tool($global_comment);
+            
+            echo "
+                            </div>
+                            <!-- <input type='submit' name='".$string['TSave']."' value='".$string['TSave']."'> -->
+                            <input type='button' name='".$string['TSave']."' value='".$string['TSave']."' onclick='sendPostAssess(\"totalgrade\",\"uno=1\",\"form".$i."\",\"".$action."\");alert(\"".$string['alertsave']."\");'>
+                            <input type='button' data-bs-toggle='modal' data-bs-target='#modalform".$i."' value='Reset'>
+                            <div class='boton' style='margin-right: 1em;'>
+                            <input type='button' name='imprimir' value='".$string['TPrint']."' 
+                            onclick=\"javascript:window.print()\">
+                            </div>
+                                            
+                        </form>
+                        
+                        </div><br><br><hr>
+            ";
+            echo $this->display_modal_reset('modalform'.$i, 'form'.$i);
+            ++$i;
+        }
+        echo "<div style='text-align:right;font-size:1.7em'><span>".$string['grade'].": </span><span id='totalgrade'>" . $grade . "</span></div>";
+        
+        if($saved == 'saved'){
+            echo '<script type="text/javascript" language="javascript">alert("'.$string['alertsave'].'");</script>';
+        }
+        
+        echo '
+            <div class="clear"></div>
+                                         
+                <div class="clear"></div>
+                <script>
+                (function() {
+                        const SAVE_URL =
+                            "'.$root.'/assessment/saveassess.php?ass='.$assessmentid.'&tool='.$idTool.'";
+
+                        let timers = {};
+
+                        function saveForm(formId) {
+
+                            sendPostAssess(
+                                "totalgrade",
+                                "uno=1",
+                                formId,
+                                SAVE_URL
+                            );
+
+                            console.log("Auto guardado:", formId);
+                        }
+
+                        function scheduleSave(formId) {
+
+                            clearTimeout(timers[formId]);
+
+                            timers[formId] = setTimeout(() => {
+                                saveForm(formId);
+                            }, 2000);
+                        }
+
+                        document.addEventListener("DOMContentLoaded", () => {
+
+                            document.querySelectorAll("form").forEach(form => {
+
+                                form.querySelectorAll("input, textarea, select")
+                                    .forEach(control => {
+
+                                        control.addEventListener("change", () => {
+                                            scheduleSave(form.id);
+                                        });
+
+                                        if (
+                                            control.tagName === "TEXTAREA" ||
+                                            control.type === "text"
+                                        ) {
+                                            control.addEventListener("input", () => {
+                                                scheduleSave(form.id);
+                                            });
+                                        }
+                                    });
+                            });
+                        });
+
+                    })();
+                    setInterval(() => {
+                        document.querySelectorAll("form").forEach(form => {
+
+                            sendPostAssess(
+                                "totalgrade",
+                                "uno=1",
+                                form.id,
+                                "'.$root.'/assessment/saveassess.php?ass='.$assessmentid.'&tool='.$idTool.'"
+                            );
+
+                        });
+
+                    }, 60000);
+                </script>
+                </body>
+                
+            </html>
+        ';
+    }
+    
+    public function view_tool_mixed($root = '', $grade = '', $title = '', $toolmix = null, $globalcomment = ''){
+        require('lang/'. $this->language . '/evalcomix.php');
+        $action = '';
+        $this->view_assessment_header($root);
+        echo '
+                    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+                    <script>
+                        function limpiar_mainform(form){
+                            if(confirm(\'¿Confirma que desea borrar todas las calificaciones asignadas al instrumentos?\'))
+                                for (i=0;i<form.elements.length;i++){
+                                    if(form.elements[i].type == "radio" && form.elements[i].checked == true)
+                                      form.elements[i].checked=false;
+                                    else if(form.elements[i].type == "textarea") form.elements[i].value = "";
+                            }
+                        }
+                    </script>
+                </head>
+
+                <body>
+                    <div class="clear"></div>
+                    <div class="boton" style="margin-right: 1em;">
+                        <input type="button" name="imprimir" value="'.$string['TPrint'].'" onclick="window.print();">
+                    </div>
+                    <div class="eval" id="evalid">
+                    <h2>'.$title.'</h2>
+        ';
+        
+        $listTool = $this->object->get_tools();
+        $countListTool = count($listTool) - 1;
+        $i = 0;
+        foreach($listTool as $tool){
+            echo '
+                        <form name="form'. $i .'" method="post" action="'.$action.'">
+            ';
+            
+            $gb = null;
+            if($i == $countListTool){
+                $gb = $globalcomment;
+                $tool->comment[$i] = (isset($toolmix->pla_des)) ? $toolmix->pla_des : '';
+            }
+
+            $tool->print_tool($gb);
+
+            echo "					   		 		
+                        </form>
+                        
+                        </div><br><br><hr>
+            ";
+            ++$i;
+        }
+        
+        echo "<div style='text-align:right;font-size:1.7em'><span>".$string['grade'].": " . $grade . "</span></div>";
+        
+        echo '<div class="botones">
+                    <div class="boton" style="margin-right: 1em;">
+                        <!-- <input type="button" name="imprimir" value="'.$string['TPrint'].'" onclick="window.print();"> -->
+                        <input type="button" name="imprimir" value="Imprimir" onclick="javascript:window.print()">
+                    </div>
+                </div>';
+        
+        echo '
+            <div class="clear"></div>
+                                         
+                <div class="clear"></div>
+                
+                </body>
+                
+            </html>
+        ';
+    }
 }

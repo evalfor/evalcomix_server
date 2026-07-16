@@ -57,249 +57,324 @@ class simple_tool{
 		}
 	}
 
-	function recovery_grades($assessments){
-		require_once('db.php');
-		if(empty($assessments)){
-			return false;
-		}
-		
-		$grade_attribute = array();
-		$grade_attribute_range = array();
-		$grade_dimension = array();
-		$grade_dimension_range = array();
-		$grade_tool = array();
-		$as = -1;
-		$rate = array();
-		$rate_range = array();
-		$rate_dimension = array();
-		$rate_dimension_range = array();
-		$rate_tool = array();
-		foreach($assessments as $assessment){
-			/*$finalgrade = $assessment->get_ass_grd();
-			if(!$finalgrade){
-				continue;
-			}*/
-			$as++;
-			$assessment_id = $assessment->id;
-			if (isset($assessment->ass_com)) {
-				$this->observation = $assessment->ass_com;
-			}
-	
-			$sql_atr = "SELECT atributo.id AS atributoid, ate_val, ate_ran
-						FROM atreva, atributo, subdimension, dimen 
-						WHERE ate_atr = atributo.id AND atr_sub = subdimension.id AND sub_dim = dimen.id AND dim_pla = ".$this->id." AND ate_eva = ". $assessment_id ." ORDER BY dimen.dim_pos, subdimension.sub_pos, atributo.atr_pos";// $sql_atr;
-			$rst_atr = db::query($sql_atr);
-		
-			
-			$sql_atrcom = "SELECT atributo.id AS atributoid, atc_obs
-				FROM atrcomment, atributo, subdimension, dimen 
-				WHERE atc_atr = atributo.id AND atr_sub = subdimension.id AND sub_dim = dimen.id AND dim_pla = ".$this->id." AND atc_eva = ". $assessment_id ." ORDER BY dimen.dim_pos, subdimension.sub_pos, atributo.atr_pos";
-			$rst_atrcom = db::query($sql_atrcom);//echo $sql_atrcom;
-			
-			
-			$rate_values = array();
-			$read_next_attribute = 1;
-			$read_next_attribute_comment = 1;
-			
-			for($i = 0; $i < $this->num_dimensions; $i++){
-				for($l = 0; $l < $this->num_subdimension[$i]; $l++){
-					for($j = 0; $j < $this->num_atr_dim[$i][$l]; $j++){
-						if($read_next_attribute == 1){
-							$row_atr = db::next_row($rst_atr);
-						}
-						$read_next_attribute = 0;
-						
-						if(isset($row_atr['atributoid']) && $this->attributes_code[$i][$l][$j] == $row_atr['atributoid']){
-							$value = $row_atr['ate_val'];
-							if(!isset($rate[$i][$l][$j][$value])){
-								$rate[$i][$l][$j][$value] = 0;
-							}
-							
-							$rate[$i][$l][$j][$value]++;
-							$grade_attribute[$as][$i][$l][$j] = $value;
-							
-							if($this->type == 'rubrica'){
-								$range = $row_atr['ate_ran'];
-								if(isset($range)){
-									if(!isset($rate_range[$i][$l][$j][$range])){
-										$rate_range[$i][$l][$j][$range] = 0;
-									}
-									$rate_range[$i][$l][$j][$range]++;
-									$grade_attribute_range[$as][$i][$l][$j] = $range;
-								}
-							}	
-					
-							$read_next_attribute = 1;
-						}
-						else{
-							$value = '';
-							if(!isset($rate[$i][$l][$j][$value])){
-								$rate[$i][$l][$j][$value] = 0;
-							}
-							$rate[$i][$l][$j][$value]++;
-							if($this->type == 'rubrica'){
-								if(!isset($rate_range[$i][$l][$j][$value])){
-									$rate_range[$i][$l][$j][$value] = 0;
-								}
-								$rate_range[$i][$l][$j][$value]++;
-								$grade_attribute_range[$as][$i][$l][$j] = $value;
-							}
-						}
-						
-						if($read_next_attribute_comment == 1){
-							$row_atrcom = db::next_row($rst_atrcom);
-						}
-						$read_next_attribute_comment = 0;
-						if(isset($row_atrcom['atributoid']) && $this->attributes_code[$i][$l][$j] == $row_atrcom['atributoid']){
-							$value_com = $row_atrcom['atc_obs'];
-							
-							$this->comment_attribute[$i][$l][$j] = $value_com;
-							$read_next_attribute_comment = 1;
-						}
-					}
-				}
-			}
-			
-			$sql_dim = "SELECT dimen.id AS dimensionid, die_val, die_ran
-						FROM dimeva, dimen 
-						WHERE die_dim = dimen.id AND dim_pla = ".$this->id." and die_eva = ".$assessment_id." ORDER BY die_dim";
-			$rst_dim = db::query($sql_dim);
-			$sql_dimcom = 	"SELECT dimen.id AS dimensionid, dic_obs
-							FROM dimcomment, dimen 
-							WHERE dic_dim = dimen.id AND dim_pla = ".$this->id." and dic_eva = ".$assessment_id." ORDER BY dic_dim";
-			$rst_dimcom = db::query($sql_dimcom);//echo $sql_dimcom;
-	
-			$read_next_dimension = 1;
-			$read_next_dimension_comment = 1;
-			for($i = 0; $i < $this->num_dimensions; $i++){
-				if($read_next_dimension == 1){
-					$row_dim = db::next_row($rst_dim);
-				}
-				$read_next_dimension = 0;
-				if(isset($row_dim['dimensionid']) && $this->dimen_code[$i] == $row_dim['dimensionid']){
-					$read_next_dimension = 1;
-					$value = $row_dim['die_val'];
-				
-					if(!isset($rate_dimension[$i][$value])){
-						$rate_dimension[$i][$value] = 0;
-					}
-					$rate_dimension[$i][$value]++;
-					$grade_dimension[$as][$i] = $value;
-					if($this->type == 'rubrica'){
-						$range = $row_dim['die_ran'];
-						if(isset($range)){
-							if(!isset($rate_dimension_range[$i][$range])){
-								$rate_dimension_range[$i][$range] = 0;
-							}
-							$rate_dimension_range[$i][$range]++;
-							$grade_dimension_range[$as][$i] = $range;
-						}
-					}
-				}
-				else{
-					$value = '';
-					if(!isset($rate_dimension[$i][$value])){
-						$rate_dimension[$i][$value] = 0;
-					}
-					$rate_dimension[$i][$value]++;
-					if($this->type == 'rubrica'){
-						if(!isset($rate_dimension_range[$i][$value])){
-							$rate_dimension_range[$i][$value] = 0;
-						}
-						$rate_dimension_range[$i][$value]++;
-						$grade_dimension_range[$as][$i] = $value;
-					}
-				}
-						
-				if($read_next_dimension_comment == 1){
-					$row_dimcom = db::next_row($rst_dimcom);
-				}
-				$read_next_dimension_comment = 0;
-				if(isset($row_dimcom['dimensionid']) && $this->dimen_code[$i] == $row_dimcom['dimensionid']){
-					$value_com = $row_dimcom['dic_obs'];
-					
-					$this->comment_dimension[$i] = $value_com;
-				
-					$read_next_dimension_comment = 1;
-				}
-			}
-			
-			$sql_pla = "SELECT * 
-						FROM plaeva 
+	public function recovery_grades($assessments)
+    {
+        require_once('db.php');
 
-						WHERE ple_pla = ".$this->id." AND ple_eva = ".$assessment_id;
-			$rst_pla = db::query($sql_pla);
-			if($row_pla = db::next_row($rst_pla)){
-				$value = $row_pla['ple_val'];
-				if(!isset($rate_tool[$value])){
-					$rate_tool[$value] = 0;
-				}
-				else{
-					$rate_tool[$value]++;
-				}
-				$this->grade_tool = $value;
-			}	
-			else{
-				$value = '';
-				if(!isset($rate_tool[$value])){
-					$rate_tool[$value] = 0;
-				}
-				$rate_tool[$value]++;
-			}
-		}
-		if(isset($grade_dimension[$as])){
-			$this->grade_dimension = $grade_dimension[0];
-		}
-		
-		foreach($grade_attribute as $grade){ 
-			for($i = 0; $i < $this->num_dimensions; $i++){
-				$max_dim = 0;
-				foreach($rate_dimension[$i] as $key_dim => $value_dim){
-					if($value_dim > $max_dim){
-						$max_dim = $value_dim;
-						$this->grade_dimension[$i] = $key_dim;
-					}
-				}
-				for($l = 0; $l < $this->num_subdimension[$i]; $l++){
-					for($j = 0; $j < $this->num_atr_dim[$i][$l]; $j++){
-						$max = 0;
-						foreach($rate[$i][$l][$j] as $key =>$value){
-							if($value > $max){
-								$max = $value;
-								$this->grade_attribute[$i][$l][$j] = $key;
-							}
-						}
-					}
-				}
-			}
-		}
-		foreach($grade_attribute_range as $grade){ 
-			for($i = 0; $i < $this->num_dimensions; $i++){
-				$max_dim = 0;
-				if(isset($rate_dimension_range[$i])){
-					foreach($rate_dimension_range[$i] as $key_dim => $value_dim){
-						if($value_dim > $max_dim){
-							$max_dim = $value_dim;
-							$this->grade_dimension_range[$i] = $key_dim;
-						}
-					}
-				}
-				for($l = 0; $l < $this->num_subdimension[$i]; $l++){
-					for($j = 0; $j < $this->num_atr_dim[$i][$l]; $j++){						
-						$max = 0;
-						if(isset($rate_range[$i][$l][$j])){
-							foreach($rate_range[$i][$l][$j] as $key =>$value){
-								if($value > $max){
-									$max = $value;
-									$this->grade_attribute_range[$i][$l][$j] = $key;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+        if (empty($assessments)) {
+            return false;
+        }
+
+        // ============================
+        // Obtener IDs de evaluaciones
+        // ============================
+
+        $assessmentIds = [];
+
+        foreach ($assessments as $assessment) {
+            $assessmentIds[] = (int)$assessment->id;
+        }
+
+        $idList = implode(',', $assessmentIds);
+
+        // ============================
+        // Cargar TODAS las valoraciones
+        // ============================
+
+        $attributeGrades = [];
+        $attributeComments = [];
+        $dimensionGrades = [];
+        $dimensionComments = [];
+        $toolGrades = [];
+
+        // ---- ATRIBUTOS ----
+
+        $sql = "
+            SELECT
+                ate_eva,
+                atributo.id AS atributoid,
+                ate_val,
+                ate_ran
+            FROM atreva
+            INNER JOIN atributo
+                ON ate_atr = atributo.id
+            INNER JOIN subdimension
+                ON atr_sub = subdimension.id
+            INNER JOIN dimen
+                ON sub_dim = dimen.id
+            WHERE dim_pla = {$this->id}
+            AND ate_eva IN ($idList)
+        ";
+
+        $rst = db::query($sql);
+
+        while ($row = db::next_row($rst)) {
+
+            $attributeGrades[
+                $row['ate_eva']
+            ][
+                $row['atributoid']
+            ] = [
+                'value' => $row['ate_val'],
+                'range' => $row['ate_ran']
+            ];
+        }
+
+        // ---- COMENTARIOS ATRIBUTOS ----
+
+        $sql = "
+            SELECT
+                atc_eva,
+                atributo.id AS atributoid,
+                atc_obs
+            FROM atrcomment
+            INNER JOIN atributo
+                ON atc_atr = atributo.id
+            INNER JOIN subdimension
+                ON atr_sub = subdimension.id
+            INNER JOIN dimen
+                ON sub_dim = dimen.id
+            WHERE dim_pla = {$this->id}
+            AND atc_eva IN ($idList)
+        ";
+
+        $rst = db::query($sql);
+
+        while ($row = db::next_row($rst)) {
+
+            $attributeComments[
+                $row['atc_eva']
+            ][
+                $row['atributoid']
+            ] = $row['atc_obs'];
+        }
+
+        // ---- DIMENSIONES ----
+
+        $sql = "
+            SELECT
+                die_eva,
+                dimen.id AS dimensionid,
+                die_val,
+                die_ran
+            FROM dimeva
+            INNER JOIN dimen
+                ON die_dim = dimen.id
+            WHERE dim_pla = {$this->id}
+            AND die_eva IN ($idList)
+        ";
+
+        $rst = db::query($sql);
+
+        while ($row = db::next_row($rst)) {
+
+            $dimensionGrades[
+                $row['die_eva']
+            ][
+                $row['dimensionid']
+            ] = [
+                'value' => $row['die_val'],
+                'range' => $row['die_ran']
+            ];
+        }
+
+        // ---- COMENTARIOS DIMENSIONES ----
+
+        $sql = "
+            SELECT
+                dic_eva,
+                dimen.id AS dimensionid,
+                dic_obs
+            FROM dimcomment
+            INNER JOIN dimen
+                ON dic_dim = dimen.id
+            WHERE dim_pla = {$this->id}
+            AND dic_eva IN ($idList)
+        ";
+
+        $rst = db::query($sql);
+
+        while ($row = db::next_row($rst)) {
+
+            $dimensionComments[
+                $row['dic_eva']
+            ][
+                $row['dimensionid']
+            ] = $row['dic_obs'];
+        }
+
+        // ---- HERRAMIENTA ----
+
+        $sql = "
+            SELECT
+                ple_eva,
+                ple_val
+            FROM plaeva
+            WHERE ple_pla = {$this->id}
+            AND ple_eva IN ($idList)
+        ";
+
+        $rst = db::query($sql);
+
+        while ($row = db::next_row($rst)) {
+
+            $toolGrades[$row['ple_eva']] =
+                $row['ple_val'];
+        }
+
+        // ============================
+        // Contadores
+        // ============================
+
+        $rate = [];
+        $rateRange = [];
+        $rateDimension = [];
+        $rateDimensionRange = [];
+        $rateTool = [];
+
+        // ============================
+        // Procesamiento
+        // ============================
+
+        foreach ($assessments as $assessmentIndex => $assessment) {
+
+            $assessmentId = (int)$assessment->id;
+
+            if (isset($assessment->ass_com)) {
+                $this->observation = $assessment->ass_com;
+            }
+
+            for ($i = 0; $i < $this->num_dimensions; $i++) {
+
+                $dimensionId = $this->dimen_code[$i];
+
+                // ----------------------
+                // DIMENSIONES
+                // ----------------------
+
+                if (isset(
+                    $dimensionGrades[$assessmentId][$dimensionId]
+                )) {
+
+                    $value =
+                        $dimensionGrades[$assessmentId][$dimensionId]['value'];
+
+                    $rateDimension[$i][$value] =
+                        ($rateDimension[$i][$value] ?? 0) + 1;
+
+                    if ($this->type === 'rubrica') {
+
+                        $range =
+                            $dimensionGrades[$assessmentId][$dimensionId]['range'];
+
+                        $rateDimensionRange[$i][$range] =
+                            ($rateDimensionRange[$i][$range] ?? 0) + 1;
+                    }
+                }
+
+                if (isset(
+                    $dimensionComments[$assessmentId][$dimensionId]
+                )) {
+
+                    $this->comment_dimension[$i] =
+                        $dimensionComments[$assessmentId][$dimensionId];
+                }
+
+                // ----------------------
+                // ATRIBUTOS
+                // ----------------------
+
+                for ($l = 0; $l < $this->num_subdimension[$i]; $l++) {
+
+                    for ($j = 0; $j < $this->num_atr_dim[$i][$l]; $j++) {
+
+                        $attributeId =
+                            $this->attributes_code[$i][$l][$j];
+
+                        if (isset(
+                            $attributeGrades[$assessmentId][$attributeId]
+                        )) {
+
+                            $value =
+                                $attributeGrades[$assessmentId][$attributeId]['value'];
+
+                            $rate[$i][$l][$j][$value] =
+                                ($rate[$i][$l][$j][$value] ?? 0) + 1;
+
+                            if ($this->type === 'rubrica') {
+
+                                $range =
+                                    $attributeGrades[$assessmentId][$attributeId]['range'];
+
+                                $rateRange[$i][$l][$j][$range] =
+                                    ($rateRange[$i][$l][$j][$range] ?? 0) + 1;
+                            }
+                        }
+
+                        if (isset(
+                            $attributeComments[$assessmentId][$attributeId]
+                        )) {
+
+                            $this->comment_attribute[$i][$l][$j] =
+                                $attributeComments[$assessmentId][$attributeId];
+                        }
+                    }
+                }
+            }
+
+            if (isset($toolGrades[$assessmentId])) {
+
+                $value = $toolGrades[$assessmentId];
+
+                $rateTool[$value] =
+                    ($rateTool[$value] ?? 0) + 1;
+            }
+        }
+
+        // ============================
+        // Calcular moda
+        // ============================
+
+        for ($i = 0; $i < $this->num_dimensions; $i++) {
+
+            if (!empty($rateDimension[$i])) {
+                arsort($rateDimension[$i]);
+                $this->grade_dimension[$i] =
+                    key($rateDimension[$i]);
+            }
+
+            if (!empty($rateDimensionRange[$i])) {
+                arsort($rateDimensionRange[$i]);
+                $this->grade_dimension_range[$i] =
+                    key($rateDimensionRange[$i]);
+            }
+
+            for ($l = 0; $l < $this->num_subdimension[$i]; $l++) {
+
+                for ($j = 0; $j < $this->num_atr_dim[$i][$l]; $j++) {
+
+                    if (!empty($rate[$i][$l][$j])) {
+                        arsort($rate[$i][$l][$j]);
+                        $this->grade_attribute[$i][$l][$j] =
+                            key($rate[$i][$l][$j]);
+                    }
+
+                    if (!empty($rateRange[$i][$l][$j])) {
+                        arsort($rateRange[$i][$l][$j]);
+                        $this->grade_attribute_range[$i][$l][$j] =
+                            key($rateRange[$i][$l][$j]);
+                    }
+                }
+            }
+        }
+
+        if (!empty($rateTool)) {
+            arsort($rateTool);
+            $this->grade_tool = key($rateTool);
+        }
+
+        return true;
+    }
 	
 	function recovery(){
 		require_once('plantilla.php');

@@ -107,11 +107,10 @@ require_once('evalcomix_object.php');
     /*function notify_changed($deleted) {
     }*/
 	
-	static function duplicate($params){
-		require_once('collector_tool.php');
+	public static function duplicate($params){
+        require_once('collector_tool.php');
 		require_once('plantilla.php');
 		require_once('mixtopla.php');
-		
 		$old_id = $params['oldid'];
 		$new_id = $params['newid'];
 		$hashtools = $params['hashtools'];
@@ -215,7 +214,7 @@ require_once('evalcomix_object.php');
 				$ass = $ass_object->id;
 			}
 			$asses[$ass] = $assessment_old->id;
-			require_once('atreva.php');
+            require_once('atreva.php');
 			require_once('dimeva.php');
 			require_once('plaeva.php');
 			require_once('atrcomment.php');
@@ -241,34 +240,54 @@ require_once('evalcomix_object.php');
 		return $asses;
 	}
 	
-	static function get_attributes_code($toolid){
-		$result = array();
-		require_once('plantilla.php');
-		require_once('dimension.php');
-		require_once('subdimension.php');
-		require_once('atributo.php');
-				
-		$i = 0;
-		$j = 0;
-		$k = 0;
-		
-		if($plantilla = plantilla::fetch(array('id' => $toolid))){
-			$dimensions = dimension::fetch_all(array('dim_pla' => $plantilla->id), array('dim_pos'));
-			foreach($dimensions as $dimension){
-				$result['dimension'][$k] = $dimension->id;
-				++$k;
-				$subdimensions = subdimension::fetch_all(array('sub_dim' => $dimension->id), array('sub_pos'));
-				foreach($subdimensions as $subdimension){
-					$result['subdimension'][$j] = $subdimension->id;
-					++$j;
-					$atributos = atributo::fetch_all(array('atr_sub' => $subdimension->id), array('atr_pos'));
-					foreach($atributos as $atributo){
-						$result['attribute'][$i] = $atributo->id;
-						++$i;
-					}
-				}
-			}
-		}
-		return $result;
-	}
- }
+	public static function get_attributes_code($toolid) {
+        $result = [
+            'dimension'    => [],
+            'subdimension' => [],
+            'attribute'    => [],
+        ];
+
+        $sql = "
+            SELECT
+                d.id AS dimid,
+                s.id AS subid,
+                a.id AS atrid
+            FROM dimen d
+            LEFT JOIN subdimension s
+                ON s.sub_dim = d.id
+            LEFT JOIN atributo a
+                ON a.atr_sub = s.id
+            WHERE d.dim_pla = ".$toolid."
+            ORDER BY d.dim_pos, s.sub_pos, a.atr_pos
+        ";
+
+        $records = DB::query($sql);
+
+        $dimensions = [];
+        $subdimensions = [];
+        $attributes = [];
+
+        foreach ($records as $record) {
+            if (!empty($record['dimid'])) {
+                $dimid = $record['dimid'];
+                $dimensions[$dimid] = $dimid;
+            }
+            
+            if (!empty($record['subid'])) {
+                $subid = $record['subid'];
+                $subdimensions[$subid] = $subid;
+            }
+            
+            if (!empty($record['atrid'])) {
+                $atrid = $record['atrid'];
+                $attributes[$atrid] = $atrid;
+            }
+        }
+
+        $result['dimension'] = array_values($dimensions);
+        $result['subdimension'] = array_values($subdimensions);
+        $result['attribute'] = array_values($attributes);
+
+        return $result;
+    }
+}

@@ -83,4 +83,10 @@
 	$string['TAbout'] = 'O';
 	
 	$string['mixed_por'] = 'Ważenie w ocenie finalnej';
-?>
+
+//MODAL
+    $string['modalresettitle'] = 'Proszę potwierdzić!';
+    $string['modalresetquestion'] = 'Czy na pewno chcesz usunąć wszystkie oceny powiązane z tym narzędziem?';
+    $string['modalresetalert'] = 'Rozumiem, że odzyskanie ocen będzie niemożliwe';
+    $string['modalresetconfirm'] = 'Potwierdź';
+    $string['modalresetclose'] = 'Zamknij';

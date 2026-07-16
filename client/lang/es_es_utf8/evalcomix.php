@@ -83,3 +83,10 @@
 	$string['TAbout'] = 'Acerca de';
 
 	$string['mixed_por'] = 'Peso en la nota final';
+    
+    // MODAL
+    $string['modalresettitle'] = '¡Por favor, confirma!';
+    $string['modalresetquestion'] = '¿Estás seguro/a de que desea borrar todas las evaluaciones asociadas a este instrumento?';
+    $string['modalresetalert'] = 'Entiendo que será imposible recuperar las evaluaciones';
+    $string['modalresetconfirm'] = 'Confirmar';
+    $string['modalresetclose'] = 'Cerrar';

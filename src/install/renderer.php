@@ -62,7 +62,7 @@ class install_renderer{
 		<script src="'.$path.'/js/popper.min.js"></script>
 		<script src="'.$path.'/js/bootstrap.min.js"></script>
 		<script src="'.$path.'/js/bootstrap.bundle.min.js"></script>
-		<link rel="stylesheet" href="'.$path.'/styles/bootstrap-select-1.13.14.min.css">
+		<link rel="stylesheet" href="'.$path.'/styles/bootstrap-select-1.14.0.min.css">
 		<script src="'.$path.'/js/bootstrap-select.min.js"></script>
 		<link rel="stylesheet" href="'.$path.'/styles/general.css">
 		<link rel="stylesheet" href="'.$path.'/styles/gototop.css">

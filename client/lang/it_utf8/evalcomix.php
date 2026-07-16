@@ -84,4 +84,10 @@
 	$string['TAbout'] = 'A proposito di';
 	
 	$string['mixed_por'] = 'Peso nella votazione finale';
-?>
+
+//MODAL
+    $string['modalresettitle'] = 'Per favore, conferma!';
+    $string['modalresetquestion'] = 'Sei sicuro/a di voler eliminare tutte le valutazioni associate a questo strumento?';
+    $string['modalresetalert'] = 'Capisco che sarà impossibile recuperare le valutazioni';
+    $string['modalresetconfirm'] = 'Conferma';
+    $string['modalresetclose'] = 'Chiudi';

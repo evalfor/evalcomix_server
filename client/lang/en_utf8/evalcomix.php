@@ -83,3 +83,10 @@
 	$string['TAbout'] = 'About of';
 	
 	$string['mixed_por'] = 'Weight in the final grade';
+    
+// MODAL
+    $string['modalresettitle'] = 'Please confirm!';
+    $string['modalresetquestion'] = 'Are you sure you want to delete all evaluations associated with this tool?';
+    $string['modalresetalert'] = 'I understand that it will be impossible to recover the evaluations';
+    $string['modalresetconfirm'] = 'Confirm';
+    $string['modalresetclose'] = 'Close';

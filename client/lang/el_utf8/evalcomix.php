@@ -83,4 +83,10 @@
 	$string['TAbout'] = 'Σχετικά';
 	
 	$string['mixed_por'] = 'Βαρύτητα στον τελικό βαθμό';
-?>
+    
+//MODAL
+    $string['modalresettitle'] = 'Παρακαλώ επιβεβαιώστε!';
+    $string['modalresetquestion'] = 'Είστε βέβαιοι ότι θέλετε να διαγράψετε όλες τις αξιολογήσεις που σχετίζονται με αυτό το εργαλείο;';
+    $string['modalresetalert'] = 'Κατανοώ ότι θα είναι αδύνατη η ανάκτηση των αξιολογήσεων';
+    $string['modalresetconfirm'] = 'Επιβεβαίωση';
+    $string['modalresetclose'] = 'Κλείσιμο';

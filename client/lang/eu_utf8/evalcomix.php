@@ -84,3 +84,9 @@
 	$string['TAbout'] = '-i buruz';
 
 	$string['mixed_por'] = 'Pisua';
+//MODAL
+    $string['modalresettitle'] = 'Mesedez, berretsi!';
+    $string['modalresetquestion'] = 'Ziur zaude tresna honekin lotutako ebaluazio guztiak ezabatu nahi dituzula?';
+    $string['modalresetalert'] = 'Ulertzen dut ezinezkoa izango dela ebaluazioak berreskuratzea';
+    $string['modalresetconfirm'] = 'Berretsi';
+    $string['modalresetclose'] = 'Itxi';

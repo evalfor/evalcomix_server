@@ -107,65 +107,65 @@
 		
 		public $comment;
 		
-		//function get_tool($id){}
-		function get_titulo(){return $this->titulo;}
-		function get_dimension(){return $this->dimension[$this->id];}
-		//function get_numdim(){return $this->numdim[$this->id];}
-		function get_subdimension(){return $this->subdimension[$this->id];}
-		//function get_numsubdim(){return $this->numsubdim[$this->id];}
-		function get_atributo(){return $this->atributo[$this->id];}
-		//function get_numatr(){return $this->numatr[$this->id];}
-		function get_valores(){return $this->valores[$this->id];}
-		//function get_numvalores(){return $this->numvalores[$this->id];}
-		function get_valtotal(){$valtotal = (isset($this->valtotal[$this->id])) ? $this->valtotal[$this->id] : null;return $valtotal;}
-		/*function get_numtotal($id=0){if(isset($this->numtotal[$this->id]))return $this->numtotal[$this->id];}
-		function get_valtotalpor(){return $this->valtotalpor[$this->id];}
-		function get_valorestotal($id=0){if(isset($this->valorestotal[$this->id]))return $this->valorestotal[$this->id];}*/
-		function get_valglobal(){if(isset($this->valglobal[$this->id]))return $this->valglobal[$this->id];}
-		/*function get_valglobalpor(){if(isset($this->valglobalpor[$this->id]))return $this->valglobalpor[$this->id];}
-		function get_dimpor(){return $this->dimpor[$this->id];}
-		function get_subdimpor(){return $this->subdimpor[$this->id];}
-		function get_atribpor(){return $this->atribpor[$this->id];}*/
-		function get_commentAtr($id = 0){return $this->commentAtr[$this->id];}
-		//function get_commentDim($id = 0){return $this->commentDim[$this->id];}
-		function get_porcentage(){return $this->porcentage;}
-		/*function get_dimensionsId(){return $this->dimensionsId[$this->id];}
-		function get_subdimensionsId(){return $this->subdimensionsId[$this->id];}
-		function get_atributosId(){return $this->atributosId[$this->id];}
-		function get_valoresId(){return $this->valoresId[$this->id];}
-		function get_valorestotalesId(){return $this->valorestotalesId[$this->id];}
-		function get_valoreslistaId(){return $this->valoreslistaId[$this->id];}
-		function get_valoreslista(){return $this->valoreslista[$this->id];}
+		//public function get_tool($id){}
+		public function get_titulo(){return $this->titulo;}
+		public function get_dimension(){return $this->dimension[$this->id];}
+		//public function get_numdim(){return $this->numdim[$this->id];}
+		public function get_subdimension(){return $this->subdimension[$this->id];}
+		//public function get_numsubdim(){return $this->numsubdim[$this->id];}
+		public function get_atributo(){return $this->atributo[$this->id];}
+		//public function get_numatr(){return $this->numatr[$this->id];}
+		public function get_valores(){return $this->valores[$this->id];}
+		//public function get_numvalores(){return $this->numvalores[$this->id];}
+		public function get_valtotal(){$valtotal = (isset($this->valtotal[$this->id])) ? $this->valtotal[$this->id] : null;return $valtotal;}
+		/*public function get_numtotal($id=0){if(isset($this->numtotal[$this->id]))return $this->numtotal[$this->id];}
+		public function get_valtotalpor(){return $this->valtotalpor[$this->id];}
+		public function get_valorestotal($id=0){if(isset($this->valorestotal[$this->id]))return $this->valorestotal[$this->id];}*/
+		public function get_valglobal(){if(isset($this->valglobal[$this->id]))return $this->valglobal[$this->id];}
+		/*public function get_valglobalpor(){if(isset($this->valglobalpor[$this->id]))return $this->valglobalpor[$this->id];}
+		public function get_dimpor(){return $this->dimpor[$this->id];}
+		public function get_subdimpor(){return $this->subdimpor[$this->id];}
+		public function get_atribpor(){return $this->atribpor[$this->id];}*/
+		public function get_commentAtr($id = 0){return $this->commentAtr[$this->id];}
+		//public function get_commentDim($id = 0){return $this->commentDim[$this->id];}
+		public function get_porcentage(){return $this->porcentage;}
+		/*public function get_dimensionsId(){return $this->dimensionsId[$this->id];}
+		public function get_subdimensionsId(){return $this->subdimensionsId[$this->id];}
+		public function get_atributosId(){return $this->atributosId[$this->id];}
+		public function get_valoresId(){return $this->valoresId[$this->id];}
+		public function get_valorestotalesId(){return $this->valorestotalesId[$this->id];}
+		public function get_valoreslistaId(){return $this->valoreslistaId[$this->id];}
+		public function get_valoreslista(){return $this->valoreslista[$this->id];}
 		
-		function set_titulo($titulo){$this->titulo = $titulo;}
-		function set_dimension($dimension){$this->dimension[$this->id] = $dimension;}
-		function set_numdim($numdim){$this->numdim[$this->id] = $numdim;}
-		function set_subdimension($subdimension){$this->subdimension[$this->id] = $subdimension;}
-		function set_numsubdim($numsubdim){$this->numsubdim[$this->id] = $numsubdim;}
-		function set_atributo($atributo){$this->atributo[$this->id] = $atributo;}
-		function set_numatr($numatr){$this->numatr[$this->id] = $numatr;}
-		function set_valores($valores){$this->valores[$this->id] = $valores;}
-		function set_numvalores($numvalores){$this->numvalores[$this->id] = $numvalores;}
-		function set_valtotal($valtotal){$this->valtotal[$this->id] = $valtotal;}
-		function set_numtotal($numtotal){$this->numtotal[$this->id] = $numtotal;}
-		function set_valtotalpor($valtotalpor){$this->valtotalpor[$this->id] = $valtotalpor;}
-		function set_valorestotal($valorestotal){$this->valorestotal[$this->id] = $valorestotal;}
-		function set_valglobal($valglobal){$this->valglobal[$this->id] = $valglobal;}
-		function set_valglobalpor($valglobalpor, $id=0){$this->valglobalpor[$this->id] = $valglobalpor;}
-		function set_dimpor($dimpor, $id=0){$this->dimpor[$this->id] = $dimpor;}
-		function set_subdimpor($subdimpor){$this->subdimpor[$this->id] = $subdimpor;}
-		function set_atribpor($atribpor){$this->atribpor[$this->id] = $atribpor;}
-		function set_view($view, $id=''){$this->view = $view;}
-		function set_commentAtr($comment){$this->commentAtr[$this->id] = $comment;}
-		function set_commentDim($comment){$this->commentDim[$this->id] = $comment;}
-		function set_dimensionsId($dimensionsId, $id = ''){$this->dimensionsId[$this->id] = $dimensionsId;}
-		function set_subdimensionsId($subdimensionsId, $id = ''){$this->subdimensionsId[$this->id] = $subdimensionsId;}
-		function set_atributosId($atributosId, $id = ''){$this->atributosId[$this->id] = $atributosId;}
-		function set_valoresId($valoresId, $id = ''){$this->valoresId[$this->id] = $valoresId;}
-		function set_valorestotalesId($valoresId, $id = ''){$this->valorestotalesId[$this->id] = $valoresId;}
-		function set_valoreslistaId($valoresId, $id = ''){$this->valoreslistaId[$this->id] = $valoresId;}*/
+		public function set_titulo($titulo){$this->titulo = $titulo;}
+		public function set_dimension($dimension){$this->dimension[$this->id] = $dimension;}
+		public function set_numdim($numdim){$this->numdim[$this->id] = $numdim;}
+		public function set_subdimension($subdimension){$this->subdimension[$this->id] = $subdimension;}
+		public function set_numsubdim($numsubdim){$this->numsubdim[$this->id] = $numsubdim;}
+		public function set_atributo($atributo){$this->atributo[$this->id] = $atributo;}
+		public function set_numatr($numatr){$this->numatr[$this->id] = $numatr;}
+		public function set_valores($valores){$this->valores[$this->id] = $valores;}
+		public function set_numvalores($numvalores){$this->numvalores[$this->id] = $numvalores;}
+		public function set_valtotal($valtotal){$this->valtotal[$this->id] = $valtotal;}
+		public function set_numtotal($numtotal){$this->numtotal[$this->id] = $numtotal;}
+		public function set_valtotalpor($valtotalpor){$this->valtotalpor[$this->id] = $valtotalpor;}
+		public function set_valorestotal($valorestotal){$this->valorestotal[$this->id] = $valorestotal;}
+		public function set_valglobal($valglobal){$this->valglobal[$this->id] = $valglobal;}
+		public function set_valglobalpor($valglobalpor, $id=0){$this->valglobalpor[$this->id] = $valglobalpor;}
+		public function set_dimpor($dimpor, $id=0){$this->dimpor[$this->id] = $dimpor;}
+		public function set_subdimpor($subdimpor){$this->subdimpor[$this->id] = $subdimpor;}
+		public function set_atribpor($atribpor){$this->atribpor[$this->id] = $atribpor;}
+		public function set_view($view, $id=''){$this->view = $view;}
+		public function set_commentAtr($comment){$this->commentAtr[$this->id] = $comment;}
+		public function set_commentDim($comment){$this->commentDim[$this->id] = $comment;}
+		public function set_dimensionsId($dimensionsId, $id = ''){$this->dimensionsId[$this->id] = $dimensionsId;}
+		public function set_subdimensionsId($subdimensionsId, $id = ''){$this->subdimensionsId[$this->id] = $subdimensionsId;}
+		public function set_atributosId($atributosId, $id = ''){$this->atributosId[$this->id] = $atributosId;}
+		public function set_valoresId($valoresId, $id = ''){$this->valoresId[$this->id] = $valoresId;}
+		public function set_valorestotalesId($valoresId, $id = ''){$this->valorestotalesId[$this->id] = $valoresId;}
+		public function set_valoreslistaId($valoresId, $id = ''){$this->valoreslistaId[$this->id] = $valoresId;}*/
 		
-		function __construct ($lang='es_utf8', $titulo = '', $dimension = array(), $numdim = 1, $subdimension = array(),
+		public function __construct ($lang='es_utf8', $titulo = '', $dimension = array(), $numdim = 1, $subdimension = array(),
 				$numsubdim = 1, $atributo = array(), $numatr = 1, $valores = array(), $numvalores = 2, $valtotal = array(),
 				$numtotal = 0, $valorestotal = array(), $valglobal = false, $valglobalpor = array(), $dimpor = array(),
 				$subdimpor = array(), $atribpor = array(), $commentAtr = array(), $commentDim = array(), $id=0, $observation = '',
@@ -229,7 +229,7 @@
 			$this->comment = (isset($params['comment'])) ? $params['comment'] : '';
 		}
 		
-		/*function addDimension($dim, $key){
+		/*public function addDimension($dim, $key){
 			require($this->filediccionario);
 			$id = $this->id;
 			$dimen;
@@ -264,7 +264,7 @@
 		}
 		
 		
-		function addSubdimension($dim, $subdim, $key){
+		public function addSubdimension($dim, $subdim, $key){
 			require($this->filediccionario);
 			$id = $this->id;
 			$subdimen;
@@ -287,7 +287,7 @@
 		}
 		
 		
-		function addAtributo($dim, $subdim, $atrib, $key){
+		public function addAtributo($dim, $subdim, $atrib, $key){
 			require($this->filediccionario);
 			$id = $this->id;
 			$this->numatr[$id][$dim][$subdim]++;
@@ -305,14 +305,14 @@
 		}
 		
 		
-		function addValores($dim, $key){
+		public function addValores($dim, $key){
 			require($this->filediccionario);
 			$id = $this->id;
 			$this->numvalores[$id][$dim]++;
 			$this->valores[$id][$dim][$key]['nombre'] = $string['titlevalue'].$this->numvalores[$id][$dim];
 		}
 		
-		function addValoresTotal($key){
+		public function addValoresTotal($key){
 			require($this->filediccionario);
 			$id = $this->id;
 			if(isset($this->numtotal[$id])){
@@ -324,7 +324,7 @@
 			$this->valorestotal[$id][$key]['nombre'] = $string['titlevalue'].$this->numtotal[$id];
 		}
 		
-		function eliminaValoresTotal($grado){
+		public function eliminaValoresTotal($grado){
 			$id = $this->id;
 			if($this->numtotal[$id] > 2){
 				$this->numtotal[$id]--;
@@ -332,7 +332,7 @@
 			}
 		}
 		
-		function eliminaDimension($dim, $id){			
+		public function eliminaDimension($dim, $id){			
 			$id = $this->id;
 			if($this->numdim[$id] > 1){
 				if($this->numsubdim[$id][$dim] > 0)
@@ -350,7 +350,7 @@
 			return 1;
 		}
 		
-		function eliminaSubdimension($dim, $subdim){
+		public function eliminaSubdimension($dim, $subdim){
 			$id = $this->id;
 			if($this->numsubdim[$id][$dim] > 1){
 				$this->numsubdim[$id][$dim]--;
@@ -364,7 +364,7 @@
 			return 1;
 		}
 		
-		function eliminaAtributo($dim, $subdim, $atrib){
+		public function eliminaAtributo($dim, $subdim, $atrib){
 			$id = $this->id;
 			if(isset($this->atributo[$id][$dim][$subdim][$atrib])){
 				if($this->numatr[$id][$dim][$subdim] > 1){
@@ -378,7 +378,7 @@
 		}
 		
 		
-		function eliminaValores($dim, $grado){
+		public function eliminaValores($dim, $grado){
 			$id = $this->id;
 			if($this->numvalores[$id][$dim] > 2){
 				$this->numvalores[$id][$dim]--;
@@ -386,7 +386,7 @@
 			}
 		}
 		
-	function upBlock($params){
+	public function upBlock($params){
 			require($this->filediccionario);
 			require_once('array.class.php');
 			$id = $this->id;
@@ -424,7 +424,7 @@
 			}	
 		}
 		
-		function downBlock($params){
+		public function downBlock($params){
 			require($this->filediccionario);
 			require_once('array.class.php');
 			$id = $this->id;
@@ -461,7 +461,7 @@
 				}
 			}
 		}		
-		function display_header(){
+		public function display_header(){
 			echo '
 			<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 			<html>
@@ -522,7 +522,7 @@
 			flush();
 		}
 		
-		function display_body($data, $mix='', $porcentage=''){
+		public function display_body($data, $mix='', $porcentage=''){
 			if($porcentage != '')
 				$this->porcentage = $porcentage;
 			if(isset($data['titulo'.$this->id]))
@@ -669,13 +669,13 @@
 			flush();
 		}
 		
-		function display_footer(){
+		public function display_footer(){
 			echo '
 				</body>
 			</html>';
 		}
 
-		function display_dimension($dim, $data, $id=0, $mix=''){
+		public function display_dimension($dim, $data, $id=0, $mix=''){
 			$id = $this->id;
 			
 			if(isset($data['dimension'.$id.'_'.$dim])) 
@@ -838,7 +838,7 @@
 				';
 			flush();
 		}		
-		function display_subdimension($dim, $subdim, $data, $id=0, $mix=''){
+		public function display_subdimension($dim, $subdim, $data, $id=0, $mix=''){
 			$id = $this->id;
 			require($this->filediccionario);
 			if(isset($data['subdimension'.$id.'_'.$dim.'_'.$subdim])) 
@@ -1016,7 +1016,7 @@
 		@return $array sin el elemento
 		Elimina de @array el elemento $i
 		*/
-		/*function arrayElimina($array, $i){
+		/*public function arrayElimina($array, $i){
 			$arrayAux = array();
 			if(is_array($array)){
 				foreach($array as $key => $value){
@@ -1035,7 +1035,7 @@
 		@return $array con el nuevo elemento
 		AÃ±ade $elem a @array a continuaciÃ³n de $i.
 		*/
-		/*function arrayAdd($array, $i, $elem, $index){
+		/*public function arrayAdd($array, $i, $elem, $index){
 			$arrayAux = array();
 			$flag = false;
 			if(is_array($array)){
@@ -1061,7 +1061,7 @@
 				1 --> Sí forma parte de un instrumento mixto o sí se desea cabecera xsd
 			@param $id 
 		*/
-		function export($params = array())
+		public function export($params = array())
 		{
 			$mixed = 0;
 			if(isset($params['mixed'])){
@@ -1215,7 +1215,7 @@
 			return $xml;
 		}
 		
-		/*function display_body_view($data, $mix='', $porcentage=''){
+		/*public function display_body_view($data, $mix='', $porcentage=''){
 			if($porcentage != '')
 				$this->porcentage = $porcentage;
 			if(isset($data['titulo'.$this->id]))
@@ -1321,7 +1321,7 @@
 			flush();
 		}
 
-		function display_dimension_view($dim, $data, $id=0, $mix=''){
+		public function display_dimension_view($dim, $data, $id=0, $mix=''){
 			$id = $this->id;
 			if(isset($data['dimension'.$id.'_'.$dim])) 
 				$this->dimension[$id][$dim]['nombre'] = stripslashes($data['dimension'.$id.'_'.$dim]);
@@ -1398,7 +1398,7 @@
 			
 			flush();
 		}		
-		function display_subdimension_view($dim, $subdim, $data, $id=0, $mix=''){
+		public function display_subdimension_view($dim, $subdim, $data, $id=0, $mix=''){
 			$id = $this->id;
 			require($this->filediccionario);
 			if(isset($data['subdimension'.$id.'_'.$dim.'_'.$subdim])) 
@@ -1501,12 +1501,12 @@
 			flush();
 		}*/
 		
-		function print_tool($global_comment = 'global_comment'){
+		public function print_tool($global_comment = 'global_comment'){
 			$id = $this->id;
 			require($this->filediccionario);
 			$colspan = max($this->numvalores[$id]);
 			echo '								
-								<table class="tabla" border=1 cellpadding=5px >
+								<table class="tabla table-bordered" border=1 cellpadding=5px >
 								
 								<!--TITULO-INSTRUMENTO------------>
 			';
@@ -1548,7 +1548,7 @@
 									</td>
 				';
 				foreach($this->valoreslista[$id][$dim] as $grado => $elemvalue){				
-					echo '<th class="grado">'.htmlspecialchars($this->valoreslista[$id][$dim][$grado]['nombre']).'</th>
+					echo '<th class="grado text-center">'.htmlspecialchars($this->valoreslista[$id][$dim][$grado]['nombre']).'</th>
 					';
 				}
 				foreach($this->valores[$this->id][$dim] as $grado => $elemvalue){
@@ -1565,9 +1565,22 @@
 				foreach($this->subdimension[$this->id][$dim] as $subdim => $elemsubdim){
 					echo '
 								<!--TITULO-SUBDIMENSIÓN------------>
-								<tr>
+								<tr class="subdimension">
 									<td class="subdimpor">'.$this->subdimpor[$this->id][$dim][$subdim].'%</td>
-									<td class="subdim" colspan="'.($colspan + 3).'">'.htmlspecialchars($this->subdimension[$this->id][$dim][$subdim]['nombre']).'</td></tr>
+									<td class="" colspan="'.($colspan - $colspandim + 1) .'">'.htmlspecialchars($this->subdimension[$this->id][$dim][$subdim]['nombre']).'</td>
+                                    ';
+				
+                foreach($this->valoreslista[$id][$dim] as $grado => $elemvalue){				
+                    echo '<td style="text-align:center">'.htmlspecialchars($this->valoreslista[$id][$dim][$grado]['nombre']).'</td>
+                    ';
+                }
+                foreach($this->valores[$this->id][$dim] as $grado => $elemvalue){
+                    echo '
+                        <td class="text-center subdimvalue">'.htmlspecialchars($this->valores[$this->id][$dim][$grado]['nombre']).'</td>
+                    ';
+                }
+				
+				echo '</tr>
 					';
 					
 					if(isset($this->atributo[$this->id][$dim][$subdim])){
@@ -1598,9 +1611,10 @@
 									$checked = 'checked';
 								}
 								
-								echo '<td>
+								echo '<td class="text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="'.
+                                htmlspecialchars($this->valoreslista[$id][$dim][$grado]['nombre']).'">
 								<input type="radio" class="custom-radio" id="radio'. $i.$l.'_'.$j.'_'.$j . '_' . $ilista . '" value="'.$ilista.'" name="radio'. $i.$l.'_'.$j.'_'.$j .'" 
-						'.$checked.' style="width:100%" onclick=\'javascript:var valores = this.form.elements["radio'.$i.$l.$j.'"];
+						'.$checked.' onclick=\'javascript:var valores = this.form.elements["radio'.$i.$l.$j.'"];
 						if(document.getElementById("radio'. $i.$l.'_'.$j.'_'.$j . '_' . $ilista . '").value==1){
 							for(i=0;i<valores.length;i++){
 								valores[i].disabled=true;
@@ -1624,33 +1638,32 @@
 								}
 								
 								echo '
-								<td><input type="radio" class="custom-radio" '.$disabled.' name="radio'.$i.$l.$j.'" value="'.$k.'" '.$checked.' style="width:100%"></td>
+								<td class="text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="'.
+                                htmlspecialchars($this->valores[$id][$dim][$grado]['nombre']).'"><input type="radio" class="custom-radio" '.$disabled.' name="radio'.$i.$l.$j.'" value="'.$k.'" '.$checked.'></td>
 								';
 								++$k;
 							}
 							echo '
 								</tr>
-								<tr>
-									<td colspan="'.(2 + $colspan - $colspandim).'"></td>
+								
 							';
 							
-							if(isset($this->commentAtr[$id][$dim][$subdim][$atrib]) && $this->commentAtr[$id][$dim][$subdim][$atrib] == 'visible'){
+							if (isset($this->commentAtr[$id][$dim][$subdim][$atrib]) 
+                                    && $this->commentAtr[$id][$dim][$subdim][$atrib] == 'visible') {
+                                        
 								$vcomment = '';
 								if(isset($this->valuecommentAtr[$id][$dim][$subdim][$atrib])){
 									$vcomment = $this->valuecommentAtr[$id][$dim][$subdim][$atrib];
 								}
 								
-								echo '
-									<td colspan="'.($colspandim +2).'">
+								echo '<tr>
+                                    <td colspan="4"></td>
+									<td colspan="'.($colspandim + 2).'">
 										<textarea rows="2" style="height:6em;width:100%" id="observaciones'.$i.'_'.$l.'_'.$j.'" name="observaciones'.$i.'_'.$l.'_'.$j.'" style="width:100%">'.$vcomment.'</textarea>
-									</td>
+									</td></tr>
 								';
 							}
-							echo '
-								</tr>
-								<tr></tr>
-								<tr></tr>
-							';
+							
 							++$j;
 						}
 					}
@@ -1659,7 +1672,7 @@
 				
 				if(isset($this->valglobal[$id][$dim]) && $this->valglobal[$id][$dim] == 'true'){
 					echo "
-						<tr>
+						<tr class='dimglobalvalue'>
 							<td class='subdimpor'>".$this->valglobalpor[$id][$dim]."%</td>
 							<td class='global' colspan='".($colspan - $colspandim + 3) ."'>".$string['globalvalue']."</td>
 					";
@@ -1671,7 +1684,8 @@
 							$checked = 'checked';
 						}
 						echo "
-							<td class='td'><input type='radio' class='custom-radio' name='radio".$i."' value='".$k."' ". $checked ." style='width:100%'></td>
+							<td class='text-center' data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-title='".
+                            htmlspecialchars($this->valores[$id][$dim][$grado]['nombre'])."' class='td'><input type='radio' class='custom-radio' name='radio".$i."' value='".$k."' ". $checked ."></td>
 						";
 						++$k;
 					}
@@ -1679,7 +1693,7 @@
 				
 				echo "
 					</tr>
-					<tr>
+					<tr class='dimglobalvalue'>
 						<td colspan='".($colspan - $colspandim + 4) ."'></td>
 				";
 				if(isset($this->commentDim[$id][$dim]) && $this->commentDim[$id][$dim]== 'visible'){
@@ -1705,10 +1719,10 @@
 			';
 			if(isset($this->valorestotal[$id])){
 				echo '
-					<table class="tabla" border=1 cellpadding=5px >
+					<table class="tabla table-bordered" border=1 cellpadding=5px >
 								<tr>
-									<td class="pordim">'.$this->valtotalpor[$id].'%</td>
-									<td class="global" colspan="1">'.strtoupper($string['totalvalue']).'</td>
+									<th class="">'.$this->valtotalpor[$id].'%</th>
+									<th class="text-center" colspan="1">'.strtoupper($string['totalvalue']).'</th>
 				';
 				
 				foreach($this->valorestotal[$id] as $grado => $elemvalue){
@@ -1723,7 +1737,7 @@
 						$checked = 'checked';
 					}
 					
-					echo '<td><input type="radio" class="custom-radio" name="total" value="'.htmlspecialchars($this->valorestotal[$id][$grado]['nombre']).'" '.$checked.' style="width:100%"/></td>
+					echo '<td class="text-center"><input type="radio" class="custom-radio" name="total" value="'.htmlspecialchars($this->valorestotal[$id][$grado]['nombre']).'" '.$checked.'/></td>
 					';
 				}					
 			}
@@ -1736,7 +1750,7 @@
 				$global_comment = ($global_comment === 'global_comment') ? $this->observation[$id] : $global_comment;
 				$width = (empty($this->comment[$id])) ? 100 : 60;
 				$comment = (empty($this->comment[$id])) ? ($string['comments']).':' : $this->comment[$id];
-				echo '<br><br><br>
+				echo '<br>
 							<table class="tabla" border=1 cellpadding="5px">
 								<tr>
 									<td>'.htmlspecialchars($comment).'</td>
@@ -1747,7 +1761,7 @@
 			}
 		}
 		
-		function save($cod = ''){
+		public function save($cod = ''){
 			$id = $this->id;
 			if($cod == ''){
 				throw new InvalidArgumentException('Missing scale cod');
